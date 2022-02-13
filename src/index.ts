@@ -1,5 +1,1 @@
-export class Hello {
-  public sayHello() {
-    return 'hello, world!';
-  }
-}
+export { JompxCdkPipeline, IJompxCdkPipelineProps } from './cdk-pipeline-construct';
