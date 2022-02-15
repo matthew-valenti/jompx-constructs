@@ -13,7 +13,7 @@ READ THIS: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html
 ```typescript
 import { JompxCdkPipeline } from '@jompx/constructs'
 
-new JompxCdkPipeline(scope: Construct, id: string, props?: IJompxCdkPipelineProps)
+new JompxCdkPipeline(scope: Construct, id: string, props: IJompxCdkPipelineProps)
 ```
 
 | **Name** | **Type** | **Description** |
@@ -36,7 +36,7 @@ new JompxCdkPipeline(scope: Construct, id: string, props?: IJompxCdkPipelineProp
 
 ---
 
-##### `props`<sup>Optional</sup> <a name="props" id="@jompx/constructs.JompxCdkPipeline.Initializer.parameter.props"></a>
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.JompxCdkPipeline.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a>
 
@@ -116,6 +116,98 @@ public readonly pipeline: CodePipeline;
 ---
 
 
+### JompxS3 <a name="JompxS3" id="@jompx/constructs.JompxS3"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.JompxS3.Initializer"></a>
+
+```typescript
+import { JompxS3 } from '@jompx/constructs'
+
+new JompxS3(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.JompxS3.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.JompxS3.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.JompxS3.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.JompxS3.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.JompxS3.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.JompxS3.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.JompxS3.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@jompx/constructs.JompxS3.isConstruct"></a>
+
+```typescript
+import { JompxS3 } from '@jompx/constructs'
+
+JompxS3.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.JompxS3.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.JompxS3.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.JompxS3.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
@@ -129,17 +221,17 @@ public readonly pipeline: CodePipeline;
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.test">test</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput">shellStepInput</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
 
 ---
 
-##### `test`<sup>Required</sup> <a name="test" id="@jompx/constructs.IJompxCdkPipelineProps.property.test"></a>
+##### `shellStepInput`<sup>Optional</sup> <a name="shellStepInput" id="@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput"></a>
 
 ```typescript
-public readonly test: string;
+public readonly shellStepInput: IFileSetProducer;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.pipelines.IFileSetProducer
 
 ---
 

@@ -44,14 +44,12 @@ NPM package versions must be exactly the same or will result in compile errors? 
 // package.json
 "dependencies": {
 	"@jompx/constructs": "file:../constructs",
-	"@jompx/constructs": "git+https://github.com/matthew-valenti/jompx-constructs.git#codepipeline",
+	"@jompx/constructs": "git+https://github.com/matthew-valenti/jompx-constructs.git#pipeline",
 
-	// This fails in AWS CodePipeline with an SSH error.
-	"@jompx/constructs": "github:matthew-valenti/jompx-constructs#codepipeline",
+	// Caution: This fails in AWS CodePipeline with an SSH error. NPM changes the good url above to this bad url.
+	"@jompx/constructs": "github:matthew-valenti/jompx-constructs#pipeline",
 
 npm install "../constructs"
-npm install  matthew-valenti/jompx-constructs#codepipeline
-npm install "git+https://github.com/matthew-valenti/jompx-constructs.git#codepipeline"
 ```
 
 ### VSCode Debug

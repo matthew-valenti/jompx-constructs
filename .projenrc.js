@@ -6,7 +6,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     repositoryUrl: 'https://github.com/matthew-valenti/jompx-constructs.git',
     defaultReleaseBranch: 'main',
     cdkVersion: '2.12.0',
-    constructsVersion: '10.0.61',
+    constructsVersion: '10.0.63'
 
     // deps: [],                /* Runtime dependencies of this module. */
     // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
@@ -18,6 +18,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 // Commit lib folder. Temporary workaround for linking to github repo in package.json.
 project.eslint.addRules({ '@typescript-eslint/indent': ['error', 4] });
+project.eslint.addRules({ 'comma-dangle': ['error', 'never'] });
 
 // Ignore VSCode workspace files.
 project.gitignore.exclude('/*.code-workspace');
