@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { CodePipelineSource } from 'aws-cdk-lib/pipelines';
-import { JompxCdkPipeline, IJompxCdkPipelineProps } from '../src/cdk-pipeline-construct';
+import { JompxCdkPipeline, IJompxCdkPipelineProps } from '../src/constructs/cdk-pipeline.construct';
 
 describe('JompxCdkPipelineStack', () => {
     test('stack', () => {
@@ -9,6 +9,13 @@ describe('JompxCdkPipelineStack', () => {
         const stack = new cdk.Stack(app);
 
         const jompxCdkPipelineProps: IJompxCdkPipelineProps = {
+            stage: 'prod',
+            environments: [{
+                accountId: 'abc123',
+                region: 'us-west-2',
+                environmentName: 'prod',
+                stage: 'prod'
+            }],
             shellStepInput: CodePipelineSource.gitHub(
                 'owner/repo',
                 'main',
@@ -22,10 +29,10 @@ describe('JompxCdkPipelineStack', () => {
         console.log('template', JSON.stringify(template));
         template.resourceCountIs('AWS::CodePipeline::Pipeline', 1);
 
-    // Example of testing properties: https://docs.aws.amazon.com/cdk/v2/guide/testing.html
-    // template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
-    //   DeletionPolicy: 'Retain',
-    //   UpdateReplacePolicy: 'Retain',
-    // });
+        // Example of testing properties: https://docs.aws.amazon.com/cdk/v2/guide/testing.html
+        // template.hasResourceProperties('AWS::CodePipeline::Pipeline', {
+        //   DeletionPolicy: 'Retain',
+        //   UpdateReplacePolicy: 'Retain',
+        // });
     });
 });

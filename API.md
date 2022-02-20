@@ -225,7 +225,7 @@ The tree node.
 
 ---
 
-##### `shellStepInput`<sup>Optional</sup> <a name="shellStepInput" id="@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput"></a>
+##### `shellStepInput`<sup>Required</sup> <a name="shellStepInput" id="@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput"></a>
 
 ```typescript
 public readonly shellStepInput: IFileSetProducer;

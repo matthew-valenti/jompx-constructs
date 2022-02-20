@@ -12,6 +12,5 @@ export interface IJompxCdkPipelineProps {
  */
 export declare class JompxCdkPipeline extends Construct {
     readonly pipeline: pipelines.CodePipeline;
-    env: any;
     constructor(scope: Construct, id: string, props: IJompxCdkPipelineProps);
 }
