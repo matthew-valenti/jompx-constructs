@@ -9,13 +9,6 @@ describe('JompxCdkPipelineStack', () => {
         const stack = new cdk.Stack(app);
 
         const jompxCdkPipelineProps: IJompxCdkPipelineProps = {
-            stage: 'prod',
-            environments: [{
-                accountId: 'abc123',
-                region: 'us-west-2',
-                environmentName: 'prod',
-                stage: 'prod'
-            }],
             shellStepInput: CodePipelineSource.gitHub(
                 'owner/repo',
                 'main',

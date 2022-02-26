@@ -1,6 +1,7 @@
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
 export interface IJompxCdkPipelineProps {
+    stage: string;
     shellStepInput: pipelines.IFileSetProducer;
 }
 /**
