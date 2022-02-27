@@ -26,8 +26,11 @@ export class JompxCdkPipeline extends Construct {
             pipelineName: 'CdkPipeline',
             crossAccountKeys: true, // Required for cross account deploys.
             synth: new pipelines.ShellStep('Synth', {
+                env: {
+                    STAGE: `${props.stage}`
+                },
                 input: props.shellStepInput,
-                commands: ['ls', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--context stage=${stage}"'], // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
+                commands: ['ls', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--context stage=$STAGE"'], // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
                 primaryOutputDirectory: 'apps/cdk/cdk.out'
             })
         });
