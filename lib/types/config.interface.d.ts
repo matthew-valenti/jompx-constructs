@@ -1,9 +1,7 @@
-export declare type Stage = 'prod' | 'test' | 'sandbox' | any;
 export interface IEnvironment {
     accountId: string;
     region: string;
     name: string;
-    stage: Stage;
 }
 export interface IStageEnvironment {
     environmentType: string;

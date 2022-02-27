@@ -8,5 +8,5 @@ export declare class Config {
     getEnvironment(environmentName: string): IEnvironment | undefined;
     getEnvironmentByAccountId(accountId: string): IEnvironment | undefined;
     getStageEnvironments(stageName: string): IStageEnvironment[] | undefined;
-    getEnv(environmentType: string, stageName: string): cdk.Environment | undefined;
+    getEnv(environmentType: string, stageName?: string): cdk.Environment | undefined;
 }

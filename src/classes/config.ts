@@ -32,10 +32,10 @@ export class Config {
         return map.get(stageName)?.environments;
     }
 
-    public getEnv(environmentType: string, stageName: string): cdk.Environment | undefined {
+    public getEnv(environmentType: string, stageName?: string): cdk.Environment | undefined {
         let rv = undefined;
 
-        const stageEnvironments = this.getStageEnvironments(stageName);
+        const stageEnvironments = this.getStageEnvironments(stageName ?? this.getStage());
         const environmentName = stageEnvironments?.find(o => o.environmentType === environmentType)?.environmentName;
 
         if (environmentName) {
