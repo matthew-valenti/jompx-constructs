@@ -31,10 +31,26 @@ In Windows environment variables, add the rsync bin folder to the path variable:
 
 ## Commands
 ```
+npx projen compile
 npx projen build
 npx projen watch
 npx projen test
+npx projen test:compile
 npx projen test:watch
+
+npx jest cdk-pipeline-branch-construct.test.ts
+```
+
+## Upgrade
+```
+npx projen upgrade-projen // Update projen to the latest version. This did NOT upgrade projen package.json version. I did it manually but maybe the next command does?
+npx projen upgrade // This command is undocumented but runs.
+// npx projen upgrade-dependencies // Unknown command: upgrade-dependencies
+```
+Update versions in .projenrc.js
+```
+cdkVersion: '2.12.0',
+constructsVersion: '10.0.63'
 ```
 
 ## Local Development
@@ -76,6 +92,13 @@ The AWS docs are misleading but probably correct. Working sample taken from Cons
 }
 ```
 
+## ConstructHub
+https://constructs.dev/  
+
+Example .projenrc.js files:
+https://github.com/wheatstalk/oidc-mock/blob/main/.projenrc.js  
+
 ## Education
 - More CDK best practices: https://levelup.gitconnected.com/aws-cdk-pipelines-real-world-tips-and-tricks-part-2-7a0d093a89a0
 - Multiple constructs in Lerna monorepo: https://www.npmjs.com/package/lerna-projen
+- Might be good resource for publishing: https://github.com/seeebiii/projen-test

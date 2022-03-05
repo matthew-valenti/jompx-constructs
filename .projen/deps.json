@@ -21,12 +21,16 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.12.0",
+      "version": "2.15.0",
+      "type": "build"
+    },
+    {
+      "name": "change-case",
       "type": "build"
     },
     {
       "name": "constructs",
-      "version": "10.0.63",
+      "version": "10.0.76",
       "type": "build"
     },
     {
@@ -99,12 +103,12 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.12.0",
+      "version": "^2.15.0",
       "type": "peer"
     },
     {
       "name": "constructs",
-      "version": "^10.0.63",
+      "version": "^10.0.76",
       "type": "peer"
     }
   ],

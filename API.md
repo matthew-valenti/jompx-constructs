@@ -218,18 +218,18 @@ The tree node.
 ```typescript
 import { Config } from '@jompx/constructs'
 
-new Config(configs: IConfig)
+new Config(appNode: Node)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.Config.Initializer.parameter.configs">configs</a></code> | <code><a href="#@jompx/constructs.IConfig">IConfig</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.Initializer.parameter.appNode">appNode</a></code> | <code>constructs.Node</code> | *No description.* |
 
 ---
 
-##### `configs`<sup>Required</sup> <a name="configs" id="@jompx/constructs.Config.Initializer.parameter.configs"></a>
+##### `appNode`<sup>Required</sup> <a name="appNode" id="@jompx/constructs.Config.Initializer.parameter.appNode"></a>
 
-- *Type:* <a href="#@jompx/constructs.IConfig">IConfig</a>
+- *Type:* constructs.Node
 
 ---
 
@@ -237,43 +237,90 @@ new Config(configs: IConfig)
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@jompx/constructs.Config.get">get</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.getByAccountId">getByAccountId</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.getEnv">getEnv</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.env">env</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.environment">environment</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.environmentByAccountId">environmentByAccountId</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.environments">environments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.organizationName">organizationName</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.organizationNamePascalCase">organizationNamePascalCase</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.stage">stage</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.stageEnvironments">stageEnvironments</a></code> | *No description.* |
 
 ---
 
-##### `get` <a name="get" id="@jompx/constructs.Config.get"></a>
+##### `env` <a name="env" id="@jompx/constructs.Config.env"></a>
 
 ```typescript
-public get(environmentName: string): IEnvironment
+public env(environmentType: string, stageName?: string): Environment
 ```
 
-###### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.Config.get.parameter.environmentName"></a>
+###### `environmentType`<sup>Required</sup> <a name="environmentType" id="@jompx/constructs.Config.env.parameter.environmentType"></a>
 
 - *Type:* string
 
 ---
 
-##### `getByAccountId` <a name="getByAccountId" id="@jompx/constructs.Config.getByAccountId"></a>
-
-```typescript
-public getByAccountId(accountId: string): IEnvironment
-```
-
-###### `accountId`<sup>Required</sup> <a name="accountId" id="@jompx/constructs.Config.getByAccountId.parameter.accountId"></a>
+###### `stageName`<sup>Optional</sup> <a name="stageName" id="@jompx/constructs.Config.env.parameter.stageName"></a>
 
 - *Type:* string
 
 ---
 
-##### `getEnv` <a name="getEnv" id="@jompx/constructs.Config.getEnv"></a>
+##### `environment` <a name="environment" id="@jompx/constructs.Config.environment"></a>
 
 ```typescript
-public getEnv(environmentName: string): Environment
+public environment(environmentName: string): IEnvironment
 ```
 
-###### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.Config.getEnv.parameter.environmentName"></a>
+###### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.Config.environment.parameter.environmentName"></a>
+
+- *Type:* string
+
+---
+
+##### `environmentByAccountId` <a name="environmentByAccountId" id="@jompx/constructs.Config.environmentByAccountId"></a>
+
+```typescript
+public environmentByAccountId(accountId: string): IEnvironment
+```
+
+###### `accountId`<sup>Required</sup> <a name="accountId" id="@jompx/constructs.Config.environmentByAccountId.parameter.accountId"></a>
+
+- *Type:* string
+
+---
+
+##### `environments` <a name="environments" id="@jompx/constructs.Config.environments"></a>
+
+```typescript
+public environments(): IEnvironment[]
+```
+
+##### `organizationName` <a name="organizationName" id="@jompx/constructs.Config.organizationName"></a>
+
+```typescript
+public organizationName(): string
+```
+
+##### `organizationNamePascalCase` <a name="organizationNamePascalCase" id="@jompx/constructs.Config.organizationNamePascalCase"></a>
+
+```typescript
+public organizationNamePascalCase(): string
+```
+
+##### `stage` <a name="stage" id="@jompx/constructs.Config.stage"></a>
+
+```typescript
+public stage(): string
+```
+
+##### `stageEnvironments` <a name="stageEnvironments" id="@jompx/constructs.Config.stageEnvironments"></a>
+
+```typescript
+public stageEnvironments(stageName: string): IStageEnvironment[]
+```
+
+###### `stageName`<sup>Required</sup> <a name="stageName" id="@jompx/constructs.Config.stageEnvironments.parameter.stageName"></a>
 
 - *Type:* string
 
@@ -284,17 +331,17 @@ public getEnv(environmentName: string): Environment
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.Config.property.configs">configs</a></code> | <code><a href="#@jompx/constructs.IConfig">IConfig</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.property.appNode">appNode</a></code> | <code>constructs.Node</code> | *No description.* |
 
 ---
 
-##### `configs`<sup>Required</sup> <a name="configs" id="@jompx/constructs.Config.property.configs"></a>
+##### `appNode`<sup>Required</sup> <a name="appNode" id="@jompx/constructs.Config.property.appNode"></a>
 
 ```typescript
-public readonly configs: IConfig;
+public readonly appNode: Node;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IConfig">IConfig</a>
+- *Type:* constructs.Node
 
 ---
 
@@ -351,9 +398,8 @@ public readonly region: string;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.IEnvironment.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IEnvironment.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IEnvironment.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@jompx/constructs.IEnvironment.property.region">region</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IEnvironment.property.stage">stage</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -367,10 +413,10 @@ public readonly accountId: string;
 
 ---
 
-##### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.IEnvironment.property.environmentName"></a>
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IEnvironment.property.name"></a>
 
 ```typescript
-public readonly environmentName: string;
+public readonly name: string;
 ```
 
 - *Type:* string
@@ -387,16 +433,6 @@ public readonly region: string;
 
 ---
 
-##### `stage`<sup>Required</sup> <a name="stage" id="@jompx/constructs.IEnvironment.property.stage"></a>
-
-```typescript
-public readonly stage: string;
-```
-
-- *Type:* string
-
----
-
 ### IJompxCdkPipelineProps <a name="IJompxCdkPipelineProps" id="@jompx/constructs.IJompxCdkPipelineProps"></a>
 
 - *Implemented By:* <a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a>
@@ -407,6 +443,7 @@ public readonly stage: string;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput">shellStepInput</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.stage">stage</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -420,40 +457,56 @@ public readonly shellStepInput: IFileSetProducer;
 
 ---
 
-### ILocalConfig <a name="ILocalConfig" id="@jompx/constructs.ILocalConfig"></a>
-
-- *Implemented By:* <a href="#@jompx/constructs.ILocalConfig">ILocalConfig</a>
-
-
-
-### ILocalConfigEnv <a name="ILocalConfigEnv" id="@jompx/constructs.ILocalConfigEnv"></a>
-
-- *Implemented By:* <a href="#@jompx/constructs.ILocalConfigEnv">ILocalConfigEnv</a>
-
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.ILocalConfigEnv.property.from">from</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.ILocalConfigEnv.property.to">to</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `from`<sup>Required</sup> <a name="from" id="@jompx/constructs.ILocalConfigEnv.property.from"></a>
+##### `stage`<sup>Required</sup> <a name="stage" id="@jompx/constructs.IJompxCdkPipelineProps.property.stage"></a>
 
 ```typescript
-public readonly from: string;
+public readonly stage: string;
 ```
 
 - *Type:* string
 
 ---
 
-##### `to`<sup>Required</sup> <a name="to" id="@jompx/constructs.ILocalConfigEnv.property.to"></a>
+### ILocalConfig <a name="ILocalConfig" id="@jompx/constructs.ILocalConfig"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.ILocalConfig">ILocalConfig</a>
+
+
+
+### IStage <a name="IStage" id="@jompx/constructs.IStage"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IStage">IStage</a>
+
+
+
+### IStageEnvironment <a name="IStageEnvironment" id="@jompx/constructs.IStageEnvironment"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IStageEnvironment">IStageEnvironment</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IStageEnvironment.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IStageEnvironment.property.environmentType">environmentType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.IStageEnvironment.property.environmentName"></a>
 
 ```typescript
-public readonly to: string;
+public readonly environmentName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `environmentType`<sup>Required</sup> <a name="environmentType" id="@jompx/constructs.IStageEnvironment.property.environmentType"></a>
+
+```typescript
+public readonly environmentType: string;
 ```
 
 - *Type:* string

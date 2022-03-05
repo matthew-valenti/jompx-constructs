@@ -1,4 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as changeCase from 'change-case';
 import { Node } from 'constructs';
 import { IEnvironment, IStage, IStageEnvironment } from '../types/config.interface';
 
@@ -8,21 +10,25 @@ export class Config {
         public appNode: Node
     ) { }
 
-    public getStage(): string {
+    public stage(): string {
         const stage = this.appNode.tryGetContext('stage') ?? this.appNode.tryGetContext('@jompx-local').stage;
         if (!stage) throw Error('Jompx stage not found! Stage is missing from command line or jompx.local.ts.');
         return stage;
     }
 
-    public getEnvironment(environmentName: string): IEnvironment | undefined {
+    public environments(): IEnvironment[] | undefined {
+        return this.appNode.tryGetContext('@jompx').environments;
+    }
+
+    public environment(environmentName: string): IEnvironment | undefined {
         return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.name === environmentName);
     }
 
-    public getEnvironmentByAccountId(accountId: string): IEnvironment | undefined {
+    public environmentByAccountId(accountId: string): IEnvironment | undefined {
         return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.accountId === accountId);
     }
 
-    public getStageEnvironments(stageName: string): IStageEnvironment[] | undefined {
+    public stageEnvironments(stageName: string): IStageEnvironment[] | undefined {
         // Get stages from config and local config. Local config overrides config.
         const configStages: IStage = this.appNode.tryGetContext('@jompx').stages;
         const localStages: IStage = this.appNode.tryGetContext('@jompx-local').stages;
@@ -32,17 +38,25 @@ export class Config {
         return map.get(stageName)?.environments;
     }
 
-    public getEnv(environmentType: string, stageName?: string): cdk.Environment | undefined {
+    public env(environmentType: string, stageName?: string): cdk.Environment | undefined {
         let rv = undefined;
 
-        const stageEnvironments = this.getStageEnvironments(stageName ?? this.getStage());
+        const stageEnvironments = this.stageEnvironments(stageName ?? this.stage());
         const environmentName = stageEnvironments?.find(o => o.environmentType === environmentType)?.environmentName;
 
         if (environmentName) {
-            const environment = this.getEnvironment(environmentName);
+            const environment = this.environment(environmentName);
             rv = { account: environment?.accountId, region: environment?.region };
         }
 
         return rv;
+    }
+
+    public organizationName(): string {
+        return this.appNode.tryGetContext('@jompx').organizationName;
+    }
+
+    public organizationNamePascalCase(): string {
+        return changeCase.pascalCase(this.organizationName());
     }
 }

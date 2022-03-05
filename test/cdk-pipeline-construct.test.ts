@@ -9,6 +9,7 @@ describe('JompxCdkPipelineStack', () => {
         const stack = new cdk.Stack(app);
 
         const jompxCdkPipelineProps: IJompxCdkPipelineProps = {
+            stage: 'test',
             shellStepInput: CodePipelineSource.gitHub(
                 'owner/repo',
                 'main',
@@ -19,7 +20,7 @@ describe('JompxCdkPipelineStack', () => {
         new JompxCdkPipeline(stack, 'JompxCdkPipeline', jompxCdkPipelineProps);
 
         const template = Template.fromStack(stack);
-        console.log('template', JSON.stringify(template));
+        // console.log('template', JSON.stringify(template));
         template.resourceCountIs('AWS::CodePipeline::Pipeline', 1);
 
         // Example of testing properties: https://docs.aws.amazon.com/cdk/v2/guide/testing.html
