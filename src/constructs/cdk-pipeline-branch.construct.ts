@@ -15,7 +15,7 @@ import { IEnvironment } from '../types/config.interface';
  * Important: Sandbox account name must end in a number e.g. sandbox1. TODO: How else can we associate a branch with an account?
  */
 
-export interface IJompxCdkPipelineBranchProps {
+export interface ICdkPipelineBranchProps {
     environmentNameSubstring: string;
     gitHubOwner: string;
     gitHubRepo: string;
@@ -35,9 +35,9 @@ export interface IEnvironmentPipeline {
  *
  * Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
  */
-export class JompxCdkPipelineBranch extends Construct {
+export class CdkPipelineBranch extends Construct {
     public  environmentPipelines: IEnvironmentPipeline[] = [];
-    constructor(scope: Construct, id: string, props: IJompxCdkPipelineBranchProps) {
+    constructor(scope: Construct, id: string, props: ICdkPipelineBranchProps) {
         super(scope, id);
 
         const jompxConfig = new Config(this.node);

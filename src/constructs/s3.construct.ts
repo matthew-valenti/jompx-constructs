@@ -1,7 +1,7 @@
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
-export interface IJompxCdkPipelineProps {
+export interface ICdkPipelineProps {
     test: string;
 }
 

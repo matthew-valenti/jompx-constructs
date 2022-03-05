@@ -1,14 +1,14 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { CodePipelineSource } from 'aws-cdk-lib/pipelines';
-import { JompxCdkPipeline, IJompxCdkPipelineProps } from '../src/constructs/cdk-pipeline.construct';
+import { CdkPipeline, ICdkPipelineProps } from '../src/constructs/cdk-pipeline.construct';
 
-describe('JompxCdkPipelineStack', () => {
+describe('CdkPipelineStack', () => {
     test('stack', () => {
         const app = new cdk.App();
         const stack = new cdk.Stack(app);
 
-        const jompxCdkPipelineProps: IJompxCdkPipelineProps = {
+        const CdkPipelineProps: ICdkPipelineProps = {
             stage: 'test',
             shellStepInput: CodePipelineSource.gitHub(
                 'owner/repo',
@@ -17,7 +17,7 @@ describe('JompxCdkPipelineStack', () => {
             )
         };
 
-        new JompxCdkPipeline(stack, 'JompxCdkPipeline', jompxCdkPipelineProps);
+        new CdkPipeline(stack, 'CdkPipeline', CdkPipelineProps);
 
         const template = Template.fromStack(stack);
         // console.log('template', JSON.stringify(template));

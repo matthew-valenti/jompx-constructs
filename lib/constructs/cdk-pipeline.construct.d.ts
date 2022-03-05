@@ -1,6 +1,6 @@
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-export interface IJompxCdkPipelineProps {
+export interface ICdkPipelineProps {
     stage: string;
     shellStepInput: pipelines.IFileSetProducer;
 }
@@ -13,7 +13,7 @@ export interface IJompxCdkPipelineProps {
  *
  * Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
  */
-export declare class JompxCdkPipeline extends Construct {
+export declare class CdkPipeline extends Construct {
     pipeline: pipelines.CodePipeline;
-    constructor(scope: Construct, id: string, props: IJompxCdkPipelineProps);
+    constructor(scope: Construct, id: string, props: ICdkPipelineProps);
 }

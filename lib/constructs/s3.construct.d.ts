@@ -1,5 +1,5 @@
 import { Construct } from 'constructs';
-export interface IJompxCdkPipelineProps {
+export interface ICdkPipelineProps {
     test: string;
 }
 /**

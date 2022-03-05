@@ -2,37 +2,43 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
-### JompxCdkPipeline <a name="JompxCdkPipeline" id="@jompx/constructs.JompxCdkPipeline"></a>
+### CdkPipeline <a name="CdkPipeline" id="@jompx/constructs.CdkPipeline"></a>
 
 Deploy in parallel?
 
-READ THIS: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html CDK doco: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html nx cicd: https://nx.dev/ci/monorepo-ci-circle-ci  Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
-
+READ THIS: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html
+ Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
+ CDK doco: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-CdkPipelineadme.html
+ Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+ nx cicd: https://nx.dev/ci/monorepo-ci-circle-ci
+ CdkPipeline
+ Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
+CdkPipelineCdkPipeline
 #### Initializers <a name="Initializers" id="@jompx/constructs.JompxCdkPipeline.Initializer"></a>
 
 ```typescript
 import { JompxCdkPipeline } from '@jompx/constructs'
-
-new JompxCdkPipeline(scope: Construct, id: string, props: IJompxCdkPipelineProps)
-```
+CdkPipeline
+new JompxCdkPipeline(scope: ConstrucCdkPipelinerops: IJompxCdkPipelineProps)
+```CdkPipelineCdkPipelineCdkPipeline
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameCdkPipeline</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a></code> | *No description.* |
 
 ---
 
-##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.JompxCdkPipeline.Initializer.parameter.scope"></a>
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constCdkPipelinepeline.Initializer.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.JompxCdkPipeline.Initializer.parameter.id"></a>
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.JompxCCdkPipelinealizer.parameter.id"></a>
 
-- *Type:* string
+- *Type:* stringCdkPipelineCdkPipeline
 
 ---
 
@@ -40,11 +46,11 @@ new JompxCdkPipeline(scope: Construct, id: string, props: IJompxCdkPipelineProps
 
 - *Type:* <a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a>
 
----
+---CdkPipeline
 
 #### Methods <a name="Methods" id="Methods"></a>
 
-| **Name** | **Description** |
+| **Name** | **Description** |CdkPipeline
 | --- | --- |
 | <code><a href="#@jompx/constructs.JompxCdkPipeline.toString">toString</a></code> | Returns a string representation of this construct. |
 
@@ -56,21 +62,21 @@ new JompxCdkPipeline(scope: Construct, id: string, props: IJompxCdkPipelineProps
 public toString(): string
 ```
 
-Returns a string representation of this construct.
+Returns a string representation of tCdkPipeline
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
-| **Name** | **Description** |
+| **Name** | **Description** |CdkPipeline
 | --- | --- |
 | <code><a href="#@jompx/constructs.JompxCdkPipeline.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
+CdkPipeline
 ---
-
+CdkPipeline
 ##### ~~`isConstruct`~~ <a name="isConstruct" id="@jompx/constructs.JompxCdkPipeline.isConstruct"></a>
 
 ```typescript
 import { JompxCdkPipeline } from '@jompx/constructs'
-
+CdkPipeline
 JompxCdkPipeline.isConstruct(x: any)
 ```
 
@@ -82,12 +88,12 @@ Checks if `x` is a construct.
 
 Any object.
 
----
-
+---CdkPipeline
+CdkPipeline
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
-| --- | --- | --- |
+| --- | --- | --- |CdkPipeline
 | <code><a href="#@jompx/constructs.JompxCdkPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@jompx/constructs.JompxCdkPipeline.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.pipelines.CodePipeline</code> | *No description.* |
 
@@ -99,7 +105,7 @@ Any object.
 public readonly node: Node;
 ```
 
-- *Type:* constructs.Node
+- *Type:* constructs.NodeCdkPipeline
 
 The tree node.
 
@@ -427,21 +433,21 @@ public readonly name: string;
 
 ```typescript
 public readonly region: string;
-```
+```CdkPipelineCdkPipelineCdkPipeline
 
-- *Type:* string
+- *Type:* stringCdkPipelineCdkPipeline
 
 ---
 
 ### IJompxCdkPipelineProps <a name="IJompxCdkPipelineProps" id="@jompx/constructs.IJompxCdkPipelineProps"></a>
 
 - *Implemented By:* <a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a>
-
-
+CdkPipeline
+CdkPipeline
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
-| --- | --- | --- |
+| --- | --- | --- |CdkPipeline
 | <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput">shellStepInput</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
 | <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.stage">stage</a></code> | <code>string</code> | *No description.* |
 
@@ -451,7 +457,7 @@ public readonly region: string;
 
 ```typescript
 public readonly shellStepInput: IFileSetProducer;
-```
+```CdkPipeline
 
 - *Type:* aws-cdk-lib.pipelines.IFileSetProducer
 
