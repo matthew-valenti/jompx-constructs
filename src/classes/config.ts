@@ -20,32 +20,52 @@ export class Config {
         return this.appNode.tryGetContext('@jompx').environments;
     }
 
-    public environment(environmentName: string): IEnvironment | undefined {
-        return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.name === environmentName);
+    public environmentByName(name: string): IEnvironment | undefined {
+        return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.name === name);
     }
 
     public environmentByAccountId(accountId: string): IEnvironment | undefined {
         return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.accountId === accountId);
     }
 
-    public stageEnvironments(stageName: string): IStageEnvironment[] | undefined {
-        // Get stages from config and local config. Local config overrides config.
+    public stages(): IStage | undefined {
         const configStages: IStage = this.appNode.tryGetContext('@jompx').stages;
         const localStages: IStage = this.appNode.tryGetContext('@jompx-local').stages;
+
+        // Get stages from config and local config. Local config overrides config.
         const stages = { ...configStages, ...localStages };
 
+        // For each stage environment join to account environment (and set account).
         const map = new Map(Object.entries(stages));
-        return map.get(stageName)?.environments;
+        for (const value of map.values()) {
+            value.environments.forEach(environment => {
+                environment.account = this.environmentByName(environment.name);
+            });
+        }
+
+        return stages;
     }
 
-    public env(environmentType: string, stageName?: string): cdk.Environment | undefined {
+    public stageEnvironments(stageName: string): IStageEnvironment[] | undefined {
+        let rv = undefined;
+        const stages = this.stages();
+
+        if (stages) {
+            const map = new Map(Object.entries(stages));
+            rv = map.get(stageName)?.environments;
+        }
+
+        return rv;
+    }
+
+    public env(type: string, stageName?: string): cdk.Environment | undefined {
         let rv = undefined;
 
         const stageEnvironments = this.stageEnvironments(stageName ?? this.stage());
-        const environmentName = stageEnvironments?.find(o => o.environmentType === environmentType)?.environmentName;
+        const environmentName = stageEnvironments?.find(o => o.type === type)?.name;
 
         if (environmentName) {
-            const environment = this.environment(environmentName);
+            const environment = this.environmentByName(environmentName);
             rv = { account: environment?.accountId, region: environment?.region };
         }
 

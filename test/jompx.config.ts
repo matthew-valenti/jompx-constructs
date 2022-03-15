@@ -11,91 +11,100 @@ export const Config: IConfig = {
             {
                 accountId: '863054937555',
                 region: 'us-west-2',
-                name: 'cicd-test'
+                name: 'cicd-test',
+                stage: 'test'
             },
             {
                 accountId: '896371249616',
                 region: 'us-west-2',
-                name: 'cicd-prod'
+                name: 'cicd-prod',
+                stage: 'prod'
             },
             {
                 accountId: 'abc123',
                 region: 'us-west-2',
-                name: 'prod'
+                name: 'prod',
+                stage: 'prod'
             },
             {
                 accountId: '706457422044',
                 region: 'us-west-2',
-                name: 'test'
+                name: 'test',
+                stage: 'test'
             },
             {
                 accountId: '066209653567',
                 region: 'us-west-2',
-                name: 'sandbox1'
+                name: 'sandbox1',
+                stage: 'sandbox'
             }
         ],
         stages: {
             prod: {
+                branch: 'main',
                 environments: [
                     {
-                        environmentType: 'cicd',
-                        environmentName: 'cicd-prod'
+                        type: 'cicd',
+                        name: 'cicd-prod'
                     },
                     {
-                        environmentType: 'common',
-                        environmentName: 'common-prod'
+                        type: 'common',
+                        name: 'common-prod'
                     },
                     {
-                        environmentType: 'cdk',
-                        environmentName: 'prod'
+                        type: 'main',
+                        name: 'prod'
                     }
                 ]
             },
             uat: {
+                branch: 'uat',
                 environments: [
                     {
-                        environmentType: 'cicd',
-                        environmentName: 'cicd-prod'
+                        type: 'cicd',
+                        name: 'cicd-prod'
                     },
                     {
-                        environmentType: 'common',
-                        environmentName: 'common-prod'
+                        type: 'common',
+                        name: 'common-prod'
                     },
                     {
-                        environmentType: 'cdk',
-                        environmentName: 'uat'
+                        type: 'main',
+                        name: 'uat'
                     }
                 ]
             },
             test: {
+                branch: 'test',
                 environments: [
                     {
-                        environmentType: 'cicd',
-                        environmentName: 'cicd-test'
+                        type: 'cicd',
+                        name: 'cicd-test'
                     },
                     {
-                        environmentType: 'common',
-                        environmentName: 'common-test'
+                        type: 'common',
+                        name: 'common-test'
                     },
                     {
-                        environmentType: 'cdk',
-                        environmentName: 'test'
+                        type: 'main',
+                        name: 'test'
                     }
                 ]
             },
-            sandbox1: {
+            sandbox123: {
+                branch: '(-sandbox1-)',
                 environments: [
                     {
-                        environmentType: 'cicd',
-                        environmentName: 'cicd-test'
+                        type: 'cicd',
+                        name: 'cicd-test'
                     },
                     {
-                        environmentType: 'common',
-                        environmentName: 'common-test'
+                        type: 'common',
+                        name: 'common-test'
                     },
                     {
-                        environmentType: 'cdk',
-                        environmentName: 'sandbox1'
+                        type: 'main',
+                        name: 'sandbox1'
                     }
                 ]
             }

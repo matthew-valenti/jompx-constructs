@@ -1,12 +1,20 @@
 {
   "dependencies": [
     {
+      "name": "@types/get-value",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
     {
       "name": "@types/node",
       "version": "^12",
+      "type": "build"
+    },
+    {
+      "name": "@types/set-value",
       "type": "build"
     },
     {
@@ -51,6 +59,10 @@
       "type": "build"
     },
     {
+      "name": "get-value",
+      "type": "build"
+    },
+    {
       "name": "jest",
       "type": "build"
     },
@@ -82,6 +94,10 @@
     },
     {
       "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "set-value",
       "type": "build"
     },
     {

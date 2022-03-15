@@ -102,3 +102,30 @@ https://github.com/wheatstalk/oidc-mock/blob/main/.projenrc.js
 - More CDK best practices: https://levelup.gitconnected.com/aws-cdk-pipelines-real-world-tips-and-tricks-part-2-7a0d093a89a0
 - Multiple constructs in Lerna monorepo: https://www.npmjs.com/package/lerna-projen
 - Might be good resource for publishing: https://github.com/seeebiii/projen-test
+
+
+
+### Stacks
+cicid stack to read organization yaml
+npm install --save-dev yaml-cfn
+https://www.npmjs.com/package/yaml-cfn
+
+## Constructs
+Construct Hub: https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0
+Writing your own constructs: https://docs.aws.amazon.com/cdk/v2/guide/constructs.html
+Good example of monorepo of cdk-constructs: https://github.com/cloudcomponents/cdk-constructs
+Construct Hub "internal" is experimental and could be a way to monotize Jompx??? https://github.com/cdklabs/construct-hub
+Best practices: https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html
+*Stacks are the unit of deployment: everything in a stack is deployed together. So when building your application's higher-level logical units from multiple AWS resources, represent each logical unit as a Construct, not as a Stack. Use stacks only to describe how your constructs should be composed and connected for your various deployment scenarios.
+*By using constructs for building and stacks for deploying, you improve reuse potential of your infrastructure and give yourself more flexibility in how it is deployed. https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html
+*Consider keeping stateful resources (like databases) in a separate stack from stateless resources. You can then turn on termination protection on the stateful stack, and can freely destroy or create multiple copies of the stateless stack without risk of data loss.
+*Configure with properties and methods, not environment variables
+Environment variable lookups inside constructs and stacks are a common anti-pattern. Both constructs and stacks should accept a properties object to allow for full configurability completely in code. To do otherwise is to introduce a dependency on the machine that the code will run on, which becomes another bit of configuration information you have to keep track of and manage.
+
+In general, environment variable lookups should be limited to the top level of an AWS CDK app, and should be used to pass in information needed for running in a development environment; see Environments.
+
+## Construct Hub
+https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0
+https://www.matthewbonig.com/2020/01/11/creating-constructs/
+ouch - requires jsii.
+

@@ -1,18 +1,16 @@
-import * as cdk from 'aws-cdk-lib';
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
+import { IEnvironment } from '../types/config.interface';
+/**
+ * Important: Sandbox account name must end in a number e.g. sandbox1. TODO: How else can we associate a branch with an account?
+ */
 export interface ICdkPipelineProps {
-    stage: string;
-    gitHub: ICdkPipelineGitHubProps;
-    commands?: string[];
-}
-export interface ICdkPipelineGitHubProps {
-    owner: string;
-    repo: string;
-    token: cdk.SecretValue;
+    environmentNameSubstring: string;
+    gitHubOwner: string;
+    gitHubRepo: string;
 }
 export interface IEnvironmentPipeline {
-    branch: string;
+    environment: IEnvironment;
     pipeline: pipelines.CodePipeline;
 }
 /**

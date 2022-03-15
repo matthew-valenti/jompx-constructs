@@ -2,13 +2,16 @@ export interface IEnvironment {
     accountId: string;
     region: string;
     name: string;
+    stage: string;
 }
 export interface IStageEnvironment {
-    environmentType: string;
-    environmentName: string;
+    type: string;
+    name: string;
+    account?: IEnvironment;
 }
 export interface IStage {
     [key: string]: {
+        branch: string;
         environments: IStageEnvironment[];
     };
 }

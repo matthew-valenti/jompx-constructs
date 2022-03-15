@@ -17,6 +17,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
 // *** Start Jompx ***
 
 // Add npm packages. Lint wants dependencies but does not compile.
+project.package.addDevDeps('get-value');
+project.package.addDevDeps('@types/get-value');
+project.package.addDevDeps('set-value');
+project.package.addDevDeps('@types/set-value');
 project.package.addDevDeps('change-case');
 
 // Fix for Windows error: 'shx' is not recognized as an internal or

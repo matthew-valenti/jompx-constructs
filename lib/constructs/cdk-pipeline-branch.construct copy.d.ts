@@ -1,18 +1,16 @@
-import * as cdk from 'aws-cdk-lib';
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-export interface ICdkPipelineProps {
-    stage: string;
-    gitHub: ICdkPipelineGitHubProps;
-    commands?: string[];
-}
-export interface ICdkPipelineGitHubProps {
-    owner: string;
-    repo: string;
-    token: cdk.SecretValue;
+import { IEnvironment } from '../types/config.interface';
+/**
+ * Important: Sandbox account name must end in a number e.g. sandbox1. TODO: How else can we associate a branch with an account?
+ */
+export interface ICdkPipelineBranchProps {
+    environmentNameSubstring: string;
+    gitHubOwner: string;
+    gitHubRepo: string;
 }
 export interface IEnvironmentPipeline {
-    branch: string;
+    environment: IEnvironment;
     pipeline: pipelines.CodePipeline;
 }
 /**
@@ -24,7 +22,7 @@ export interface IEnvironmentPipeline {
  *
  * Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
  */
-export declare class CdkPipeline extends Construct {
+export declare class CdkPipelineBranch extends Construct {
     environmentPipelines: IEnvironmentPipeline[];
-    constructor(scope: Construct, id: string, props: ICdkPipelineProps);
+    constructor(scope: Construct, id: string, props: ICdkPipelineBranchProps);
 }
