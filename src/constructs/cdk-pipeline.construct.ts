@@ -104,8 +104,7 @@ export class CdkPipeline extends Construct {
                             codebuild.FilterGroup
                                 .inEventOf(codebuild.EventAction.PUSH)
                                 .andBranchIsNot('main') // For additional protection only.
-                                // .andBranchIs(`.*${branchRegex}.*`) // e.g. prod = mv-sandbox1-my-feature, test = mv-test-sandbox1-my-feature
-                                .andBranchIs('.*-test-sandbox1-.*') // e.g. prod = mv-sandbox1-my-feature, test = mv-test-sandbox1-my-feature
+                                .andBranchIs(`.*${branchRegex}.*`) // e.g. prod = mv-sandbox1-my-feature, test = mv-test-sandbox1-my-feature
                         ]
                     });
 
