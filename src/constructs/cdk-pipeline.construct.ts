@@ -41,7 +41,7 @@ export class CdkPipeline extends Construct {
         super(scope, id);
 
         const config = new Config(this.node);
-        const commands = ['ls', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--quiet --context stage=$STAGE"', 'ls']; // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
+        const commands = ['ls apps/cdk', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--quiet --context stage=$STAGE"', 'ls apps/cdk/', 'ls apps/cdk/cdk.out/']; // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
         const primaryOutputDirectory = 'apps/cdk/cdk.out';
 
         const stages = new Map(Object.entries(config.stages()!));
