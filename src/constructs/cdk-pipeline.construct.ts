@@ -41,7 +41,8 @@ export class CdkPipeline extends Construct {
         super(scope, id);
 
         const config = new Config(this.node);
-        const commands = ['ls', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--context stage=$STAGE"']; // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
+        const commands = ['ls', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--quiet --context stage=$STAGE"', 'ls']; // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
+        const primaryOutputDirectory = 'apps/cdk/cdk.out';
 
         const stages = new Map(Object.entries(config.stages()!));
         const branchStages = new Map([...stages].filter(([_, v]) => v.branch && !v.branch.startsWith(')') && !v.branch.endsWith(')')));
@@ -66,7 +67,7 @@ export class CdkPipeline extends Construct {
                         { authentication: props.gitHub.token }
                     ),
                     commands: props.commands ?? commands,
-                    primaryOutputDirectory: 'apps/cdk/cdk.out'
+                    primaryOutputDirectory
                 })
             });
 
@@ -99,6 +100,7 @@ export class CdkPipeline extends Construct {
                     .Source.gitHub({
                         owner: props.gitHub.owner,
                         repo: props.gitHub.repo,
+                        fetchSubmodules: true,
                         webhook: true,
                         webhookFilters: [
                             codebuild.FilterGroup
@@ -145,7 +147,7 @@ export class CdkPipeline extends Construct {
                         },
                         input: pipelines.CodePipelineSource.s3(bucket, branchFileName),
                         commands: props.commands ?? commands,
-                        primaryOutputDirectory: 'apps/cdk/cdk.out'
+                        primaryOutputDirectory
                     })
                 });
 
