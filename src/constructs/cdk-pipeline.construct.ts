@@ -49,7 +49,7 @@ export class CdkPipeline extends Construct {
         const branchRegexStages = new Map([...stages].filter(([_, v]) => v.branch && v.branch.startsWith('(') && v.branch.endsWith(')')));
 
         // For static branches e.g. main, test
-        for (const [stageName, stage] of branchStages.entries()) {
+        for (const stage of branchStages.values()) {
 
             const branch = (props.stage === 'prod') ? stage.branch : `${props.stage}-${stage.branch}`;
 
@@ -59,7 +59,7 @@ export class CdkPipeline extends Construct {
                 crossAccountKeys: true, // Required for cross account deploys.
                 synth: new pipelines.ShellStep('Synth', {
                     env: {
-                        STAGE: `${stageName}`
+                        STAGE: `${props.stage}`
                     },
                     input: pipelines.CodePipelineSource.gitHub(
                         `${props.gitHub.owner}/${props.gitHub.repo}`,

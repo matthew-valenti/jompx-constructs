@@ -7,6 +7,32 @@ import { Config as JompxConfig } from './jompx.config';
 // import { Local as JompxLocalConfig } from './jompx.local';
 
 describe('CdkPipelineStack', () => {
+    test('stack > stage = test', () => {
+
+        const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'test' } } });
+        const stack = new cdk.Stack(app);
+
+        const config = new Config(app.node);
+
+        const cdkPipelineProps: ICdkPipelineProps = {
+            stage: config.stage(),
+            gitHub: {
+                owner: 'owner',
+                repo: 'repo',
+                token: cdk.SecretValue.secretsManager('cicd/github/token')
+            }
+        };
+
+        const cdkPipeline = new CdkPipeline(stack, 'CdkPipeline', cdkPipelineProps);
+
+        // Test branch names correct.
+        const branches = cdkPipeline.environmentPipelines.map(o => o.branch);
+        expect(branches).toEqual(['test-main', 'test-uat', 'test-test', '-test-sandbox1-']);
+
+        const template = Template.fromStack(stack);
+        template.resourceCountIs('AWS::CodePipeline::Pipeline', branches.length);
+    });
+
     test('stack > stage = prod', () => {
 
         const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'prod' } } });
@@ -38,31 +64,5 @@ describe('CdkPipelineStack', () => {
         //   DeletionPolicy: 'Retain',
         //   UpdateReplacePolicy: 'Retain',
         // });
-    });
-
-    test('stack > stage = test', () => {
-
-        const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'test' } } });
-        const stack = new cdk.Stack(app);
-
-        const config = new Config(app.node);
-
-        const cdkPipelineProps: ICdkPipelineProps = {
-            stage: config.stage(),
-            gitHub: {
-                owner: 'owner',
-                repo: 'repo',
-                token: cdk.SecretValue.secretsManager('cicd/github/token')
-            }
-        };
-
-        const cdkPipeline = new CdkPipeline(stack, 'CdkPipeline', cdkPipelineProps);
-
-        // Test branch names correct.
-        const branches = cdkPipeline.environmentPipelines.map(o => o.branch);
-        expect(branches).toEqual(['test-main', 'test-uat', 'test-test', '-test-sandbox1-']);
-
-        const template = Template.fromStack(stack);
-        template.resourceCountIs('AWS::CodePipeline::Pipeline', branches.length);
     });
 });
