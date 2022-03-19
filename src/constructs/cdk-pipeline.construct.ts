@@ -143,7 +143,7 @@ export class CdkPipeline extends Construct {
                     crossAccountKeys: true, // Required for cross account deploys.
                     synth: new pipelines.ShellStep('Synth', {
                         env: {
-                            STAGE: stageName
+                            STAGE: props.stage
                         },
                         input: pipelines.CodePipelineSource.s3(bucket, branchFileName),
                         commands: props.commands ?? commands,
