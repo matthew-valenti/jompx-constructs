@@ -36,7 +36,7 @@ export interface IEnvironmentPipeline {
  * Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
  */
 export class CdkPipelineBranch extends Construct {
-    public  environmentPipelines: IEnvironmentPipeline[] = [];
+    public environmentPipelines: IEnvironmentPipeline[] = [];
     constructor(scope: Construct, id: string, props: ICdkPipelineBranchProps) {
         super(scope, id);
 

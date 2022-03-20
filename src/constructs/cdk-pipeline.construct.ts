@@ -26,13 +26,21 @@ export interface IEnvironmentPipeline {
 }
 
 /**
- * Deploy in parallel? READ THIS: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html
- * Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
- * CDK doco: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html
- * Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
- * nx cicd: https://nx.dev/ci/monorepo-ci-circle-ci
+ * Continuous integration and delivery (CI/CD) using CDK Pipelines:
+ * https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
+ * https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html
+ * https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codebuild-readme.html
  *
- * Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
+ * Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+ *
+ * TODO: nx affected:
+ * https://nx.dev/ci/monorepo-ci-circle-ci
+ *
+ *  * TODO deploy in parallel:
+ * https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html
+ *
+ * TODO: Trigger apps pipeline
+ * https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
  */
 export class CdkPipeline extends Construct {
     public environmentPipelines: IEnvironmentPipeline[] = [];
@@ -41,7 +49,7 @@ export class CdkPipeline extends Construct {
         super(scope, id);
 
         const config = new Config(this.node);
-        const commands = ['ls apps/cdk', 'npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--quiet --context stage=$STAGE"', 'ls apps/cdk/', 'ls apps/cdk/cdk.out/']; // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
+        const commands = ['npm install', 'npm -g install typescript', 'npm install -g nx', 'nx build cdk', 'nx synth cdk --args="--quiet --context stage=$STAGE"']; // AWS docs example commands: ['npm ci', 'npm run build', 'npx cdk synth']
         const primaryOutputDirectory = 'apps/cdk/cdk.out';
 
         const stages = new Map(Object.entries(config.stages()!));
@@ -59,7 +67,7 @@ export class CdkPipeline extends Construct {
                 crossAccountKeys: true, // Required for cross account deploys.
                 synth: new pipelines.ShellStep('Synth', {
                     env: {
-                        STAGE: `${props.stage}`
+                        STAGE: `${props.stage}` // The CICD stage typically test or prod.
                     },
                     input: pipelines.CodePipelineSource.gitHub(
                         `${props.gitHub.owner}/${props.gitHub.repo}`,
@@ -93,14 +101,13 @@ export class CdkPipeline extends Construct {
                 const stageNamePascalCase = changeCase.pascalCase(stageName);
 
                 const branchRegex = (props.stage === 'prod') ? stage.branch : [stage.branch.slice(0, 1), `-${props.stage}`, stage.branch.slice(1)].join(''); // e.g. main, (-test-main-)
-                console.log('branchRegex', branchRegex);
 
                 // Create github source (sandbox feature branch).
                 const gitHubBranchSource = codebuild
                     .Source.gitHub({
                         owner: props.gitHub.owner,
                         repo: props.gitHub.repo,
-                        fetchSubmodules: true,
+                        fetchSubmodules: true, // For all Git sources, you can fetch submodules while cloing git repo.
                         webhook: true,
                         webhookFilters: [
                             codebuild.FilterGroup
@@ -143,7 +150,7 @@ export class CdkPipeline extends Construct {
                     crossAccountKeys: true, // Required for cross account deploys.
                     synth: new pipelines.ShellStep('Synth', {
                         env: {
-                            STAGE: props.stage
+                            STAGE: props.stage // The CICD stage typically test or prod.
                         },
                         input: pipelines.CodePipelineSource.s3(bucket, branchFileName),
                         commands: props.commands ?? commands,

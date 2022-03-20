@@ -1,10 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-// import { CodePipelineSource } from 'aws-cdk-lib/pipelines';
 import { Config } from '../src/classes/config';
 import { CdkPipeline, ICdkPipelineProps } from '../src/constructs/cdk-pipeline.construct';
 import { Config as JompxConfig } from './jompx.config';
-// import { Local as JompxLocalConfig } from './jompx.local';
 
 describe('CdkPipelineStack', () => {
     test('stack > stage = test', () => {

@@ -6,118 +6,112 @@
 
 Deploy in parallel?
 
-READ THIS: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html
- Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
- CDK doco: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-CdkPipelineadme.html
- Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
- nx cicd: https://nx.dev/ci/monorepo-ci-circle-ci
- CdkPipeline
- Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
-CdkPipelineCdkPipeline
-#### Initializers <a name="Initializers" id="@jompx/constructs.JompxCdkPipeline.Initializer"></a>
+READ THIS: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html CDK doco: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html nx cicd: https://nx.dev/ci/monorepo-ci-circle-ci  Trigger apps pipeline??? https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.CdkPipeline.Initializer"></a>
 
 ```typescript
-import { JompxCdkPipeline } from '@jompx/constructs'
-CdkPipeline
-new JompxCdkPipeline(scope: ConstrucCdkPipelinerops: IJompxCdkPipelineProps)
-```CdkPipelineCdkPipelineCdkPipeline
+import { CdkPipeline } from '@jompx/constructs'
+
+new CdkPipeline(scope: Construct, id: string, props: ICdkPipelineProps)
+```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameCdkPipeline</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CdkPipeline.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.CdkPipeline.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.CdkPipeline.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.ICdkPipelineProps">ICdkPipelineProps</a></code> | *No description.* |
 
 ---
 
-##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constCdkPipelinepeline.Initializer.parameter.scope"></a>
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.CdkPipeline.Initializer.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.JompxCCdkPipelinealizer.parameter.id"></a>
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.CdkPipeline.Initializer.parameter.id"></a>
 
-- *Type:* stringCdkPipelineCdkPipeline
+- *Type:* string
 
 ---
 
-##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.JompxCdkPipeline.Initializer.parameter.props"></a>
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.CdkPipeline.Initializer.parameter.props"></a>
 
-- *Type:* <a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a>
+- *Type:* <a href="#@jompx/constructs.ICdkPipelineProps">ICdkPipelineProps</a>
 
----CdkPipeline
+---
 
 #### Methods <a name="Methods" id="Methods"></a>
 
-| **Name** | **Description** |CdkPipeline
+| **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@jompx/constructs.CdkPipeline.toString">toString</a></code> | Returns a string representation of this construct. |
 
 ---
 
-##### `toString` <a name="toString" id="@jompx/constructs.JompxCdkPipeline.toString"></a>
+##### `toString` <a name="toString" id="@jompx/constructs.CdkPipeline.toString"></a>
 
 ```typescript
 public toString(): string
 ```
 
-Returns a string representation of tCdkPipeline
+Returns a string representation of this construct.
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
-| **Name** | **Description** |CdkPipeline
+| **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-CdkPipeline
+| <code><a href="#@jompx/constructs.CdkPipeline.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
 ---
-CdkPipeline
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@jompx/constructs.JompxCdkPipeline.isConstruct"></a>
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@jompx/constructs.CdkPipeline.isConstruct"></a>
 
 ```typescript
-import { JompxCdkPipeline } from '@jompx/constructs'
-CdkPipeline
-JompxCdkPipeline.isConstruct(x: any)
+import { CdkPipeline } from '@jompx/constructs'
+
+CdkPipeline.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
 
-###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.JompxCdkPipeline.isConstruct.parameter.x"></a>
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.CdkPipeline.isConstruct.parameter.x"></a>
 
 - *Type:* any
 
 Any object.
 
----CdkPipeline
-CdkPipeline
+---
+
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
-| --- | --- | --- |CdkPipeline
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@jompx/constructs.JompxCdkPipeline.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.pipelines.CodePipeline</code> | *No description.* |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.CdkPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.CdkPipeline.property.environmentPipelines">environmentPipelines</a></code> | <code><a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>[]</code> | *No description.* |
 
 ---
 
-##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.JompxCdkPipeline.property.node"></a>
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.CdkPipeline.property.node"></a>
 
 ```typescript
 public readonly node: Node;
 ```
 
-- *Type:* constructs.NodeCdkPipeline
+- *Type:* constructs.Node
 
 The tree node.
 
 ---
 
-##### `pipeline`<sup>Required</sup> <a name="pipeline" id="@jompx/constructs.JompxCdkPipeline.property.pipeline"></a>
+##### `environmentPipelines`<sup>Required</sup> <a name="environmentPipelines" id="@jompx/constructs.CdkPipeline.property.environmentPipelines"></a>
 
 ```typescript
-public readonly pipeline: CodePipeline;
+public readonly environmentPipelines: IEnvironmentPipeline[];
 ```
 
-- *Type:* aws-cdk-lib.pipelines.CodePipeline
+- *Type:* <a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>[]
 
 ---
 
@@ -244,41 +238,30 @@ new Config(appNode: Node)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@jompx/constructs.Config.env">env</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.environment">environment</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.environmentByAccountId">environmentByAccountId</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.environmentByName">environmentByName</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.environments">environments</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.organizationName">organizationName</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.organizationNamePascalCase">organizationNamePascalCase</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.stage">stage</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.stageEnvironments">stageEnvironments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.stages">stages</a></code> | *No description.* |
 
 ---
 
 ##### `env` <a name="env" id="@jompx/constructs.Config.env"></a>
 
 ```typescript
-public env(environmentType: string, stageName?: string): Environment
+public env(type: string, stageName?: string): Environment
 ```
 
-###### `environmentType`<sup>Required</sup> <a name="environmentType" id="@jompx/constructs.Config.env.parameter.environmentType"></a>
+###### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.Config.env.parameter.type"></a>
 
 - *Type:* string
 
 ---
 
 ###### `stageName`<sup>Optional</sup> <a name="stageName" id="@jompx/constructs.Config.env.parameter.stageName"></a>
-
-- *Type:* string
-
----
-
-##### `environment` <a name="environment" id="@jompx/constructs.Config.environment"></a>
-
-```typescript
-public environment(environmentName: string): IEnvironment
-```
-
-###### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.Config.environment.parameter.environmentName"></a>
 
 - *Type:* string
 
@@ -291,6 +274,18 @@ public environmentByAccountId(accountId: string): IEnvironment
 ```
 
 ###### `accountId`<sup>Required</sup> <a name="accountId" id="@jompx/constructs.Config.environmentByAccountId.parameter.accountId"></a>
+
+- *Type:* string
+
+---
+
+##### `environmentByName` <a name="environmentByName" id="@jompx/constructs.Config.environmentByName"></a>
+
+```typescript
+public environmentByName(name: string): IEnvironment
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.Config.environmentByName.parameter.name"></a>
 
 - *Type:* string
 
@@ -332,6 +327,12 @@ public stageEnvironments(stageName: string): IStageEnvironment[]
 
 ---
 
+##### `stages` <a name="stages" id="@jompx/constructs.Config.stages"></a>
+
+```typescript
+public stages(): IStage
+```
+
 
 #### Properties <a name="Properties" id="Properties"></a>
 
@@ -353,6 +354,96 @@ public readonly appNode: Node;
 
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
+
+### ICdkPipelineGitHubProps <a name="ICdkPipelineGitHubProps" id="@jompx/constructs.ICdkPipelineGitHubProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.ICdkPipelineGitHubProps">ICdkPipelineGitHubProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.ICdkPipelineGitHubProps.property.owner">owner</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICdkPipelineGitHubProps.property.repo">repo</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICdkPipelineGitHubProps.property.token">token</a></code> | <code>aws-cdk-lib.SecretValue</code> | *No description.* |
+
+---
+
+##### `owner`<sup>Required</sup> <a name="owner" id="@jompx/constructs.ICdkPipelineGitHubProps.property.owner"></a>
+
+```typescript
+public readonly owner: string;
+```
+
+- *Type:* string
+
+---
+
+##### `repo`<sup>Required</sup> <a name="repo" id="@jompx/constructs.ICdkPipelineGitHubProps.property.repo"></a>
+
+```typescript
+public readonly repo: string;
+```
+
+- *Type:* string
+
+---
+
+##### `token`<sup>Required</sup> <a name="token" id="@jompx/constructs.ICdkPipelineGitHubProps.property.token"></a>
+
+```typescript
+public readonly token: SecretValue;
+```
+
+- *Type:* aws-cdk-lib.SecretValue
+
+---
+
+### ICdkPipelineProps <a name="ICdkPipelineProps" id="@jompx/constructs.ICdkPipelineProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.ICdkPipelineProps">ICdkPipelineProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.ICdkPipelineProps.property.gitHub">gitHub</a></code> | <code><a href="#@jompx/constructs.ICdkPipelineGitHubProps">ICdkPipelineGitHubProps</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICdkPipelineProps.property.stage">stage</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICdkPipelineProps.property.commands">commands</a></code> | <code>string[]</code> | *No description.* |
+
+---
+
+##### `gitHub`<sup>Required</sup> <a name="gitHub" id="@jompx/constructs.ICdkPipelineProps.property.gitHub"></a>
+
+```typescript
+public readonly gitHub: ICdkPipelineGitHubProps;
+```
+
+- *Type:* <a href="#@jompx/constructs.ICdkPipelineGitHubProps">ICdkPipelineGitHubProps</a>
+
+---
+
+##### `stage`<sup>Required</sup> <a name="stage" id="@jompx/constructs.ICdkPipelineProps.property.stage"></a>
+
+```typescript
+public readonly stage: string;
+```
+
+- *Type:* string
+
+---
+
+##### `commands`<sup>Optional</sup> <a name="commands" id="@jompx/constructs.ICdkPipelineProps.property.commands"></a>
+
+```typescript
+public readonly commands: string[];
+```
+
+- *Type:* string[]
+
+---
 
 ### IConfig <a name="IConfig" id="@jompx/constructs.IConfig"></a>
 
@@ -406,6 +497,7 @@ public readonly region: string;
 | <code><a href="#@jompx/constructs.IEnvironment.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@jompx/constructs.IEnvironment.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@jompx/constructs.IEnvironment.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IEnvironment.property.stage">stage</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -433,43 +525,53 @@ public readonly name: string;
 
 ```typescript
 public readonly region: string;
-```CdkPipelineCdkPipelineCdkPipeline
+```
 
-- *Type:* stringCdkPipelineCdkPipeline
-
----
-
-### IJompxCdkPipelineProps <a name="IJompxCdkPipelineProps" id="@jompx/constructs.IJompxCdkPipelineProps"></a>
-
-- *Implemented By:* <a href="#@jompx/constructs.IJompxCdkPipelineProps">IJompxCdkPipelineProps</a>
-CdkPipeline
-CdkPipeline
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |CdkPipeline
-| <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput">shellStepInput</a></code> | <code>aws-cdk-lib.pipelines.IFileSetProducer</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IJompxCdkPipelineProps.property.stage">stage</a></code> | <code>string</code> | *No description.* |
+- *Type:* string
 
 ---
 
-##### `shellStepInput`<sup>Required</sup> <a name="shellStepInput" id="@jompx/constructs.IJompxCdkPipelineProps.property.shellStepInput"></a>
-
-```typescript
-public readonly shellStepInput: IFileSetProducer;
-```CdkPipeline
-
-- *Type:* aws-cdk-lib.pipelines.IFileSetProducer
-
----
-
-##### `stage`<sup>Required</sup> <a name="stage" id="@jompx/constructs.IJompxCdkPipelineProps.property.stage"></a>
+##### `stage`<sup>Required</sup> <a name="stage" id="@jompx/constructs.IEnvironment.property.stage"></a>
 
 ```typescript
 public readonly stage: string;
 ```
 
 - *Type:* string
+
+---
+
+### IEnvironmentPipeline <a name="IEnvironmentPipeline" id="@jompx/constructs.IEnvironmentPipeline"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IEnvironmentPipeline.property.branch">branch</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IEnvironmentPipeline.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.pipelines.CodePipeline</code> | *No description.* |
+
+---
+
+##### `branch`<sup>Required</sup> <a name="branch" id="@jompx/constructs.IEnvironmentPipeline.property.branch"></a>
+
+```typescript
+public readonly branch: string;
+```
+
+- *Type:* string
+
+---
+
+##### `pipeline`<sup>Required</sup> <a name="pipeline" id="@jompx/constructs.IEnvironmentPipeline.property.pipeline"></a>
+
+```typescript
+public readonly pipeline: CodePipeline;
+```
+
+- *Type:* aws-cdk-lib.pipelines.CodePipeline
 
 ---
 
@@ -494,28 +596,39 @@ public readonly stage: string;
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IStageEnvironment.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IStageEnvironment.property.environmentType">environmentType</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IStageEnvironment.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IStageEnvironment.property.type">type</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IStageEnvironment.property.account">account</a></code> | <code><a href="#@jompx/constructs.IEnvironment">IEnvironment</a></code> | *No description.* |
 
 ---
 
-##### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.IStageEnvironment.property.environmentName"></a>
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IStageEnvironment.property.name"></a>
 
 ```typescript
-public readonly environmentName: string;
+public readonly name: string;
 ```
 
 - *Type:* string
 
 ---
 
-##### `environmentType`<sup>Required</sup> <a name="environmentType" id="@jompx/constructs.IStageEnvironment.property.environmentType"></a>
+##### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.IStageEnvironment.property.type"></a>
 
 ```typescript
-public readonly environmentType: string;
+public readonly type: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="@jompx/constructs.IStageEnvironment.property.account"></a>
+
+```typescript
+public readonly account: IEnvironment;
+```
+
+- *Type:* <a href="#@jompx/constructs.IEnvironment">IEnvironment</a>
 
 ---
 
