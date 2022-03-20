@@ -17,7 +17,8 @@ export interface ICdkPipelineProps {
 export interface ICdkPipelineGitHubProps {
     owner: string;
     repo: string;
-    token: cdk.SecretValue;
+    // token: cdk.SecretValue;
+    connectionArn: string;
 }
 
 export interface IEnvironmentPipeline {
@@ -69,11 +70,15 @@ export class CdkPipeline extends Construct {
                     env: {
                         STAGE: `${props.stage}` // The CICD stage typically test or prod.
                     },
-                    input: pipelines.CodePipelineSource.gitHub(
-                        `${props.gitHub.owner}/${props.gitHub.repo}`,
-                        branch,
-                        { authentication: props.gitHub.token }
-                    ),
+                    // input: pipelines.CodePipelineSource.gitHub(
+                    //     `${props.gitHub.owner}/${props.gitHub.repo}`,
+                    //     branch,
+                    //     { authentication: props.gitHub.token }
+                    // ),
+                    input: pipelines.CodePipelineSource.connection(`${props.gitHub.owner}/${props.gitHub.repo}`, branch, {
+                        connectionArn: props.gitHub.connectionArn,
+                        codeBuildCloneOutput: true
+                    }),
                     commands: props.commands ?? commands,
                     primaryOutputDirectory
                 })
