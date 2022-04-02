@@ -1,2 +1,2 @@
-export * from './config.interface';
-export * from './local-config.interface';
+export * from './app-sync';
+export * from './config';

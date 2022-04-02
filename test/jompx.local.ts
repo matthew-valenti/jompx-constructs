@@ -1,4 +1,4 @@
-import { ILocalConfig } from '../src/types/local-config.interface';
+import { ILocalConfig } from '../src/types/config';
 
 export const Local: ILocalConfig = {
     '@jompx-local': {

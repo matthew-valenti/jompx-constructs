@@ -1,4 +1,4 @@
-import { IConfig } from '../src/types/config.interface';
+import { IConfig } from '../src/types/config';
 
 export const Config: IConfig = {
     '@jompx': {
@@ -11,32 +11,27 @@ export const Config: IConfig = {
             {
                 accountId: '863054937555',
                 region: 'us-west-2',
-                name: 'cicd-test',
-                stage: 'test'
+                name: 'cicd-test'
             },
             {
                 accountId: '896371249616',
                 region: 'us-west-2',
-                name: 'cicd-prod',
-                stage: 'prod'
+                name: 'cicd-prod'
             },
             {
                 accountId: 'abc123',
                 region: 'us-west-2',
-                name: 'prod',
-                stage: 'prod'
+                name: 'prod'
             },
             {
                 accountId: '706457422044',
                 region: 'us-west-2',
-                name: 'test',
-                stage: 'test'
+                name: 'test'
             },
             {
                 accountId: '066209653567',
                 region: 'us-west-2',
-                name: 'sandbox1',
-                stage: 'sandbox'
+                name: 'sandbox1'
             }
         ],
         stages: {

@@ -2,7 +2,6 @@ export interface IEnvironment {
     accountId: string;
     region: string;
     name: string;
-    stage: string;
 }
 export interface IStageEnvironment {
     type: string;
@@ -27,5 +26,11 @@ export interface IConfig {
         };
         environments: IEnvironment[];
         stages: IStage;
+    };
+}
+export interface ILocalConfig {
+    [key: string]: {
+        stage?: string;
+        stages?: IStage;
     };
 }

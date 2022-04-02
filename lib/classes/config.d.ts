@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Node } from 'constructs';
-import { IEnvironment, IStage, IStageEnvironment } from '../types/config.interface';
+import { IEnvironment, IStage, IStageEnvironment } from '../types/config';
 export declare class Config {
     appNode: Node;
     constructor(appNode: Node);

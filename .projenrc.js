@@ -5,8 +5,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     name: '@jompx/constructs',
     repositoryUrl: 'https://github.com/matthew-valenti/jompx-constructs.git',
     defaultReleaseBranch: 'main',
-    cdkVersion: '2.15.0',
-    constructsVersion: '10.0.76'
+    cdkVersion: '2.17.0',
+    constructsVersion: '10.0.92'
 
     // deps: [],                /* Runtime dependencies of this module. */
     // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
@@ -16,12 +16,21 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 // *** Start Jompx ***
 
-// Add npm packages. Lint wants dependencies but does not compile.
+// The construct library for this service is in preview. Since it is not stable yet, it is distributed as a separate package so that you can pin its version independently of the rest of the CDK.
+project.package.addDevDeps('@aws-cdk/aws-appsync-alpha@2.17.0-alpha.0');
+project.package.addPeerDeps('@aws-cdk/aws-appsync-alpha@2.17.0-alpha.0');
+
+// Required to build LambdaNJS on local (vs slow docker).
+project.package.addDevDeps('esbuild');
+
+// Add npm packages. Lint wants these added as dependencies but results in lint errors.
 project.package.addDevDeps('get-value');
 project.package.addDevDeps('@types/get-value');
 project.package.addDevDeps('set-value');
 project.package.addDevDeps('@types/set-value');
 project.package.addDevDeps('change-case');
+project.package.addDevDeps('pluralize');
+project.package.addDevDeps('@types/pluralize');
 
 // Fix for Windows error: 'shx' is not recognized as an internal or
 project.package.addDevDeps('shx');

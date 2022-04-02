@@ -36,15 +36,18 @@
     "organization": false
   },
   "devDependencies": {
+    "@aws-cdk/aws-appsync-alpha": "2.17.0-alpha.0",
     "@types/get-value": "^3.0.2",
     "@types/jest": "^27.4.1",
     "@types/node": "^12",
+    "@types/pluralize": "^0.0.29",
     "@types/set-value": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
-    "aws-cdk-lib": "2.15.0",
+    "aws-cdk-lib": "2.17.0",
     "change-case": "^4.1.2",
-    "constructs": "10.0.76",
+    "constructs": "10.0.92",
+    "esbuild": "^0.14.27",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^2.5.0",
@@ -57,6 +60,7 @@
     "jsii-docgen": "^6.1.19",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
+    "pluralize": "^8.0.0",
     "projen": "^0.52.52",
     "set-value": "^4.1.0",
     "shx": "^0.3.4",
@@ -65,8 +69,9 @@
     "typescript": "^4.6.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.15.0",
-    "constructs": "^10.0.76"
+    "@aws-cdk/aws-appsync-alpha": "2.17.0-alpha.0",
+    "aws-cdk-lib": "^2.17.0",
+    "constructs": "^10.0.92"
   },
   "keywords": [
     "cdk"

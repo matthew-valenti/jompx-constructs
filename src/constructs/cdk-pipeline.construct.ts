@@ -17,7 +17,7 @@ export interface ICdkPipelineProps {
 export interface ICdkPipelineGitHubProps {
     owner: string;
     repo: string;
-    // token: cdk.SecretValue;
+    // token: cdk.SecretValue; // TODO: Allow GitHub token option.
     connectionArn: string;
 }
 
@@ -70,6 +70,7 @@ export class CdkPipeline extends Construct {
                     env: {
                         STAGE: `${props.stage}` // The CICD stage typically test or prod.
                     },
+                    // TODO: Allow GitHub token option.
                     // input: pipelines.CodePipelineSource.gitHub(
                     //     `${props.gitHub.owner}/${props.gitHub.repo}`,
                     //     branch,
@@ -89,9 +90,7 @@ export class CdkPipeline extends Construct {
 
         if (branchRegexStages.size) {
             // Create bucket to save github sandbox feature branch files (as zip).
-            // const bucketName = `${config.organizationName()}-cdk-pipeline-${account}`; // Must be unique across all buckets.
             const bucket = new s3.Bucket(this, `${config.organizationNamePascalCase()}CdkPipelineBranch`, {
-                // bucketName,
                 versioned: true, // Version bucket to use as CodePipeline source.
                 publicReadAccess: false, // TODO: Is this needed?
                 blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,

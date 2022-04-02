@@ -271,7 +271,7 @@
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/get-value @types/jest @types/node @types/set-value @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk-lib change-case constructs eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint get-value jest jest-junit jsii jsii-diff jsii-docgen json-schema npm-check-updates set-value shx standard-version ts-jest typescript aws-cdk-lib constructs"
+          "exec": "yarn upgrade @aws-cdk/aws-appsync-alpha @types/get-value @types/jest @types/node @types/pluralize @types/set-value @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk-lib change-case constructs esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint get-value jest jest-junit jsii jsii-diff jsii-docgen json-schema npm-check-updates pluralize set-value shx standard-version ts-jest typescript @aws-cdk/aws-appsync-alpha aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"

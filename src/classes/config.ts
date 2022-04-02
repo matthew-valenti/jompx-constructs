@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as changeCase from 'change-case';
 import { Node } from 'constructs';
-import { IEnvironment, IStage, IStageEnvironment } from '../types/config.interface';
+import { IEnvironment, IStage, IStageEnvironment } from '../types/config';
 
 export class Config {
 
@@ -35,13 +35,14 @@ export class Config {
         // Get stages from config and local config. Local config overrides config.
         const stages = { ...configStages, ...localStages };
 
-        // For each stage environment join to account environment (and set account).
-        const map = new Map(Object.entries(stages));
-        for (const value of map.values()) {
-            value.environments.forEach(environment => {
-                environment.account = this.environmentByName(environment.name);
-            });
-        }
+        // TODO: Remove. I don't think we want to try to join an account to a stage.
+        // // For each stage environment join to account environment (and set account).
+        // const map = new Map(Object.entries(stages));
+        // for (const value of map.values()) {
+        //     value.environments.forEach(environment => {
+        //         environment.account = this.environmentByName(environment.name);
+        //     });
+        // }
 
         return stages;
     }

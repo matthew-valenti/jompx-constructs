@@ -1,6 +1,11 @@
 {
   "dependencies": [
     {
+      "name": "@aws-cdk/aws-appsync-alpha",
+      "version": "2.17.0-alpha.0",
+      "type": "build"
+    },
+    {
       "name": "@types/get-value",
       "type": "build"
     },
@@ -11,6 +16,10 @@
     {
       "name": "@types/node",
       "version": "^12",
+      "type": "build"
+    },
+    {
+      "name": "@types/pluralize",
       "type": "build"
     },
     {
@@ -29,7 +38,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.15.0",
+      "version": "2.17.0",
       "type": "build"
     },
     {
@@ -38,7 +47,11 @@
     },
     {
       "name": "constructs",
-      "version": "10.0.76",
+      "version": "10.0.92",
+      "type": "build"
+    },
+    {
+      "name": "esbuild",
       "type": "build"
     },
     {
@@ -93,6 +106,10 @@
       "type": "build"
     },
     {
+      "name": "pluralize",
+      "type": "build"
+    },
+    {
       "name": "projen",
       "type": "build"
     },
@@ -118,13 +135,18 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/aws-appsync-alpha",
+      "version": "2.17.0-alpha.0",
+      "type": "peer"
+    },
+    {
       "name": "aws-cdk-lib",
-      "version": "^2.15.0",
+      "version": "^2.17.0",
       "type": "peer"
     },
     {
       "name": "constructs",
-      "version": "^10.0.76",
+      "version": "^10.0.92",
       "type": "peer"
     }
   ],

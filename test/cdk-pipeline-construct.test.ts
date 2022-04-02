@@ -17,7 +17,8 @@ describe('CdkPipelineStack', () => {
             gitHub: {
                 owner: 'owner',
                 repo: 'repo',
-                token: cdk.SecretValue.secretsManager('cicd/github/token')
+                // token: cdk.SecretValue.secretsManager('cicd/github/token')
+                connectionArn: 'arn:aws:codestar-connections:us-west-2:863054937555:connection/38e739e3-ed21-4dbc-98f9-b97e40764d5b'
             }
         };
 
@@ -43,7 +44,8 @@ describe('CdkPipelineStack', () => {
             gitHub: {
                 owner: 'owner',
                 repo: 'repo',
-                token: cdk.SecretValue.secretsManager('cicd/github/token')
+                // token: cdk.SecretValue.secretsManager('cicd/github/token')
+                connectionArn: ''
             }
         };
 

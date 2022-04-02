@@ -92,6 +92,8 @@ The AWS docs are misleading but probably correct. Working sample taken from Cons
 }
 ```
 
+To test a single file update the test.ts file to use: test.only or it.only // TODO: This doesn't seem to work nor the -t param in .launch json
+
 ## ConstructHub
 https://constructs.dev/  
 
