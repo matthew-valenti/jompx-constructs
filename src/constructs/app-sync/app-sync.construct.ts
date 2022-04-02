@@ -52,20 +52,6 @@ export class AppSync extends Construct {
 
     public createSchema() {
         const schema = new AppSyncSchema(this.graphqlApi, this.dataSources, this.schemaTypes);
-        // schema.addSort(this.schemaTypes);
-        // schema.addPagination(this.schemaTypes);
-        // Object.values(this.schemaTypes).forEach(schemaType => {
-        //     schema.addType(schemaType);
-        // });
         schema.create();
     }
-
-    // public directive<T>(directive: any) {
-
-    // }
-
-    // Add appsync schema type to internal array for post processing.
-    // public addSchemaType(id: string, schemaType: ISchemaInputType) {
-    //     this.schemaTypes?.push({ [id]: schemaType });
-    // }
 }

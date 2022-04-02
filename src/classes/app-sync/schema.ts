@@ -122,6 +122,9 @@ export class AppSyncSchema {
         if (dataSourceName) {
             const dataSource: appsync.LambdaDataSource = this.dataSources[dataSourceName];
 
+            // Object.
+            this.graphqlApi.addType(objectType);
+
             // Edge.
             const edgeObjectType = new appsync.ObjectType(`${objectTypeName}Edge`, {
                 definition: {
