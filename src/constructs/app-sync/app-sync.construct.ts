@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as changeCase from 'change-case';
 import { Construct } from 'constructs';
 import { AppSyncSchema } from '../../classes/app-sync/schema';
 import { IDataSource, ISchemaType } from '../../types/app-sync';
@@ -19,7 +21,7 @@ export interface IAppSyncProps {
 export class AppSync extends Construct {
     public graphqlApi: appsync.GraphqlApi;
     public dataSources: IDataSource = {};
-    public schemaTypes: ISchemaType = {};
+    public schemaTypes: ISchemaType = { enumTypes: {}, inputTypes: {}, interfaceTypes: {}, objectTypes: {}, unionTypes: {} };
 
     constructor(scope: Construct, id: string, props: IAppSyncProps) {
         super(scope, id);
@@ -40,13 +42,12 @@ export class AppSync extends Construct {
 
     // Add datasource to AppSync and an internal array. Remove this when AppSync provides a way to iterate datasources).
     public addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions) {
-        const identifier = `AppSyncDataSource${id}`;
+        const identifier = `AppSyncDataSource${changeCase.pascalCase(id)}`;
         const dataSource = this.graphqlApi.addLambdaDataSource(identifier, lambdaFunction, options);
-        this.dataSources = { ...this.dataSources, ...{ [identifier]: dataSource } };
+        this.dataSources = { ...this.dataSources, ...{ [id]: dataSource } };
     }
 
     public addSchemaTypes(schemaTypes: ISchemaType) {
-        // this.schemaTypes = this.schemaTypes.concat(schemaTypes);
         this.schemaTypes = { ...this.schemaTypes, ...schemaTypes };
     }
 

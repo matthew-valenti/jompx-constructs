@@ -12,7 +12,7 @@ export class Config {
 
     public stage(): string {
         const stage = this.appNode.tryGetContext('stage') ?? this.appNode.tryGetContext('@jompx-local').stage;
-        if (!stage) throw Error('Jompx stage not found! Stage is missing from command line or jompx.local.ts.');
+        if (!stage) throw Error('Jompx: stage not found! Stage is missing from command line or jompx.local.ts.');
         return stage;
     }
 

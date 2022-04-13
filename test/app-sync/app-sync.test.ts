@@ -6,13 +6,14 @@ import * as jompx from '../../src';
 import { MySqlSchema } from '../app-sync/schema/mysql.schema';
 import { Config as JompxConfig } from '../jompx.config';
 
+// For convenience and strong typing, use an enum for AppSync datasource ids.
 export enum AppSyncDatasource {
     mySql = 'mySql',
     cognito = 'cognito'
 }
 
 describe('AppSyncStack', () => {
-    test('stack > stage = test', () => {
+    test('create schema', () => {
 
         const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'test' } } });
         const stack = new cdk.Stack(app);
@@ -23,6 +24,7 @@ describe('AppSyncStack', () => {
             name: 'api'
         };
 
+        // Create AWS AppSync resource.
         const appSync = new jompx.AppSync(stack, 'AppSync', appSyncProps);
 
         // Add MySQL datasource.
@@ -30,7 +32,7 @@ describe('AppSyncStack', () => {
         appSync.addDataSource(AppSyncDatasource.mySql, appSyncMySqlDataSource.lambdaFunction);
 
         // Add MySQL schema.
-        const mySqlSchema = new MySqlSchema();
+        const mySqlSchema = new MySqlSchema(appSync.dataSources);
         appSync.addSchemaTypes(mySqlSchema.types);
 
         appSync.createSchema();

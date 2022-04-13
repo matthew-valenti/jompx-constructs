@@ -29,8 +29,8 @@ project.package.addDevDeps('@types/get-value');
 project.package.addDevDeps('set-value');
 project.package.addDevDeps('@types/set-value');
 project.package.addDevDeps('change-case');
-project.package.addDevDeps('pluralize');
-project.package.addDevDeps('@types/pluralize');
+// project.package.addDevDeps('pluralize');
+// project.package.addDevDeps('@types/pluralize');
 
 // Fix for Windows error: 'shx' is not recognized as an internal or
 project.package.addDevDeps('shx');

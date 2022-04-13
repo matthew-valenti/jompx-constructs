@@ -3,7 +3,10 @@ export { CdkPipeline, ICdkPipelineProps, ICdkPipelineGitHubProps, IEnvironmentPi
 export { AppSync, IAppSyncProps } from './constructs/app-sync/app-sync.construct';
 export { JompxS3 } from './constructs/s3.construct'; // DELETE ME. TEST ONLY.
 
-// MySQL datasource and custom directives.
+// AppSync.
+export { JompxGraphqlType, JompxGraphqlTypeOptions } from './classes/app-sync/graphql-type';
+
+// AppSync MySQL datasource.
 export { AppSyncMySqlDataSource, IAppSyncMySqlDataSourceProps } from './constructs/app-sync/mysql-datasource.construct';
 export { AppSyncMySqlCustomDirective } from './classes/app-sync/datasources/mysql.directive';
 

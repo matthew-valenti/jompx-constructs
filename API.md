@@ -134,7 +134,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppSync.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@jompx/constructs.AppSync.property.dataSources">dataSources</a></code> | <code><a href="#@jompx/constructs.IDataSource">IDataSource</a>[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSync.property.dataSources">dataSources</a></code> | <code><a href="#@jompx/constructs.IDataSource">IDataSource</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSync.property.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSync.property.schemaTypes">schemaTypes</a></code> | <code><a href="#@jompx/constructs.ISchemaType">ISchemaType</a></code> | *No description.* |
 
@@ -155,10 +155,10 @@ The tree node.
 ##### `dataSources`<sup>Required</sup> <a name="dataSources" id="@jompx/constructs.AppSync.property.dataSources"></a>
 
 ```typescript
-public readonly dataSources: IDataSource[];
+public readonly dataSources: IDataSource;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IDataSource">IDataSource</a>[]
+- *Type:* <a href="#@jompx/constructs.IDataSource">IDataSource</a>
 
 ---
 
@@ -505,8 +505,222 @@ The tree node.
 ---
 
 
+## Structs <a name="Structs" id="Structs"></a>
+
+### JompxGraphqlTypeOptions <a name="JompxGraphqlTypeOptions" id="@jompx/constructs.JompxGraphqlTypeOptions"></a>
+
+Extend GraphqlTypeOptions to include a new typeName parameter.
+
+#### Initializer <a name="Initializer" id="@jompx/constructs.JompxGraphqlTypeOptions.Initializer"></a>
+
+```typescript
+import { JompxGraphqlTypeOptions } from '@jompx/constructs'
+
+const jompxGraphqlTypeOptions: JompxGraphqlTypeOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.JompxGraphqlTypeOptions.property.isList">isList</a></code> | <code>boolean</code> | property determining if this attribute is a list i.e. if true, attribute would be [Type]. |
+| <code><a href="#@jompx/constructs.JompxGraphqlTypeOptions.property.isRequired">isRequired</a></code> | <code>boolean</code> | property determining if this attribute is non-nullable i.e. if true, attribute would be Type! |
+| <code><a href="#@jompx/constructs.JompxGraphqlTypeOptions.property.isRequiredList">isRequiredList</a></code> | <code>boolean</code> | property determining if this attribute is a non-nullable list i.e. if true, attribute would be [ Type ]! or if isRequired true, attribe would be [ Type! ]! |
+| <code><a href="#@jompx/constructs.JompxGraphqlTypeOptions.property.intermediateType">intermediateType</a></code> | <code>@aws-cdk/aws-appsync-alpha.IIntermediateType</code> | the intermediate type linked to this attribute. |
+| <code><a href="#@jompx/constructs.JompxGraphqlTypeOptions.property.typeName">typeName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `isList`<sup>Optional</sup> <a name="isList" id="@jompx/constructs.JompxGraphqlTypeOptions.property.isList"></a>
+
+```typescript
+public readonly isList: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+property determining if this attribute is a list i.e. if true, attribute would be [Type].
+
+---
+
+##### `isRequired`<sup>Optional</sup> <a name="isRequired" id="@jompx/constructs.JompxGraphqlTypeOptions.property.isRequired"></a>
+
+```typescript
+public readonly isRequired: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+property determining if this attribute is non-nullable i.e. if true, attribute would be Type!
+
+---
+
+##### `isRequiredList`<sup>Optional</sup> <a name="isRequiredList" id="@jompx/constructs.JompxGraphqlTypeOptions.property.isRequiredList"></a>
+
+```typescript
+public readonly isRequiredList: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+property determining if this attribute is a non-nullable list i.e. if true, attribute would be [ Type ]! or if isRequired true, attribe would be [ Type! ]!
+
+---
+
+##### `intermediateType`<sup>Optional</sup> <a name="intermediateType" id="@jompx/constructs.JompxGraphqlTypeOptions.property.intermediateType"></a>
+
+```typescript
+public readonly intermediateType: IIntermediateType;
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.IIntermediateType
+- *Default:* no intermediate type
+
+the intermediate type linked to this attribute.
+
+---
+
+##### `typeName`<sup>Required</sup> <a name="typeName" id="@jompx/constructs.JompxGraphqlTypeOptions.property.typeName"></a>
+
+```typescript
+public readonly typeName: string;
+```
+
+- *Type:* string
+
+---
 
 ## Classes <a name="Classes" id="Classes"></a>
+
+### AppSyncMySqlCustomDirective <a name="AppSyncMySqlCustomDirective" id="@jompx/constructs.AppSyncMySqlCustomDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.AppSyncMySqlCustomDirective.Initializer"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+new AppSyncMySqlCustomDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.datasource">datasource</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier">getArgumentByIdentifier</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.lookup">lookup</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.readonly">readonly</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.source">source</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.operations">operations</a></code> | *No description.* |
+
+---
+
+##### `datasource` <a name="datasource" id="@jompx/constructs.AppSyncMySqlCustomDirective.datasource"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.datasource(name: string)
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.AppSyncMySqlCustomDirective.datasource.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `getArgumentByIdentifier` <a name="getArgumentByIdentifier" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.getArgumentByIdentifier(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+##### `lookup` <a name="lookup" id="@jompx/constructs.AppSyncMySqlCustomDirective.lookup"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.lookup(value: ICustomDirectiveLookup)
+```
+
+###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.AppSyncMySqlCustomDirective.lookup.parameter.value"></a>
+
+- *Type:* <a href="#@jompx/constructs.ICustomDirectiveLookup">ICustomDirectiveLookup</a>
+
+---
+
+##### `readonly` <a name="readonly" id="@jompx/constructs.AppSyncMySqlCustomDirective.readonly"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.readonly(value: boolean)
+```
+
+###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.AppSyncMySqlCustomDirective.readonly.parameter.value"></a>
+
+- *Type:* boolean
+
+---
+
+##### `source` <a name="source" id="@jompx/constructs.AppSyncMySqlCustomDirective.source"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.source(name: string)
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.AppSyncMySqlCustomDirective.source.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `operations` <a name="operations" id="@jompx/constructs.AppSyncMySqlCustomDirective.operations"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.operations(operations: string[])
+```
+
+###### `operations`<sup>Required</sup> <a name="operations" id="@jompx/constructs.AppSyncMySqlCustomDirective.operations.parameter.operations"></a>
+
+- *Type:* string[]
+
+---
+
+
 
 ### Config <a name="Config" id="@jompx/constructs.Config"></a>
 
@@ -646,6 +860,613 @@ public readonly appNode: Node;
 ```
 
 - *Type:* constructs.Node
+
+---
+
+
+### CustomDirective <a name="CustomDirective" id="@jompx/constructs.CustomDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.CustomDirective.Initializer"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+new CustomDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.CustomDirective.datasource">datasource</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.getArgumentByIdentifier">getArgumentByIdentifier</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.lookup">lookup</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.readonly">readonly</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.source">source</a></code> | *No description.* |
+
+---
+
+##### `datasource` <a name="datasource" id="@jompx/constructs.CustomDirective.datasource"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.datasource(name: string)
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.CustomDirective.datasource.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `getArgumentByIdentifier` <a name="getArgumentByIdentifier" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.getArgumentByIdentifier(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+##### `lookup` <a name="lookup" id="@jompx/constructs.CustomDirective.lookup"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.lookup(value: ICustomDirectiveLookup)
+```
+
+###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.CustomDirective.lookup.parameter.value"></a>
+
+- *Type:* <a href="#@jompx/constructs.ICustomDirectiveLookup">ICustomDirectiveLookup</a>
+
+---
+
+##### `readonly` <a name="readonly" id="@jompx/constructs.CustomDirective.readonly"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.readonly(value: boolean)
+```
+
+###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.CustomDirective.readonly.parameter.value"></a>
+
+- *Type:* boolean
+
+---
+
+##### `source` <a name="source" id="@jompx/constructs.CustomDirective.source"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.source(name: string)
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.CustomDirective.source.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+
+
+### JompxGraphqlType <a name="JompxGraphqlType" id="@jompx/constructs.JompxGraphqlType"></a>
+
+Extend GraphqlType to create a new datatype to include a new typeName property.
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.JompxGraphqlType.Initializer"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+new JompxGraphqlType(type: Type, options?: JompxGraphqlTypeOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.Initializer.parameter.type">type</a></code> | <code>@aws-cdk/aws-appsync-alpha.Type</code> | *No description.* |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.Initializer.parameter.options">options</a></code> | <code><a href="#@jompx/constructs.JompxGraphqlTypeOptions">JompxGraphqlTypeOptions</a></code> | *No description.* |
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.JompxGraphqlType.Initializer.parameter.type"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Type
+
+---
+
+##### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#@jompx/constructs.JompxGraphqlTypeOptions">JompxGraphqlTypeOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.argsToString">argsToString</a></code> | Generate the arguments for this field. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.directivesToString">directivesToString</a></code> | Generate the directives for this field. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.toString">toString</a></code> | Generate the string for this attribute. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.resolve">resolve</a></code> | Resolve a JompxGraphqlType with string type to a GraphqlType with actual type. |
+
+---
+
+##### `argsToString` <a name="argsToString" id="@jompx/constructs.JompxGraphqlType.argsToString"></a>
+
+```typescript
+public argsToString(): string
+```
+
+Generate the arguments for this field.
+
+##### `directivesToString` <a name="directivesToString" id="@jompx/constructs.JompxGraphqlType.directivesToString"></a>
+
+```typescript
+public directivesToString(_modes?: AuthorizationType[]): string
+```
+
+Generate the directives for this field.
+
+###### `_modes`<sup>Optional</sup> <a name="_modes" id="@jompx/constructs.JompxGraphqlType.directivesToString.parameter._modes"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.AuthorizationType[]
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.JompxGraphqlType.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Generate the string for this attribute.
+
+##### `resolve` <a name="resolve" id="@jompx/constructs.JompxGraphqlType.resolve"></a>
+
+```typescript
+public resolve(schemaTypes: ISchemaType): GraphqlType
+```
+
+Resolve a JompxGraphqlType with string type to a GraphqlType with actual type.
+
+###### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.JompxGraphqlType.resolve.parameter.schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaType">ISchemaType</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsDate">awsDate</a></code> | `AWSDate` scalar type represents a valid extended `ISO 8601 Date` string. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsDateTime">awsDateTime</a></code> | `AWSDateTime` scalar type represents a valid extended `ISO 8601 DateTime` string. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsEmail">awsEmail</a></code> | `AWSEmail` scalar type represents an email address string (i.e.`username@example.com`). |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsIpAddress">awsIpAddress</a></code> | `AWSIPAddress` scalar type respresents a valid `IPv4` of `IPv6` address string. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsJson">awsJson</a></code> | `AWSJson` scalar type represents a JSON string. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsPhone">awsPhone</a></code> | `AWSPhone` scalar type represents a valid phone number. Phone numbers maybe be whitespace delimited or hyphenated. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsTime">awsTime</a></code> | `AWSTime` scalar type represents a valid extended `ISO 8601 Time` string. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsTimestamp">awsTimestamp</a></code> | `AWSTimestamp` scalar type represents the number of seconds since `1970-01-01T00:00Z`. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.awsUrl">awsUrl</a></code> | `AWSURL` scalar type represetns a valid URL string. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.boolean">boolean</a></code> | `Boolean` scalar type is a boolean value: true or false. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.float">float</a></code> | `Float` scalar type is a signed double-precision fractional value. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.id">id</a></code> | `ID` scalar type is a unique identifier. `ID` type is serialized similar to `String`. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.int">int</a></code> | `Int` scalar type is a signed non-fractional numerical value. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.intermediate">intermediate</a></code> | an intermediate type to be added as an attribute (i.e. an interface or an object type). |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.string">string</a></code> | `String` scalar type is a free-form human-readable text. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.objectType">objectType</a></code> | *No description.* |
+
+---
+
+##### `awsDate` <a name="awsDate" id="@jompx/constructs.JompxGraphqlType.awsDate"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsDate(options?: BaseTypeOptions)
+```
+
+`AWSDate` scalar type represents a valid extended `ISO 8601 Date` string.
+
+In other words, accepts date strings in the form of `YYYY-MM-DD`. It accepts time zone offsets.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsDate.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsDateTime` <a name="awsDateTime" id="@jompx/constructs.JompxGraphqlType.awsDateTime"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsDateTime(options?: BaseTypeOptions)
+```
+
+`AWSDateTime` scalar type represents a valid extended `ISO 8601 DateTime` string.
+
+In other words, accepts date strings in the form of `YYYY-MM-DDThh:mm:ss.sssZ`. It accepts time zone offsets.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsDateTime.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsEmail` <a name="awsEmail" id="@jompx/constructs.JompxGraphqlType.awsEmail"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsEmail(options?: BaseTypeOptions)
+```
+
+`AWSEmail` scalar type represents an email address string (i.e.`username@example.com`).
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsEmail.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsIpAddress` <a name="awsIpAddress" id="@jompx/constructs.JompxGraphqlType.awsIpAddress"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsIpAddress(options?: BaseTypeOptions)
+```
+
+`AWSIPAddress` scalar type respresents a valid `IPv4` of `IPv6` address string.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsIpAddress.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsJson` <a name="awsJson" id="@jompx/constructs.JompxGraphqlType.awsJson"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsJson(options?: BaseTypeOptions)
+```
+
+`AWSJson` scalar type represents a JSON string.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsJson.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsPhone` <a name="awsPhone" id="@jompx/constructs.JompxGraphqlType.awsPhone"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsPhone(options?: BaseTypeOptions)
+```
+
+`AWSPhone` scalar type represents a valid phone number. Phone numbers maybe be whitespace delimited or hyphenated.
+
+The number can specify a country code at the beginning, but is not required for US phone numbers.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsPhone.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsTime` <a name="awsTime" id="@jompx/constructs.JompxGraphqlType.awsTime"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsTime(options?: BaseTypeOptions)
+```
+
+`AWSTime` scalar type represents a valid extended `ISO 8601 Time` string.
+
+In other words, accepts date strings in the form of `hh:mm:ss.sss`. It accepts time zone offsets.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsTime.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsTimestamp` <a name="awsTimestamp" id="@jompx/constructs.JompxGraphqlType.awsTimestamp"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsTimestamp(options?: BaseTypeOptions)
+```
+
+`AWSTimestamp` scalar type represents the number of seconds since `1970-01-01T00:00Z`.
+
+Timestamps are serialized and deserialized as numbers.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsTimestamp.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `awsUrl` <a name="awsUrl" id="@jompx/constructs.JompxGraphqlType.awsUrl"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.awsUrl(options?: BaseTypeOptions)
+```
+
+`AWSURL` scalar type represetns a valid URL string.
+
+URLs wihtout schemes or contain double slashes are considered invalid.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.awsUrl.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `boolean` <a name="boolean" id="@jompx/constructs.JompxGraphqlType.boolean"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.boolean(options?: BaseTypeOptions)
+```
+
+`Boolean` scalar type is a boolean value: true or false.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.boolean.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `float` <a name="float" id="@jompx/constructs.JompxGraphqlType.float"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.float(options?: BaseTypeOptions)
+```
+
+`Float` scalar type is a signed double-precision fractional value.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.float.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `id` <a name="id" id="@jompx/constructs.JompxGraphqlType.id"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.id(options?: BaseTypeOptions)
+```
+
+`ID` scalar type is a unique identifier. `ID` type is serialized similar to `String`.
+
+Often used as a key for a cache and not intended to be human-readable.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.id.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `int` <a name="int" id="@jompx/constructs.JompxGraphqlType.int"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.int(options?: BaseTypeOptions)
+```
+
+`Int` scalar type is a signed non-fractional numerical value.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.int.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `intermediate` <a name="intermediate" id="@jompx/constructs.JompxGraphqlType.intermediate"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.intermediate(options?: GraphqlTypeOptions)
+```
+
+an intermediate type to be added as an attribute (i.e. an interface or an object type).
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.intermediate.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.GraphqlTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList - intermediateType.
+
+---
+
+##### `string` <a name="string" id="@jompx/constructs.JompxGraphqlType.string"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.string(options?: BaseTypeOptions)
+```
+
+`String` scalar type is a free-form human-readable text.
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.string.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.BaseTypeOptions
+
+the options to configure this attribute - isList - isRequired - isRequiredList.
+
+---
+
+##### `objectType` <a name="objectType" id="@jompx/constructs.JompxGraphqlType.objectType"></a>
+
+```typescript
+import { JompxGraphqlType } from '@jompx/constructs'
+
+JompxGraphqlType.objectType(options?: JompxGraphqlTypeOptions)
+```
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.JompxGraphqlType.objectType.parameter.options"></a>
+
+- *Type:* <a href="#@jompx/constructs.JompxGraphqlTypeOptions">JompxGraphqlTypeOptions</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.property.isList">isList</a></code> | <code>boolean</code> | property determining if this attribute is a list i.e. if true, attribute would be `[Type]`. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.property.isRequired">isRequired</a></code> | <code>boolean</code> | property determining if this attribute is non-nullable i.e. if true, attribute would be `Type!` and this attribute must always have a value. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.property.isRequiredList">isRequiredList</a></code> | <code>boolean</code> | property determining if this attribute is a non-nullable list i.e. if true, attribute would be `[ Type ]!` and this attribute's list must always have a value. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.property.type">type</a></code> | <code>@aws-cdk/aws-appsync-alpha.Type</code> | the type of attribute. |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.property.intermediateType">intermediateType</a></code> | <code>@aws-cdk/aws-appsync-alpha.IIntermediateType</code> | the intermediate type linked to this attribute (i.e. an interface or an object). |
+| <code><a href="#@jompx/constructs.JompxGraphqlType.property.typeName">typeName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `isList`<sup>Required</sup> <a name="isList" id="@jompx/constructs.JompxGraphqlType.property.isList"></a>
+
+```typescript
+public readonly isList: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+property determining if this attribute is a list i.e. if true, attribute would be `[Type]`.
+
+---
+
+##### `isRequired`<sup>Required</sup> <a name="isRequired" id="@jompx/constructs.JompxGraphqlType.property.isRequired"></a>
+
+```typescript
+public readonly isRequired: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+property determining if this attribute is non-nullable i.e. if true, attribute would be `Type!` and this attribute must always have a value.
+
+---
+
+##### `isRequiredList`<sup>Required</sup> <a name="isRequiredList" id="@jompx/constructs.JompxGraphqlType.property.isRequiredList"></a>
+
+```typescript
+public readonly isRequiredList: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+property determining if this attribute is a non-nullable list i.e. if true, attribute would be `[ Type ]!` and this attribute's list must always have a value.
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.JompxGraphqlType.property.type"></a>
+
+```typescript
+public readonly type: Type;
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Type
+
+the type of attribute.
+
+---
+
+##### `intermediateType`<sup>Optional</sup> <a name="intermediateType" id="@jompx/constructs.JompxGraphqlType.property.intermediateType"></a>
+
+```typescript
+public readonly intermediateType: IIntermediateType;
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.IIntermediateType
+- *Default:* no intermediate type
+
+the intermediate type linked to this attribute (i.e. an interface or an object).
+
+---
+
+##### `typeName`<sup>Required</sup> <a name="typeName" id="@jompx/constructs.JompxGraphqlType.property.typeName"></a>
+
+```typescript
+public readonly typeName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -830,6 +1651,51 @@ public readonly commands: string[];
 
 
 
+### ICustomDirectiveLookup <a name="ICustomDirectiveLookup" id="@jompx/constructs.ICustomDirectiveLookup"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.ICustomDirectiveLookup">ICustomDirectiveLookup</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.ICustomDirectiveLookup.property.foreignField">foreignField</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveLookup.property.from">from</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveLookup.property.localField">localField</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `foreignField`<sup>Required</sup> <a name="foreignField" id="@jompx/constructs.ICustomDirectiveLookup.property.foreignField"></a>
+
+```typescript
+public readonly foreignField: string;
+```
+
+- *Type:* string
+
+---
+
+##### `from`<sup>Required</sup> <a name="from" id="@jompx/constructs.ICustomDirectiveLookup.property.from"></a>
+
+```typescript
+public readonly from: string;
+```
+
+- *Type:* string
+
+---
+
+##### `localField`<sup>Required</sup> <a name="localField" id="@jompx/constructs.ICustomDirectiveLookup.property.localField"></a>
+
+```typescript
+public readonly localField: string;
+```
+
+- *Type:* string
+
+---
+
 ### IDataSource <a name="IDataSource" id="@jompx/constructs.IDataSource"></a>
 
 - *Implemented By:* <a href="#@jompx/constructs.IDataSource">IDataSource</a>
@@ -960,6 +1826,67 @@ public readonly pipeline: CodePipeline;
 - *Implemented By:* <a href="#@jompx/constructs.ISchemaType">ISchemaType</a>
 
 
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.ISchemaType.property.enumTypes">enumTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.EnumType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaType.property.inputTypes">inputTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.InputType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaType.property.interfaceTypes">interfaceTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.InterfaceType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaType.property.objectTypes">objectTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.ObjectType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaType.property.unionTypes">unionTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.UnionType}</code> | *No description.* |
+
+---
+
+##### `enumTypes`<sup>Required</sup> <a name="enumTypes" id="@jompx/constructs.ISchemaType.property.enumTypes"></a>
+
+```typescript
+public readonly enumTypes: {[ key: string ]: EnumType};
+```
+
+- *Type:* {[ key: string ]: @aws-cdk/aws-appsync-alpha.EnumType}
+
+---
+
+##### `inputTypes`<sup>Required</sup> <a name="inputTypes" id="@jompx/constructs.ISchemaType.property.inputTypes"></a>
+
+```typescript
+public readonly inputTypes: {[ key: string ]: InputType};
+```
+
+- *Type:* {[ key: string ]: @aws-cdk/aws-appsync-alpha.InputType}
+
+---
+
+##### `interfaceTypes`<sup>Required</sup> <a name="interfaceTypes" id="@jompx/constructs.ISchemaType.property.interfaceTypes"></a>
+
+```typescript
+public readonly interfaceTypes: {[ key: string ]: InterfaceType};
+```
+
+- *Type:* {[ key: string ]: @aws-cdk/aws-appsync-alpha.InterfaceType}
+
+---
+
+##### `objectTypes`<sup>Required</sup> <a name="objectTypes" id="@jompx/constructs.ISchemaType.property.objectTypes"></a>
+
+```typescript
+public readonly objectTypes: {[ key: string ]: ObjectType};
+```
+
+- *Type:* {[ key: string ]: @aws-cdk/aws-appsync-alpha.ObjectType}
+
+---
+
+##### `unionTypes`<sup>Required</sup> <a name="unionTypes" id="@jompx/constructs.ISchemaType.property.unionTypes"></a>
+
+```typescript
+public readonly unionTypes: {[ key: string ]: UnionType};
+```
+
+- *Type:* {[ key: string ]: @aws-cdk/aws-appsync-alpha.UnionType}
+
+---
 
 ### IStage <a name="IStage" id="@jompx/constructs.IStage"></a>
 

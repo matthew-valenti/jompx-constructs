@@ -19,10 +19,6 @@
       "type": "build"
     },
     {
-      "name": "@types/pluralize",
-      "type": "build"
-    },
-    {
       "name": "@types/set-value",
       "type": "build"
     },
@@ -103,10 +99,6 @@
     {
       "name": "npm-check-updates",
       "version": "^12",
-      "type": "build"
-    },
-    {
-      "name": "pluralize",
       "type": "build"
     },
     {

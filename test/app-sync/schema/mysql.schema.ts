@@ -1,44 +1,136 @@
-// import * as appsync from '@aws-cdk/aws-appsync-alpha';
+import * as appsync from '@aws-cdk/aws-appsync-alpha';
 // import { Directive, Field, GraphqlType, InputType, InterfaceType, ObjectType, ResolvableField } from '@aws-cdk/aws-appsync-alpha';
-import { GraphqlType, InterfaceType, ObjectType } from '@aws-cdk/aws-appsync-alpha';
+import { Field, GraphqlType, InterfaceType, ObjectType } from '@aws-cdk/aws-appsync-alpha';
+// import { GraphqlTypeOptions, IIntermediateType, IntermediateType } from '@aws-cdk/aws-appsync-alpha';
 import { AppSyncMySqlCustomDirective as CustomDirective } from '../../../src/classes/app-sync/datasources/mysql.directive';
-import { ISchemaType } from '../../../src/types/app-sync';
+// import { JompxGraphqlType } from '../../../src/classes/app-sync/graphql-type';
+// import { JompxResolvableField } from '../../../src/classes/app-sync/graphql-type';
+import { JompxGraphqlType } from '../../../src/classes/app-sync/graphql-type';
+import { ISchemaType, IDataSource } from '../../../src/types/app-sync';
 import { AppSyncDatasource } from '../app-sync.test';
 
+
+/**
+ * Use GraphqlType for simple fields.
+ * Use Field if additional attributes are required e.g. directives.
+ * Use ResolvableField if the field exists in another type or datasource.
+  */
 export class MySqlSchema {
 
-    public types: ISchemaType = {};
+    public types: ISchemaType = { enumTypes: {}, inputTypes: {}, interfaceTypes: {}, objectTypes: {}, unionTypes: {} };
 
     constructor(
+        private datasources: IDataSource
     ) {
 
         // Interface types.
 
-        const mnode = new InterfaceType('mnode', {
+        const MNode = new InterfaceType('MNode', {
             definition: {
-                id: GraphqlType.id({ isRequired: true }),
-                isDeleted: GraphqlType.boolean({ isRequired: true }),
-                dateCreated: GraphqlType.awsDateTime({ isRequired: true }),
-                dateUpdated: GraphqlType.awsDateTime({ isRequired: true })
+                id: new Field({
+                    returnType: GraphqlType.id({ isRequired: true }),
+                    directives: [
+                        CustomDirective.readonly(true)
+                    ]
+                }),
+                isDeleted: new Field({
+                    returnType: GraphqlType.boolean({ isRequired: true }),
+                    directives: [
+                        CustomDirective.readonly(true)
+                    ]
+                }),
+                dateCreated: new Field({
+                    returnType: GraphqlType.awsDateTime({ isRequired: true }),
+                    directives: [
+                        CustomDirective.readonly(true)
+                    ]
+                }),
+                dateUpdated: new Field({
+                    returnType: GraphqlType.awsDateTime({ isRequired: true }),
+                    directives: [
+                        CustomDirective.readonly(true)
+                    ]
+                })
             }
         });
-        this.types.mnode = mnode;
+        this.types.interfaceTypes.MNode = MNode;
+
+        // Intermediate Types
+
+        // const intermediateType = new IntermediateType('MPost', {
+        //     interfaceTypes: [MNode],
+        //     definition: {
+        //         matthew: GraphqlType.string(),
+        //     },
+        //     directives: [
+        //         CustomDirective.datasource(AppSyncDatasource.mySql),
+        //         CustomDirective.operations(['find', 'findOne', 'insertOne', 'insertMany', 'updateOne', 'updateMany', 'deleteOne', 'deleteMany', 'destroyOne', 'destoryMany'])
+        //         // CustomDirective.permissions(['read', 'create', 'update', 'delete'])
+        //     ]
+        // });
 
         // Object types.
 
-        const mpost = new ObjectType('mpost', {
-            interfaceTypes: [mnode],
+        // const x = new Field({ returnType: GraphqlType.awsDateTime(), directives: [Directive.custom('@relation(local: "clientId",foreign: "_id")')] });
+
+        const MPost = new ObjectType('MPost', {
+            interfaceTypes: [MNode],
             definition: {
-                id: GraphqlType.id({ isRequired: true }),
-                title: GraphqlType.string()
+                date: GraphqlType.awsDateTime(),
+                title: new Field({
+                    returnType: GraphqlType.string(),
+                    directives: [
+                        CustomDirective.source('title')
+                    ]
+                }),
+                mcomments: new appsync.ResolvableField({
+                    returnType: JompxGraphqlType.objectType({ typeName: 'MComment', isList: true }),
+                    dataSource: this.datasources[AppSyncDatasource.mySql],
+                    directives: [
+                        CustomDirective.lookup({ from: 'MComment', localField: 'id', foreignField: 'mpostId' })
+                    ]
+                })
             },
             directives: [
                 CustomDirective.datasource(AppSyncDatasource.mySql),
-                CustomDirective.operations(['find', 'findOne', 'insertOne', 'insertMany', 'updateOne', 'updateMany', 'deleteOne', 'deleteMany', 'destroyOne', 'destoryMany']),
+                CustomDirective.source('post'),
+                CustomDirective.operations(['find', 'findOne', 'insertOne', 'insertMany', 'updateOne', 'updateMany', 'deleteOne', 'deleteMany', 'destroyOne', 'destoryMany'])
                 // CustomDirective.permissions(['read', 'create', 'update', 'delete'])
             ]
         });
-        this.types.mpost = mpost;
+        this.types.objectTypes.MPost = MPost;
+
+        const MComment = new ObjectType('MComment', {
+            interfaceTypes: [MNode],
+            definition: {
+                id: GraphqlType.id({ isRequired: true }),
+                html: new Field({
+                    returnType: GraphqlType.string(),
+                    directives: [
+                        CustomDirective.source('content')
+                    ]
+                }),
+                mpostId: GraphqlType.id(),
+                // mpost: new appsync.ResolvableField({
+                //     returnType: JompxGraphqlType.objectType({ typeName: 'MPost', isRequired: true }),
+                //     dataSource: this.datasources[AppSyncDatasource.mySql]
+                // }),
+                mpost: new appsync.ResolvableField({
+                    returnType: MPost.attribute(),
+                    dataSource: this.datasources[AppSyncDatasource.mySql],
+                    directives: [
+                        CustomDirective.lookup({ from: 'MPost', localField: 'mpostId', foreignField: 'id' })
+                    ]
+                })
+            },
+            directives: [
+                CustomDirective.datasource(AppSyncDatasource.mySql),
+                CustomDirective.source('comment'),
+                CustomDirective.operations(['find', 'findOne', 'insertOne', 'insertMany', 'updateOne', 'updateMany', 'deleteOne', 'deleteMany', 'destroyOne', 'destoryMany'])
+                // CustomDirective.permissions(['read', 'create', 'update', 'delete'])
+            ]
+        });
+        this.types.objectTypes.MComment = MComment;
 
         // const SAccount = new ObjectType('SAccount', {
         //     definition: {

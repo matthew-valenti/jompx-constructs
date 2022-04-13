@@ -5,7 +5,7 @@ import { CdkPipeline, ICdkPipelineProps } from '../src/constructs/cdk-pipeline.c
 import { Config as JompxConfig } from './jompx.config';
 
 describe('CdkPipelineStack', () => {
-    test('stack > stage = test', () => {
+    test('stage=test creates code pipelines', () => {
 
         const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'test' } } });
         const stack = new cdk.Stack(app);
@@ -32,7 +32,7 @@ describe('CdkPipelineStack', () => {
         template.resourceCountIs('AWS::CodePipeline::Pipeline', branches.length);
     });
 
-    test('stack > stage = prod', () => {
+    test('stage=prod creates code pipelines', () => {
 
         const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'prod' } } });
         const stack = new cdk.Stack(app);

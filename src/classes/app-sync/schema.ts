@@ -1,4 +1,5 @@
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
+import { ResolvableField } from '@aws-cdk/aws-appsync-alpha';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 // import pluralize = require('pluralize');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -6,6 +7,7 @@ import set = require('set-value');
 // import get = require('get-value');
 import { IDataSource, ISchemaType } from '../../types/app-sync';
 import { CustomDirective, PaginationType } from './directive';
+import { JompxGraphqlType } from './graphql-type';
 
 /**
  * Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
@@ -27,22 +29,194 @@ type UserFriendsConnection {
 
 export class AppSyncSchema {
 
-    // AppSync VTL snippet to pass all available params to Lambda function datasource.
-    // private static readonly pipelineRequestMappingTemplate = `{
-    //         "version" : "2017-02-28",
-    //         "operation": "Invoke",
-    //         "payload": {
-    //             "context": $util.toJson($ctx),
-    //             "selectionSetList": $utils.toJson($ctx.info.selectionSetList),
-    //             "selectionSetGraphQL": $utils.toJson($ctx.info.selectionSetGraphQL)
-    //         }
-    //     }`;
+    // AppSync VTL snippet to pass event params to Lambda resolver.
+    // With no VTL, the Lambda event contains all properties below. However, selectionSetList is a child property of info.
+    // Thru trial and error there doesn't appear to be a way to add selectionSetList as a child property.
+    // We need VTL because this is the only known way to pass variables directly into the Lambda.
+    // However, when we specify any VTL we must specify all VTL. Adding data to the stash property results in an empty Lambda event.
+    // Stash variables can be added by appending additional VTL above this payload statement. i.e. $util.qr($ctx.stash.put("key", "value"))
+    // This VTL invokes a payload property which simply returns an object with properties (taken from the AppSync $context variable).
+    // Caution: payload should mimic a standard Lambda resolver (with no VTL). This object might change in the future.
+    // In theory, we could use a Lambda function instead of VTL but this should be much faster than invoking another Lambda.
+    private static readonly pipelineRequestMappingTemplate = `{
+            "version" : "2018-05-29",
+            "operation": "Invoke",
+            "payload": {
+                "arguments": $utils.toJson($context.arguments),
+                "identity": $utils.toJson($context.identity),
+                "source": $utils.toJson($context.source),
+                "request": $utils.toJson($context.request),
+                "prev": $utils.toJson($context.prev),
+                "info": $utils.toJson($context.info),
+                "stash": $utils.toJson($context.stash),
+                "selectionSetList": $utils.toJson($context.info.selectionSetList)
+            }
+        }`;
 
     constructor(
         public graphqlApi: appsync.GraphqlApi,
         public dataSources: IDataSource,
         public schemaTypes: ISchemaType
     ) { }
+
+    public create() {
+
+        appsync.EnumType;
+        appsync.UnionType;
+
+        this.addPageInfoType();
+        this.addSortInput();
+
+        Object.values(this.schemaTypes.enumTypes).forEach(enumType => {
+            this.graphqlApi.addType(enumType);
+        });
+
+        Object.values(this.schemaTypes.inputTypes).forEach(inputType => {
+            this.graphqlApi.addType(inputType);
+        });
+
+        Object.values(this.schemaTypes.interfaceTypes).forEach(interfaceType => {
+            this.graphqlApi.addType(interfaceType);
+        });
+
+        Object.values(this.schemaTypes.objectTypes).forEach(objectType => {
+
+            this.resolveObject(objectType);
+
+            // Add type to GraphQL.
+            this.graphqlApi.addType(objectType);
+
+            const operations = CustomDirective.getArgumentByIdentifier('operation', 'names', objectType.directives);
+            if (operations) {
+                if (operations.includes('find')) {
+                    this.addFind(objectType);
+                }
+            }
+        });
+
+        Object.values(this.schemaTypes.unionTypes).forEach(unionType => {
+            this.graphqlApi.addType(unionType);
+        });
+    }
+
+    /**
+     * Iterate object type fields and update returnType of JompxGraphqlType.objectType from string type to actual type.
+     * Why? AppSync resolvable fields require a data type. But that data type may not already exist yet. For example:
+     *   Post object type has field comments and Comment object type has field post. No matter what order these object types are created in, an object type won't exist yet.
+     *   If comment is created first, there is no comment object type. If comment is created first, there is no post object type.
+     * To work around this chicken or egg limitation, Jompx defines a custom type that allows a string type to be specified. e.g.
+     *   JompxGraphqlType.objectType JompxGraphqlType.objectType({ objectTypeName: 'MPost', isList: false }),
+     * This method uses the string type to add an actual type.
+     *
+     * Caution: Changes to AppSync implementation details may break this method.
+     */
+    private resolveObject(objectType: appsync.ObjectType) {
+
+        // Iterate object type fields.
+        Object.entries(objectType.definition).forEach(([key, value]) => {
+            // If field of JompxGraphqlType type (then use string type to add actual type).
+            if (value.fieldOptions?.returnType instanceof JompxGraphqlType) {
+                // Replace the "old" field with the new "field".
+                objectType.definition[key] = AppSyncSchema.resolveResolvableField(this.schemaTypes, value);
+            }
+        });
+    }
+
+    /**
+     * Resolve an AppSync ResolvableField with a JompxGraphqlType (with string type) to a ResolvableField with a GraphqlType (with an actual type).
+     */
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    private static resolveResolvableField(schemaTypes: ISchemaType, resolvableField: appsync.ResolvableField): ResolvableField {
+
+        let rv = resolvableField;
+
+        if (resolvableField.fieldOptions?.returnType instanceof JompxGraphqlType) {
+            // Create a new GraphQL datatype with actual type.
+            const newGraphqlType = resolvableField.fieldOptions.returnType.resolve(schemaTypes);
+            // Update existing resolvable field options "old" GraphQL datatype with "new" GraphQL datatype.
+            set(resolvableField.fieldOptions, 'returnType', newGraphqlType);
+            // Create new resolvable field with modified resolvable field options.
+            rv = new appsync.ResolvableField(resolvableField.fieldOptions);
+        }
+
+        return rv;
+    }
+
+    /**
+     * https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
+     */
+    private addFind(objectType: appsync.ObjectType) {
+
+        const objectTypeName = objectType.name;
+        const paginationType: PaginationType = CustomDirective.getArgumentByIdentifier('pagination', 'type', objectType?.directives) as PaginationType ?? 'offset';
+        const dataSourceName = CustomDirective.getArgumentByIdentifier('datasource', 'name', objectType?.directives);
+
+        if (dataSourceName
+            && this.schemaTypes.objectTypes.PageInfoCursor
+            && this.schemaTypes.objectTypes.PageInfoOffset
+            && this.schemaTypes.inputTypes.SortInput
+        ) {
+            const dataSource: appsync.LambdaDataSource = this.dataSources[dataSourceName];
+
+            // Edge.
+            const edgeObjectType = new appsync.ObjectType(`${objectTypeName}Edge`, {
+                definition: {
+                    ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
+                    node: objectType.attribute()
+                }
+            });
+            this.graphqlApi.addType(edgeObjectType);
+
+            // Connection. Based on relay specification: https://relay.dev/graphql/connections.htm#sec-Connection-Types
+            const connectionObjectType = new appsync.ObjectType(`${objectTypeName}Connection`, {
+                definition: {
+                    edges: edgeObjectType.attribute({ isList: true }),
+                    pageInfo: paginationType === 'cursor' ? this.schemaTypes.objectTypes.PageInfoCursor.attribute({ isRequired: true }) : this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
+                    totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
+                }
+            });
+            this.graphqlApi.addType(connectionObjectType);
+
+            // Add default query arguments.
+            const args = {};
+
+            // Add filter argument.
+            set(args, 'filter', appsync.GraphqlType.awsJson());
+
+            // Add sort argument.
+            set(args, 'sort', this.schemaTypes.inputTypes.SortInput.attribute({ isList: true }));
+
+            // Add offset pagination arguments.
+            if (paginationType === 'offset') {
+                set(args, 'skip', appsync.GraphqlType.int());
+                set(args, 'limit', appsync.GraphqlType.int());
+            }
+
+            // Add cursor pagination arguments.
+            if (paginationType === 'cursor') {
+                set(args, 'first', appsync.GraphqlType.int());
+                set(args, 'after', appsync.GraphqlType.string());
+                set(args, 'last', appsync.GraphqlType.int());
+                set(args, 'before', appsync.GraphqlType.string());
+            }
+
+            // Add query.
+            // this.graphqlApi.addQuery(`find${objectTypeNamePlural}`, new appsync.ResolvableField({
+            this.graphqlApi.addQuery(`${this.operationNameFromType(objectTypeName)}Find`, new appsync.ResolvableField({
+                returnType: connectionObjectType.attribute(),
+                args,
+                dataSource,
+                // pipelineConfig: [], // TODO: Add authorization Lambda function here.
+                // Use the request mapping to inject stash variables (for use in Lambda function).
+                requestMappingTemplate: appsync.MappingTemplate.fromString(`
+                    $util.qr($ctx.stash.put("operation", "find"))
+                    $util.qr($ctx.stash.put("typeName", "${objectTypeName}"))
+                    $util.qr($ctx.stash.put("returnTypeName", "${connectionObjectType.name}"))
+                    ${AppSyncSchema.pipelineRequestMappingTemplate}
+                `)
+            }));
+        }
+    }
 
     /**
      * Create pagination pageInfo types for offset and cursor based pagination.
@@ -61,8 +235,7 @@ export class AppSyncSchema {
                 limit: appsync.GraphqlType.int({ isRequired: true })
             }
         });
-        this.schemaTypes.PageInfoOffset = pageInfoOffset;
-        this.graphqlApi.addType(pageInfoOffset);
+        this.schemaTypes.objectTypes.PageInfoOffset = pageInfoOffset;
 
         // Cursor pagination.
         const pageInfoCursor = new appsync.ObjectType('PageInfoCursor', {
@@ -73,113 +246,25 @@ export class AppSyncSchema {
                 endCursor: appsync.GraphqlType.string({ isRequired: true })
             }
         });
-        this.schemaTypes.PageInfoCursor = pageInfoCursor;
-        this.graphqlApi.addType(pageInfoCursor);
+        this.schemaTypes.objectTypes.PageInfoCursor = pageInfoCursor;
     }
 
     /**
      * Add sort input type for multi column sorting.
      */
     private addSortInput() {
+
         const sortInput = new appsync.InputType('SortInput', {
             definition: {
                 fieldName: appsync.GraphqlType.string({ isRequired: true }),
                 direction: appsync.GraphqlType.int({ isRequired: true })
             }
         });
-        this.schemaTypes.SortInput = sortInput;
-        this.graphqlApi.addType(sortInput);
+        this.schemaTypes.inputTypes.SortInput = sortInput;
     }
 
-    public create() {
-
-        this.addPageInfoType();
-        this.addSortInput();
-
-        Object.values(this.schemaTypes).forEach(schemaType => {
-            if (schemaType instanceof appsync.ObjectType) {
-                const operations = CustomDirective.getArgumentByIdentifier(schemaType.directives, 'operation', 'names');
-                if (operations) {
-                    if (operations.includes('find')) {
-                        this.addFind(schemaType);
-                        // Object.values(schemaType)[0]
-                    }
-                }
-            }
-        });
-    }
-
-    /**
-     * 
-     * https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
-     */
-    public addFind(objectType: appsync.ObjectType) {
-        const objectTypeName = objectType.name;
-        // const objectTypeNamePlural = pluralize(objectTypeName);
-        const paginationType: PaginationType = CustomDirective.getArgumentByIdentifier(objectType?.directives, 'pagination', 'type') as PaginationType ?? 'offset';
-        const dataSourceName = CustomDirective.getArgumentByIdentifier(objectType?.directives, 'datasource', 'name');
-
-        if (dataSourceName) {
-            const dataSource: appsync.LambdaDataSource = this.dataSources[dataSourceName];
-
-            // Object.
-            this.graphqlApi.addType(objectType);
-
-            // Edge.
-            const edgeObjectType = new appsync.ObjectType(`${objectTypeName}Edge`, {
-                definition: {
-                    ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
-                    node: objectType.attribute()
-                }
-            });
-            this.graphqlApi.addType(edgeObjectType);
-
-            // Connection. Based on relay specification: https://relay.dev/graphql/connections.htm#sec-Connection-Types
-            const connectionObjectType = new appsync.ObjectType(`${objectTypeName}Connection`, {
-                definition: {
-                    edges: edgeObjectType.attribute({ isList: true }),
-                    pageInfo: paginationType === 'cursor' ? this.schemaTypes.PageInfoCursor.attribute() : this.schemaTypes.PageInfoOffset.attribute(),
-                    totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
-                }
-            });
-            this.graphqlApi.addType(connectionObjectType);
-
-            // Add query arguments.
-            const args = {};
-            set(args, 'filter', appsync.GraphqlType.awsJson());
-            set(args, 'sort', this.schemaTypes.SortInput.attribute({ isList: true }));
-
-            // Add offset pagination arguments.
-            if (paginationType === 'offset') {
-                set(args, 'skip', appsync.GraphqlType.int());
-                set(args, 'limit', appsync.GraphqlType.int());
-            }
-
-            // Add offset pagination arguments.
-            if (paginationType === 'cursor') {
-                set(args, 'first', appsync.GraphqlType.int());
-                set(args, 'after', appsync.GraphqlType.string());
-                set(args, 'last', appsync.GraphqlType.int());
-                set(args, 'before', appsync.GraphqlType.string());
-            }
-
-            // Add query.
-            // this.graphqlApi.addQuery(`find${objectTypeNamePlural}`, new appsync.ResolvableField({
-            this.graphqlApi.addQuery(`${objectTypeName}Find`, new appsync.ResolvableField({
-                returnType: connectionObjectType.attribute(),
-                args,
-                dataSource,
-                pipelineConfig: [] // TODO: Add authorization Lambda function here.
-                // Use the request mapping to inject stash variables (for use in Lambda function).
-                // In theory, we could use a Lambda function instead of VTL but this should be much faster than invoking another Lambda.
-                // Caution: payload should mimic Lambda resolver (no VTL). This syntax could change in the future.
-                // requestMappingTemplate: appsync.MappingTemplate.fromString(`
-                //     $util.qr($ctx.stash.put("method", "get"))
-                //     $util.qr($ctx.stash.put("typeName", "${objectTypeName}"))
-                //     $util.qr($ctx.stash.put("returnTypeName", "${connectionObjectType.name}"))
-                //     ${AppSyncSchema.pipelineRequestMappingTemplate}
-                // `)
-            }));
-        }
+    // e.g. MPost > mpost, MySqlPost > mySqlPost, MyPost > myPost
+    private operationNameFromType(s: string): string {
+        return s.charAt(0).toLocaleLowerCase() + s.charAt(1).toLocaleLowerCase() + s.slice(2);
     }
 }

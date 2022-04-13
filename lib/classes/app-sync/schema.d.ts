@@ -11,7 +11,29 @@ export declare class AppSyncSchema {
     graphqlApi: appsync.GraphqlApi;
     dataSources: IDataSource;
     schemaTypes: ISchemaType;
+    private static readonly pipelineRequestMappingTemplate;
     constructor(graphqlApi: appsync.GraphqlApi, dataSources: IDataSource, schemaTypes: ISchemaType);
+    create(): void;
+    /**
+     * Iterate object type fields and update returnType of JompxGraphqlType.objectType from string type to actual type.
+     * Why? AppSync resolvable fields require a data type. But that data type may not already exist yet. For example:
+     *   Post object type has field comments and Comment object type has field post. No matter what order these object types are created in, an object type won't exist yet.
+     *   If comment is created first, there is no comment object type. If comment is created first, there is no post object type.
+     * To work around this chicken or egg limitation, Jompx defines a custom type that allows a string type to be specified. e.g.
+     *   JompxGraphqlType.objectType JompxGraphqlType.objectType({ objectTypeName: 'MPost', isList: false }),
+     * This method uses the string type to add an actual type.
+     *
+     * Caution: Changes to AppSync implementation details may break this method.
+     */
+    private resolveObject;
+    /**
+     * Resolve an AppSync ResolvableField with a JompxGraphqlType (with string type) to a ResolvableField with a GraphqlType (with an actual type).
+     */
+    private static resolveResolvableField;
+    /**
+     * https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
+     */
+    private addFind;
     /**
      * Create pagination pageInfo types for offset and cursor based pagination.
      *
@@ -25,10 +47,5 @@ export declare class AppSyncSchema {
      * Add sort input type for multi column sorting.
      */
     private addSortInput;
-    create(): void;
-    /**
-     *
-     * https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
-     */
-    addFind(objectType: appsync.ObjectType): void;
+    private operationNameFromType;
 }

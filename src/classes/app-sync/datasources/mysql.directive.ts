@@ -15,3 +15,7 @@ export class AppSyncMySqlCustomDirective extends CustomDirective {
     //     return Directive.custom(`@pagination(type: "${type}")`);
     // }
 }
+
+// Keep this in mind:
+// export declare class ObjectType extends InterfaceType implements IIntermediateType {
+// extends is for extending a class, implements is for implementing an interface
