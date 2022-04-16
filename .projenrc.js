@@ -43,7 +43,7 @@ project.eslint.addRules({ 'comma-dangle': ['error', 'never'] });
 project.gitignore.exclude('/*.code-workspace');
 
 // Fix for windows to match test files.
-project.jest.addTestMatch('**/?(*.)@(spec|test).[tj]s?(x)');
+project.jest.addTestMatch('**/?(*.)@(spec|test).ts?(x)');
 project.jest.addIgnorePattern('dist'); // Do not run tests in dist folder.
 
 // Commit lib folder. Temporary workaround for linking to github repo in package.json.

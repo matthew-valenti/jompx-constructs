@@ -45,9 +45,6 @@ new AppSync(scope: Construct, id: string, props: IAppSyncProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@jompx/constructs.AppSync.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#@jompx/constructs.AppSync.addDataSource">addDataSource</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSync.addSchemaTypes">addSchemaTypes</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSync.createSchema">createSchema</a></code> | *No description.* |
 
 ---
 
@@ -58,48 +55,6 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
-
-##### `addDataSource` <a name="addDataSource" id="@jompx/constructs.AppSync.addDataSource"></a>
-
-```typescript
-public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSourceOptions): void
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.AppSync.addDataSource.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `lambdaFunction`<sup>Required</sup> <a name="lambdaFunction" id="@jompx/constructs.AppSync.addDataSource.parameter.lambdaFunction"></a>
-
-- *Type:* aws-cdk-lib.aws_lambda.IFunction
-
----
-
-###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.AppSync.addDataSource.parameter.options"></a>
-
-- *Type:* @aws-cdk/aws-appsync-alpha.DataSourceOptions
-
----
-
-##### `addSchemaTypes` <a name="addSchemaTypes" id="@jompx/constructs.AppSync.addSchemaTypes"></a>
-
-```typescript
-public addSchemaTypes(schemaTypes: ISchemaType): void
-```
-
-###### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.AppSync.addSchemaTypes.parameter.schemaTypes"></a>
-
-- *Type:* <a href="#@jompx/constructs.ISchemaType">ISchemaType</a>
-
----
-
-##### `createSchema` <a name="createSchema" id="@jompx/constructs.AppSync.createSchema"></a>
-
-```typescript
-public createSchema(): void
-```
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -134,9 +89,8 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppSync.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@jompx/constructs.AppSync.property.dataSources">dataSources</a></code> | <code><a href="#@jompx/constructs.IDataSource">IDataSource</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSync.property.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSync.property.schemaTypes">schemaTypes</a></code> | <code><a href="#@jompx/constructs.ISchemaType">ISchemaType</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSync.property.schemaBuilder">schemaBuilder</a></code> | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder">AppSyncSchemaBuilder</a></code> | *No description.* |
 
 ---
 
@@ -152,16 +106,6 @@ The tree node.
 
 ---
 
-##### `dataSources`<sup>Required</sup> <a name="dataSources" id="@jompx/constructs.AppSync.property.dataSources"></a>
-
-```typescript
-public readonly dataSources: IDataSource;
-```
-
-- *Type:* <a href="#@jompx/constructs.IDataSource">IDataSource</a>
-
----
-
 ##### `graphqlApi`<sup>Required</sup> <a name="graphqlApi" id="@jompx/constructs.AppSync.property.graphqlApi"></a>
 
 ```typescript
@@ -172,13 +116,13 @@ public readonly graphqlApi: GraphqlApi;
 
 ---
 
-##### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.AppSync.property.schemaTypes"></a>
+##### `schemaBuilder`<sup>Required</sup> <a name="schemaBuilder" id="@jompx/constructs.AppSync.property.schemaBuilder"></a>
 
 ```typescript
-public readonly schemaTypes: ISchemaType;
+public readonly schemaBuilder: AppSyncSchemaBuilder;
 ```
 
-- *Type:* <a href="#@jompx/constructs.ISchemaType">ISchemaType</a>
+- *Type:* <a href="#@jompx/constructs.AppSyncSchemaBuilder">AppSyncSchemaBuilder</a>
 
 ---
 
@@ -411,100 +355,6 @@ public readonly environmentPipelines: IEnvironmentPipeline[];
 ---
 
 
-### JompxS3 <a name="JompxS3" id="@jompx/constructs.JompxS3"></a>
-
-#### Initializers <a name="Initializers" id="@jompx/constructs.JompxS3.Initializer"></a>
-
-```typescript
-import { JompxS3 } from '@jompx/constructs'
-
-new JompxS3(scope: Construct, id: string)
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.JompxS3.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#@jompx/constructs.JompxS3.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.JompxS3.Initializer.parameter.scope"></a>
-
-- *Type:* constructs.Construct
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.JompxS3.Initializer.parameter.id"></a>
-
-- *Type:* string
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#@jompx/constructs.JompxS3.toString">toString</a></code> | Returns a string representation of this construct. |
-
----
-
-##### `toString` <a name="toString" id="@jompx/constructs.JompxS3.toString"></a>
-
-```typescript
-public toString(): string
-```
-
-Returns a string representation of this construct.
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#@jompx/constructs.JompxS3.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.JompxS3.isConstruct"></a>
-
-```typescript
-import { JompxS3 } from '@jompx/constructs'
-
-JompxS3.isConstruct(x: any)
-```
-
-Checks if `x` is a construct.
-
-Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
-
-###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.JompxS3.isConstruct.parameter.x"></a>
-
-- *Type:* any
-
-Any object.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.JompxS3.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.JompxS3.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### JompxGraphqlTypeOptions <a name="JompxGraphqlTypeOptions" id="@jompx/constructs.JompxGraphqlTypeOptions"></a>
@@ -720,6 +570,155 @@ AppSyncMySqlCustomDirective.operations(operations: string[])
 
 ---
 
+
+
+### AppSyncSchemaBuilder <a name="AppSyncSchemaBuilder" id="@jompx/constructs.AppSyncSchemaBuilder"></a>
+
+Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/ Support relay or not? https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066 Joins should be connections and named as such. e.g. in post TagsConnection https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo.
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.AppSyncSchemaBuilder.Initializer"></a>
+
+```typescript
+import { AppSyncSchemaBuilder } from '@jompx/constructs'
+
+new AppSyncSchemaBuilder(graphqlApi: GraphqlApi)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.Initializer.parameter.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
+
+---
+
+##### `graphqlApi`<sup>Required</sup> <a name="graphqlApi" id="@jompx/constructs.AppSyncSchemaBuilder.Initializer.parameter.graphqlApi"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.GraphqlApi
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addDataSource">addDataSource</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addMutation">addMutation</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addSchemaTypes">addSchemaTypes</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.create">create</a></code> | *No description.* |
+
+---
+
+##### `addDataSource` <a name="addDataSource" id="@jompx/constructs.AppSyncSchemaBuilder.addDataSource"></a>
+
+```typescript
+public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSourceOptions): void
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.AppSyncSchemaBuilder.addDataSource.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `lambdaFunction`<sup>Required</sup> <a name="lambdaFunction" id="@jompx/constructs.AppSyncSchemaBuilder.addDataSource.parameter.lambdaFunction"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.IFunction
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@jompx/constructs.AppSyncSchemaBuilder.addDataSource.parameter.options"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.DataSourceOptions
+
+---
+
+##### `addMutation` <a name="addMutation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation"></a>
+
+```typescript
+public addMutation(operation: string, lambdaFunction: LambdaDataSource, args: IAppSyncOperationArgs, returnType: ObjectType): void
+```
+
+###### `operation`<sup>Required</sup> <a name="operation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.operation"></a>
+
+- *Type:* string
+
+---
+
+###### `lambdaFunction`<sup>Required</sup> <a name="lambdaFunction" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.lambdaFunction"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.LambdaDataSource
+
+---
+
+###### `args`<sup>Required</sup> <a name="args" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.args"></a>
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a>
+
+---
+
+###### `returnType`<sup>Required</sup> <a name="returnType" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.returnType"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.ObjectType
+
+---
+
+##### `addSchemaTypes` <a name="addSchemaTypes" id="@jompx/constructs.AppSyncSchemaBuilder.addSchemaTypes"></a>
+
+```typescript
+public addSchemaTypes(schemaTypes: ISchemaTypes): void
+```
+
+###### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.AppSyncSchemaBuilder.addSchemaTypes.parameter.schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+---
+
+##### `create` <a name="create" id="@jompx/constructs.AppSyncSchemaBuilder.create"></a>
+
+```typescript
+public create(): void
+```
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.dataSources">dataSources</a></code> | <code><a href="#@jompx/constructs.IDataSource">IDataSource</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.schemaTypes">schemaTypes</a></code> | <code><a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a></code> | *No description.* |
+
+---
+
+##### `dataSources`<sup>Required</sup> <a name="dataSources" id="@jompx/constructs.AppSyncSchemaBuilder.property.dataSources"></a>
+
+```typescript
+public readonly dataSources: IDataSource;
+```
+
+- *Type:* <a href="#@jompx/constructs.IDataSource">IDataSource</a>
+
+---
+
+##### `graphqlApi`<sup>Required</sup> <a name="graphqlApi" id="@jompx/constructs.AppSyncSchemaBuilder.property.graphqlApi"></a>
+
+```typescript
+public readonly graphqlApi: GraphqlApi;
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.GraphqlApi
+
+---
+
+##### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.AppSyncSchemaBuilder.property.schemaTypes"></a>
+
+```typescript
+public readonly schemaTypes: ISchemaTypes;
+```
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+---
 
 
 ### Config <a name="Config" id="@jompx/constructs.Config"></a>
@@ -1051,14 +1050,14 @@ Generate the string for this attribute.
 ##### `resolve` <a name="resolve" id="@jompx/constructs.JompxGraphqlType.resolve"></a>
 
 ```typescript
-public resolve(schemaTypes: ISchemaType): GraphqlType
+public resolve(schemaTypes: ISchemaTypes): GraphqlType
 ```
 
 Resolve a JompxGraphqlType with string type to a GraphqlType with actual type.
 
 ###### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.JompxGraphqlType.resolve.parameter.schemaTypes"></a>
 
-- *Type:* <a href="#@jompx/constructs.ISchemaType">ISchemaType</a>
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
 
 ---
 
@@ -1473,37 +1472,48 @@ public readonly typeName: string;
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
-### IAppSyncDataSourceLambdaProps <a name="IAppSyncDataSourceLambdaProps" id="@jompx/constructs.IAppSyncDataSourceLambdaProps"></a>
+### IAppSyncConnection <a name="IAppSyncConnection" id="@jompx/constructs.IAppSyncConnection"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.IAppSyncDataSourceLambdaProps">IAppSyncDataSourceLambdaProps</a>
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncConnection">IAppSyncConnection</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IAppSyncDataSourceLambdaProps.property.memorySize">memorySize</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncDataSourceLambdaProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncConnection.property.pageInfo">pageInfo</a></code> | <code><a href="#@jompx/constructs.IAppSyncPageInfoOffset">IAppSyncPageInfoOffset</a> \| <a href="#@jompx/constructs.IAppSyncPageInfoCursor">IAppSyncPageInfoCursor</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncConnection.property.edges">edges</a></code> | <code>object</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncConnection.property.totalCount">totalCount</a></code> | <code>number</code> | *No description.* |
 
 ---
 
-##### `memorySize`<sup>Required</sup> <a name="memorySize" id="@jompx/constructs.IAppSyncDataSourceLambdaProps.property.memorySize"></a>
+##### `pageInfo`<sup>Required</sup> <a name="pageInfo" id="@jompx/constructs.IAppSyncConnection.property.pageInfo"></a>
 
 ```typescript
-public readonly memorySize: number;
+public readonly pageInfo: IAppSyncPageInfoOffset | IAppSyncPageInfoCursor;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncPageInfoOffset">IAppSyncPageInfoOffset</a> | <a href="#@jompx/constructs.IAppSyncPageInfoCursor">IAppSyncPageInfoCursor</a>
+
+---
+
+##### `edges`<sup>Optional</sup> <a name="edges" id="@jompx/constructs.IAppSyncConnection.property.edges"></a>
+
+```typescript
+public readonly edges: object;
+```
+
+- *Type:* object
+
+---
+
+##### `totalCount`<sup>Optional</sup> <a name="totalCount" id="@jompx/constructs.IAppSyncConnection.property.totalCount"></a>
+
+```typescript
+public readonly totalCount: number;
 ```
 
 - *Type:* number
-
----
-
-##### `timeout`<sup>Required</sup> <a name="timeout" id="@jompx/constructs.IAppSyncDataSourceLambdaProps.property.timeout"></a>
-
-```typescript
-public readonly timeout: Duration;
-```
-
-- *Type:* aws-cdk-lib.Duration
 
 ---
 
@@ -1516,17 +1526,113 @@ public readonly timeout: Duration;
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps.property.lambda">lambda</a></code> | <code><a href="#@jompx/constructs.IAppSyncDataSourceLambdaProps">IAppSyncDataSourceLambdaProps</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunctionProps</code> | *No description.* |
 
 ---
 
-##### `lambda`<sup>Optional</sup> <a name="lambda" id="@jompx/constructs.IAppSyncMySqlDataSourceProps.property.lambda"></a>
+##### `lambdaFunctionProps`<sup>Optional</sup> <a name="lambdaFunctionProps" id="@jompx/constructs.IAppSyncMySqlDataSourceProps.property.lambdaFunctionProps"></a>
 
 ```typescript
-public readonly lambda: IAppSyncDataSourceLambdaProps;
+public readonly lambdaFunctionProps: NodejsFunctionProps;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IAppSyncDataSourceLambdaProps">IAppSyncDataSourceLambdaProps</a>
+- *Type:* aws-cdk-lib.aws_lambda_nodejs.NodejsFunctionProps
+
+---
+
+### IAppSyncOperationArgs <a name="IAppSyncOperationArgs" id="@jompx/constructs.IAppSyncOperationArgs"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a>
+
+
+
+### IAppSyncPageInfoCursor <a name="IAppSyncPageInfoCursor" id="@jompx/constructs.IAppSyncPageInfoCursor"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncPageInfoCursor">IAppSyncPageInfoCursor</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppSyncPageInfoCursor.property.endCursor">endCursor</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncPageInfoCursor.property.hasNextPage">hasNextPage</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncPageInfoCursor.property.hasPreviousPage">hasPreviousPage</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncPageInfoCursor.property.startCursor">startCursor</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `endCursor`<sup>Required</sup> <a name="endCursor" id="@jompx/constructs.IAppSyncPageInfoCursor.property.endCursor"></a>
+
+```typescript
+public readonly endCursor: string;
+```
+
+- *Type:* string
+
+---
+
+##### `hasNextPage`<sup>Required</sup> <a name="hasNextPage" id="@jompx/constructs.IAppSyncPageInfoCursor.property.hasNextPage"></a>
+
+```typescript
+public readonly hasNextPage: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `hasPreviousPage`<sup>Required</sup> <a name="hasPreviousPage" id="@jompx/constructs.IAppSyncPageInfoCursor.property.hasPreviousPage"></a>
+
+```typescript
+public readonly hasPreviousPage: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `startCursor`<sup>Required</sup> <a name="startCursor" id="@jompx/constructs.IAppSyncPageInfoCursor.property.startCursor"></a>
+
+```typescript
+public readonly startCursor: string;
+```
+
+- *Type:* string
+
+---
+
+### IAppSyncPageInfoOffset <a name="IAppSyncPageInfoOffset" id="@jompx/constructs.IAppSyncPageInfoOffset"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncPageInfoOffset">IAppSyncPageInfoOffset</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppSyncPageInfoOffset.property.limit">limit</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncPageInfoOffset.property.skip">skip</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `limit`<sup>Required</sup> <a name="limit" id="@jompx/constructs.IAppSyncPageInfoOffset.property.limit"></a>
+
+```typescript
+public readonly limit: number;
+```
+
+- *Type:* number
+
+---
+
+##### `skip`<sup>Required</sup> <a name="skip" id="@jompx/constructs.IAppSyncPageInfoOffset.property.skip"></a>
+
+```typescript
+public readonly skip: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -1552,6 +1658,106 @@ public readonly name: string;
 - *Type:* string
 
 Name of the AppSync GraphQL resource as it appears in the AWS Console.
+
+---
+
+### IAppSyncResolverEvent <a name="IAppSyncResolverEvent" id="@jompx/constructs.IAppSyncResolverEvent"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncResolverEvent">IAppSyncResolverEvent</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.arguments">arguments</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.identity">identity</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.info">info</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.prev">prev</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.request">request</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.selectionSetList">selectionSetList</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.source">source</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.stash">stash</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+
+---
+
+##### `arguments`<sup>Required</sup> <a name="arguments" id="@jompx/constructs.IAppSyncResolverEvent.property.arguments"></a>
+
+```typescript
+public readonly arguments: any;
+```
+
+- *Type:* any
+
+---
+
+##### `identity`<sup>Required</sup> <a name="identity" id="@jompx/constructs.IAppSyncResolverEvent.property.identity"></a>
+
+```typescript
+public readonly identity: any;
+```
+
+- *Type:* any
+
+---
+
+##### `info`<sup>Required</sup> <a name="info" id="@jompx/constructs.IAppSyncResolverEvent.property.info"></a>
+
+```typescript
+public readonly info: any;
+```
+
+- *Type:* any
+
+---
+
+##### `prev`<sup>Required</sup> <a name="prev" id="@jompx/constructs.IAppSyncResolverEvent.property.prev"></a>
+
+```typescript
+public readonly prev: any;
+```
+
+- *Type:* any
+
+---
+
+##### `request`<sup>Required</sup> <a name="request" id="@jompx/constructs.IAppSyncResolverEvent.property.request"></a>
+
+```typescript
+public readonly request: any;
+```
+
+- *Type:* any
+
+---
+
+##### `selectionSetList`<sup>Required</sup> <a name="selectionSetList" id="@jompx/constructs.IAppSyncResolverEvent.property.selectionSetList"></a>
+
+```typescript
+public readonly selectionSetList: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `source`<sup>Required</sup> <a name="source" id="@jompx/constructs.IAppSyncResolverEvent.property.source"></a>
+
+```typescript
+public readonly source: any;
+```
+
+- *Type:* any
+
+---
+
+##### `stash`<sup>Required</sup> <a name="stash" id="@jompx/constructs.IAppSyncResolverEvent.property.stash"></a>
+
+```typescript
+public readonly stash: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
 
 ---
 
@@ -1821,24 +2027,24 @@ public readonly pipeline: CodePipeline;
 
 
 
-### ISchemaType <a name="ISchemaType" id="@jompx/constructs.ISchemaType"></a>
+### ISchemaTypes <a name="ISchemaTypes" id="@jompx/constructs.ISchemaTypes"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.ISchemaType">ISchemaType</a>
+- *Implemented By:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.ISchemaType.property.enumTypes">enumTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.EnumType}</code> | *No description.* |
-| <code><a href="#@jompx/constructs.ISchemaType.property.inputTypes">inputTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.InputType}</code> | *No description.* |
-| <code><a href="#@jompx/constructs.ISchemaType.property.interfaceTypes">interfaceTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.InterfaceType}</code> | *No description.* |
-| <code><a href="#@jompx/constructs.ISchemaType.property.objectTypes">objectTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.ObjectType}</code> | *No description.* |
-| <code><a href="#@jompx/constructs.ISchemaType.property.unionTypes">unionTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.UnionType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaTypes.property.enumTypes">enumTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.EnumType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaTypes.property.inputTypes">inputTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.InputType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaTypes.property.interfaceTypes">interfaceTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.InterfaceType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaTypes.property.objectTypes">objectTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.ObjectType}</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ISchemaTypes.property.unionTypes">unionTypes</a></code> | <code>{[ key: string ]: @aws-cdk/aws-appsync-alpha.UnionType}</code> | *No description.* |
 
 ---
 
-##### `enumTypes`<sup>Required</sup> <a name="enumTypes" id="@jompx/constructs.ISchemaType.property.enumTypes"></a>
+##### `enumTypes`<sup>Required</sup> <a name="enumTypes" id="@jompx/constructs.ISchemaTypes.property.enumTypes"></a>
 
 ```typescript
 public readonly enumTypes: {[ key: string ]: EnumType};
@@ -1848,7 +2054,7 @@ public readonly enumTypes: {[ key: string ]: EnumType};
 
 ---
 
-##### `inputTypes`<sup>Required</sup> <a name="inputTypes" id="@jompx/constructs.ISchemaType.property.inputTypes"></a>
+##### `inputTypes`<sup>Required</sup> <a name="inputTypes" id="@jompx/constructs.ISchemaTypes.property.inputTypes"></a>
 
 ```typescript
 public readonly inputTypes: {[ key: string ]: InputType};
@@ -1858,7 +2064,7 @@ public readonly inputTypes: {[ key: string ]: InputType};
 
 ---
 
-##### `interfaceTypes`<sup>Required</sup> <a name="interfaceTypes" id="@jompx/constructs.ISchemaType.property.interfaceTypes"></a>
+##### `interfaceTypes`<sup>Required</sup> <a name="interfaceTypes" id="@jompx/constructs.ISchemaTypes.property.interfaceTypes"></a>
 
 ```typescript
 public readonly interfaceTypes: {[ key: string ]: InterfaceType};
@@ -1868,7 +2074,7 @@ public readonly interfaceTypes: {[ key: string ]: InterfaceType};
 
 ---
 
-##### `objectTypes`<sup>Required</sup> <a name="objectTypes" id="@jompx/constructs.ISchemaType.property.objectTypes"></a>
+##### `objectTypes`<sup>Required</sup> <a name="objectTypes" id="@jompx/constructs.ISchemaTypes.property.objectTypes"></a>
 
 ```typescript
 public readonly objectTypes: {[ key: string ]: ObjectType};
@@ -1878,7 +2084,7 @@ public readonly objectTypes: {[ key: string ]: ObjectType};
 
 ---
 
-##### `unionTypes`<sup>Required</sup> <a name="unionTypes" id="@jompx/constructs.ISchemaType.property.unionTypes"></a>
+##### `unionTypes`<sup>Required</sup> <a name="unionTypes" id="@jompx/constructs.ISchemaTypes.property.unionTypes"></a>
 
 ```typescript
 public readonly unionTypes: {[ key: string ]: UnionType};

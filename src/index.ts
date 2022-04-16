@@ -1,17 +1,17 @@
-// Constructs.
-export { CdkPipeline, ICdkPipelineProps, ICdkPipelineGitHubProps, IEnvironmentPipeline } from './constructs/cdk-pipeline.construct';
-export { AppSync, IAppSyncProps } from './constructs/app-sync/app-sync.construct';
-export { JompxS3 } from './constructs/s3.construct'; // DELETE ME. TEST ONLY.
+// Config
+export { Config } from './config/config';
+export * from './config/config.types';
 
-// AppSync.
-export { JompxGraphqlType, JompxGraphqlTypeOptions } from './classes/app-sync/graphql-type';
+// AppSync
+export { AppSync, IAppSyncProps } from './app-sync/app-sync.construct';
+export { AppSyncSchemaBuilder } from './app-sync/schema-builder';
+export * from './app-sync/app-sync.types';
+export { JompxGraphqlType, JompxGraphqlTypeOptions } from './app-sync/graphql-type';
+export { CustomDirective, ICustomDirectiveLookup } from './app-sync/custom-directive';
 
 // AppSync MySQL datasource.
-export { AppSyncMySqlDataSource, IAppSyncMySqlDataSourceProps } from './constructs/app-sync/mysql-datasource.construct';
-export { AppSyncMySqlCustomDirective } from './classes/app-sync/datasources/mysql.directive';
+export { AppSyncMySqlDataSource, IAppSyncMySqlDataSourceProps } from './app-sync/datasources/mysql/mysql.datasource.construct';
+export { AppSyncMySqlCustomDirective } from './app-sync/datasources/mysql/mysql.directive';
 
-// All classes.
-export * from './classes';
-
-// All types.
-export * from './types/index';
+// Pipeline
+export { CdkPipeline, ICdkPipelineProps, ICdkPipelineGitHubProps, IEnvironmentPipeline } from './pipeline/cdk-pipeline.construct';
