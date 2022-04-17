@@ -39,22 +39,31 @@ export class AppSyncSchemaBuilder {
     ) { }
 
     // Add datasource to AppSync in an internal array. Remove this when AppSync provides a way to iterate datasources).
-    public addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions) {
+    public addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions): appsync.LambdaDataSource {
         const identifier = `AppSyncDataSource${changeCase.pascalCase(id)}`;
         const dataSource = this.graphqlApi.addLambdaDataSource(identifier, lambdaFunction, options);
         this.dataSources = { ...this.dataSources, ...{ [id]: dataSource } };
+        return dataSource;
     }
 
     public addSchemaTypes(schemaTypes: ISchemaTypes) {
         this.schemaTypes = { ...this.schemaTypes, ...schemaTypes };
     }
 
-    public addMutation(operation: string, lambdaFunction: appsync.LambdaDataSource, args: IAppSyncOperationArgs, returnType: appsync.ObjectType) {
+    public addMutation(
+        operation: string,
+        dataSourceName: string,
+        args: IAppSyncOperationArgs,
+        returnType: appsync.ObjectType
+    ): appsync.ObjectType {
 
-        this.graphqlApi.addQuery(operation, new appsync.ResolvableField({
+        const dataSource = this.dataSources[dataSourceName];
+        if (!dataSource) throw Error(`Jompx: dataSource "${dataSourceName}" not found!`);
+
+        return this.graphqlApi.addQuery(operation, new appsync.ResolvableField({
             returnType: returnType.attribute(),
             args,
-            dataSource: lambdaFunction,
+            dataSource,
             // pipelineConfig: [], // TODO: Add authorization Lambda function here.
             requestMappingTemplate: appsync.MappingTemplate.fromString(`
                 $util.qr($ctx.stash.put("operation", operation))

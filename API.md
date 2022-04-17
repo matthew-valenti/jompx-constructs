@@ -610,7 +610,7 @@ new AppSyncSchemaBuilder(graphqlApi: GraphqlApi)
 ##### `addDataSource` <a name="addDataSource" id="@jompx/constructs.AppSyncSchemaBuilder.addDataSource"></a>
 
 ```typescript
-public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSourceOptions): void
+public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSourceOptions): LambdaDataSource
 ```
 
 ###### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.AppSyncSchemaBuilder.addDataSource.parameter.id"></a>
@@ -634,7 +634,7 @@ public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSource
 ##### `addMutation` <a name="addMutation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation"></a>
 
 ```typescript
-public addMutation(operation: string, lambdaFunction: LambdaDataSource, args: IAppSyncOperationArgs, returnType: ObjectType): void
+public addMutation(operation: string, dataSourceName: string, args: IAppSyncOperationArgs, returnType: ObjectType): ObjectType
 ```
 
 ###### `operation`<sup>Required</sup> <a name="operation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.operation"></a>
@@ -643,9 +643,9 @@ public addMutation(operation: string, lambdaFunction: LambdaDataSource, args: IA
 
 ---
 
-###### `lambdaFunction`<sup>Required</sup> <a name="lambdaFunction" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.lambdaFunction"></a>
+###### `dataSourceName`<sup>Required</sup> <a name="dataSourceName" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.dataSourceName"></a>
 
-- *Type:* @aws-cdk/aws-appsync-alpha.LambdaDataSource
+- *Type:* string
 
 ---
 

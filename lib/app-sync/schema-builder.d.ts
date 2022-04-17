@@ -13,9 +13,9 @@ export declare class AppSyncSchemaBuilder {
     dataSources: IDataSource;
     schemaTypes: ISchemaTypes;
     constructor(graphqlApi: appsync.GraphqlApi);
-    addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions): void;
+    addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions): appsync.LambdaDataSource;
     addSchemaTypes(schemaTypes: ISchemaTypes): void;
-    addMutation(operation: string, lambdaFunction: appsync.LambdaDataSource, args: IAppSyncOperationArgs, returnType: appsync.ObjectType): void;
+    addMutation(operation: string, dataSourceName: string, args: IAppSyncOperationArgs, returnType: appsync.ObjectType): appsync.ObjectType;
     create(): void;
     /**
      * Iterate object type fields and update returnType of JompxGraphqlType.objectType from string type to actual type.

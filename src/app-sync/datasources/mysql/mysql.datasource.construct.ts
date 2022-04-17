@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import * as appsync from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
 import * as lambdanjs from 'aws-cdk-lib/aws-lambda-nodejs';
 // eslint-disable-next-line import/no-extraneous-dependencies
