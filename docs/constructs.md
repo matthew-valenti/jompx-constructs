@@ -38,6 +38,8 @@ npx projen test
 npx projen test:compile
 npx projen test:watch
 
+// projen always runs all tests. To run a single test:
+npx jest app-sync-resolver.test.ts
 npx jest cdk-pipeline-branch-construct.test.ts
 ```
 

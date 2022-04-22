@@ -1,4 +1,5 @@
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
+import { ObjectType } from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as changeCase from 'change-case';
@@ -17,7 +18,14 @@ import { JompxGraphqlType } from './graphql-type';
  * https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066
  * Joins should be connections and named as such. e.g. in post TagsConnection
  * https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo
+ * https://graphql-rules.com/rules/list-pagination
+ * https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/
+ * - Mutation: Use top level input type for ags. Use top level property for output type.
  */
+
+// TODO Make sure we can call a mutation and call a query? https://graphql-rules.com/rules/mutation-payload-query
+// TODO Add schema documention markup: http://spec.graphql.org/draft/#sec-Descriptions
+// Interesting typed errors: https://graphql-rules.com/rules/mutation-payload-errors
 
 /*
 type UserFriendsConnection {
@@ -28,6 +36,29 @@ type UserFriendsConnection {
   node: User
 }
 */
+
+export interface IAddMutationArguments {
+    /**
+     * The name of the mutation as it will appear in the GraphQL schema.
+     */
+    name: string;
+    /**
+     * The mutation datasource.
+     */
+    dataSourceName: string;
+    /**
+     * Mutation input arguments. These should exactly match the number and order of arguments in the method the mutation will call.
+     */
+    args: IAppSyncOperationArgs;
+    /**
+     * The mutation return object type.
+     */
+    returnType: appsync.ObjectType;
+    /**
+     * The mutation method to call.
+     */
+    methodName?: string;
+}
 
 export class AppSyncSchemaBuilder {
 
@@ -50,23 +81,62 @@ export class AppSyncSchemaBuilder {
         this.schemaTypes = { ...this.schemaTypes, ...schemaTypes };
     }
 
-    public addMutation(
-        operation: string,
-        dataSourceName: string,
-        args: IAppSyncOperationArgs,
-        returnType: appsync.ObjectType
-    ): appsync.ObjectType {
+    /**
+     * Add a mutation to the GraphQL schema.
+     * @param name - Name of the mutation as it will appear in the GraphQL schema.
+     * @param dataSourceName - Your datasource name e.g. mySql, cognito, post.
+     * @param args - Mutation arguments.
+     * @param returnType - Mutation retun type (or output type).
+     * @param operation - Class method the mutation will call to retun result.
+     * @returns - The mutation.
+     */
 
+    /**
+     * Add a mutation to the GraphQL schema.
+     */
+    public addMutation({ name, dataSourceName, args, returnType, methodName }: IAddMutationArguments): appsync.ObjectType {
+
+        // TODO: Add schema types.
+
+        // Check datasource exists.
         const dataSource = this.dataSources[dataSourceName];
         if (!dataSource) throw Error(`Jompx: dataSource "${dataSourceName}" not found!`);
 
-        return this.graphqlApi.addQuery(operation, new appsync.ResolvableField({
-            returnType: returnType.attribute(),
-            args,
+        // Add input type (to GraphQL).
+        const inputType = new appsync.InputType(`${returnType.name}Input`, { definition: args });
+        this.graphqlApi.addType(inputType);
+
+        // Add output type (to GraphQL).
+        const outputType = new ObjectType(`${returnType.name}Payload`, { definition: returnType.definition });
+        this.graphqlApi.addType(outputType);
+
+        // Add payload type (to GraphQL).
+        const payloadType = new ObjectType(`${returnType.name}Output`, {
+            definition: {
+                output: outputType.attribute()
+            },
+            directives: returnType?.directives
+        });
+        this.graphqlApi.addType(payloadType);
+
+        // Add any child return types (to GraphQL).
+        // TODO: Make recursive.
+        Object.values(returnType.definition).forEach(graphqlType => {
+            if (graphqlType.type === 'INTERMEDIATE') {
+                if (graphqlType?.intermediateType) {
+                    this.graphqlApi.addType(graphqlType.intermediateType);
+                }
+            }
+        });
+
+        // Add mutation (to GraphQL).
+        return this.graphqlApi.addMutation(name, new appsync.ResolvableField({
+            returnType: payloadType.attribute(),
+            args: { input: inputType.attribute({ isRequired: true }) },
             dataSource,
             // pipelineConfig: [], // TODO: Add authorization Lambda function here.
             requestMappingTemplate: appsync.MappingTemplate.fromString(`
-                $util.qr($ctx.stash.put("operation", operation))
+                $util.qr($ctx.stash.put("operation", "${methodName}"))
                 ${DefaultRequestMappingTemplate}
             `)
         }));
@@ -281,3 +351,44 @@ export class AppSyncSchemaBuilder {
         return s.charAt(0).toLocaleLowerCase() + s.charAt(1).toLocaleLowerCase() + s.slice(2);
     }
 }
+
+
+/*
+Consider:
+type PaginationInfo {
+  # Total number of pages
+  totalPages: Int!
+
+  # Total number of items
+  totalItems: Int!
+
+  # Current page number
+  page: Int!
+
+  # Number of items per page
+  perPage: Int!
+
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+}
+*/
+
+
+/*
+Does AppAysnc support this?
+# A single line, type-level description
+"Passenger details"
+type Passenger {
+  """  a multi-line description
+  the id is general user id """
+  id: ID!
+  name: String!
+  age: Int!
+  address: String!
+  "single line description: it is passenger id"
+  passengerId: ID!
+}
+*/

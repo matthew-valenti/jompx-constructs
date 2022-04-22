@@ -5,6 +5,7 @@ export * from './config/config.types';
 // AppSync
 export { AppSync, IAppSyncProps } from './app-sync/app-sync.construct';
 export { AppSyncSchemaBuilder } from './app-sync/schema-builder';
+export { AppSyncResolver } from './app-sync/app-sync-resolver';
 export * from './app-sync/app-sync.types';
 export { JompxGraphqlType, JompxGraphqlTypeOptions } from './app-sync/graphql-type';
 export { CustomDirective, ICustomDirectiveLookup } from './app-sync/custom-directive';

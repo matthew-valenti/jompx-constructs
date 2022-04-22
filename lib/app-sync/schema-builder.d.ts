@@ -7,7 +7,32 @@ import { IDataSource, ISchemaTypes, IAppSyncOperationArgs } from './app-sync.typ
  * https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066
  * Joins should be connections and named as such. e.g. in post TagsConnection
  * https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo
+ * https://graphql-rules.com/rules/list-pagination
+ * https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/
+ * - Mutation: Use top level input type for ags. Use top level property for output type.
  */
+export interface IAddMutationArguments {
+    /**
+     * The name of the mutation as it will appear in the GraphQL schema.
+     */
+    name: string;
+    /**
+     * The mutation datasource.
+     */
+    dataSourceName: string;
+    /**
+     * Mutation input arguments. These should exactly match the number and order of arguments in the method the mutation will call.
+     */
+    args: IAppSyncOperationArgs;
+    /**
+     * The mutation return object type.
+     */
+    returnType: appsync.ObjectType;
+    /**
+     * The mutation method to call.
+     */
+    methodName?: string;
+}
 export declare class AppSyncSchemaBuilder {
     graphqlApi: appsync.GraphqlApi;
     dataSources: IDataSource;
@@ -15,7 +40,19 @@ export declare class AppSyncSchemaBuilder {
     constructor(graphqlApi: appsync.GraphqlApi);
     addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions): appsync.LambdaDataSource;
     addSchemaTypes(schemaTypes: ISchemaTypes): void;
-    addMutation(operation: string, dataSourceName: string, args: IAppSyncOperationArgs, returnType: appsync.ObjectType): appsync.ObjectType;
+    /**
+     * Add a mutation to the GraphQL schema.
+     * @param name - Name of the mutation as it will appear in the GraphQL schema.
+     * @param dataSourceName - Your datasource name e.g. mySql, cognito, post.
+     * @param args - Mutation arguments.
+     * @param returnType - Mutation retun type (or output type).
+     * @param operation - Class method the mutation will call to retun result.
+     * @returns - The mutation.
+     */
+    /**
+     * Add a mutation to the GraphQL schema.
+     */
+    addMutation({ name, dataSourceName, args, returnType, methodName }: IAddMutationArguments): appsync.ObjectType;
     create(): void;
     /**
      * Iterate object type fields and update returnType of JompxGraphqlType.objectType from string type to actual type.
