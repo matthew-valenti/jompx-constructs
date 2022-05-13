@@ -132,4 +132,3 @@ In general, environment variable lookups should be limited to the top level of a
 https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0
 https://www.matthewbonig.com/2020/01/11/creating-constructs/
 ouch - requires jsii.
-

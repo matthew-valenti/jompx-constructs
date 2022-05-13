@@ -3,9 +3,6 @@ import { IConfig } from '../config.types';
 export const Config: IConfig = {
     '@jompx': {
         organizationName: 'test-org', // Lower case (use dashes if needed). Used to uniquely name resources e.g. S3 bucket name.
-        gitHub: {
-            repo: 'owner/repo'
-        },
         // An environment is the target AWS account and region into which a stack will be deployed.
         environments: [
             {

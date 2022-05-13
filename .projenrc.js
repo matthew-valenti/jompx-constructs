@@ -24,11 +24,15 @@ project.package.addPeerDeps('@aws-cdk/aws-appsync-alpha@2.17.0-alpha.0');
 project.package.addDevDeps('esbuild');
 
 // Add npm packages. Lint wants these added as dependencies but results in lint errors.
+project.package.addDevDeps('axios');
+project.package.addDevDeps('change-case');
 project.package.addDevDeps('get-value');
 project.package.addDevDeps('@types/get-value');
+// project.package.addDevDeps('graphql'); // Error: Compilation errors prevented the JSII assembly from being created node_modules/graphql/NotSupportedTSVersion.d.ts(1,63): error TS1003: Identifier expected
+// project.package.addDevDeps('graphql-tag');
 project.package.addDevDeps('set-value');
 project.package.addDevDeps('@types/set-value');
-project.package.addDevDeps('change-case');
+
 // project.package.addDevDeps('pluralize');
 // project.package.addDevDeps('@types/pluralize');
 

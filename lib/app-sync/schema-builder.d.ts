@@ -87,5 +87,4 @@ export declare class AppSyncSchemaBuilder {
      * Add sort input type for multi column sorting.
      */
     private addSortInput;
-    private operationNameFromType;
 }

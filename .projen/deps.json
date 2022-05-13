@@ -38,6 +38,10 @@
       "type": "build"
     },
     {
+      "name": "axios",
+      "type": "build"
+    },
+    {
       "name": "change-case",
       "type": "build"
     },

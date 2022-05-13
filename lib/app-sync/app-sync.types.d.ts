@@ -54,4 +54,7 @@ export interface IAppSyncPageInfoCursor {
     startCursor: string;
     endCursor: string;
 }
-export declare const DefaultRequestMappingTemplate = "{\n        \"version\" : \"2018-05-29\",\n        \"operation\": \"Invoke\",\n        \"payload\": {\n            \"arguments\": $utils.toJson($context.arguments),\n            \"identity\": $utils.toJson($context.identity),\n            \"source\": $utils.toJson($context.source),\n            \"request\": $utils.toJson($context.request),\n            \"prev\": $utils.toJson($context.prev),\n            \"info\": $utils.toJson($context.info),\n            \"stash\": $utils.toJson($context.stash),\n            \"selectionSetList\": $utils.toJson($context.info.selectionSetList)\n        }\n    }";
+export interface AppSyncIFields {
+    [key: string]: AppSyncIFields | appsync.IField;
+}
+export declare const DefaultRequestMappingTemplate = "{\n    \"version\" : \"2018-05-29\",\n    \"operation\": \"Invoke\",\n    \"payload\": {\n        \"arguments\": $utils.toJson($context.arguments),\n        \"identity\": $utils.toJson($context.identity),\n        \"source\": $utils.toJson($context.source),\n        \"request\": $utils.toJson($context.request),\n        \"prev\": $utils.toJson($context.prev),\n        \"info\": $utils.toJson($context.info),\n        \"stash\": $utils.toJson($context.stash),\n        \"selectionSetList\": $utils.toJson($context.info.selectionSetList)\n    }\n}";

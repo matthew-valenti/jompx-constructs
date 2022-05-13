@@ -17,6 +17,16 @@ export interface ICustomDirectiveLookup {
 
 export class CustomDirective {
 
+    // AppSync has poor support for directives. Use GraphQL schema syntax instead.
+    public static schema(): string { // TODO: Return graphql.DocumentNode when graphql npm module compile error fixed.
+        return `
+            directive @datasource(name: String) on OBJECT
+            directive @source(name: String) on FIELD_DEFINITION | OBJECT
+            directive @lookup(from: String, localField: String, foreignField: String) on FIELD_DEFINITION
+            directive @readonly(value: String) on FIELD_DEFINITION
+        `;
+    }
+
     public static datasource(name: string): Directive {
         return Directive.custom(`@datasource(name: "${name}")`);
     }

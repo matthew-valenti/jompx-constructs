@@ -6,8 +6,14 @@ export type IDirectiveOperations = IDirectiveOperation[];
 
 export class AppSyncMySqlCustomDirective extends CustomDirective {
 
+    public static schema(): string { // TODO: Return graphql.DocumentNode when graphql npm module compile error fixed.
+        return `
+            directive @operations(names: [String]) on OBJECT
+        `;
+    }
+
     public static operations(operations: IDirectiveOperations): Directive {
-        return Directive.custom(`@operation(names: "${operations.join()}")`);
+        return Directive.custom(`@operations(names: "${operations.join()}")`);
     }
 
     // TODO: Support cusor pagination.

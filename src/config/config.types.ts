@@ -26,9 +26,6 @@ export interface IEnv {
 export interface IConfig {
     [key: string]: {
         organizationName: string;
-        gitHub: {
-            repo: string;
-        };
         environments: IEnvironment[];
         stages: IStage;
     };
@@ -40,3 +37,9 @@ export interface ILocalConfig {
         stages?: IStage; // TODO: Do we need the ability to override stages on local? What about putting the stage in the CLI deploy instead?
     };
 }
+
+/*
+appSync: {
+    graphqlUrlSsmParameterName: string; // Problem. How do we make calling AppSync efficient from business classes.
+};
+*/

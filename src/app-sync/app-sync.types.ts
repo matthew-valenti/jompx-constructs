@@ -97,6 +97,11 @@ export interface IAppSyncPageInfoCursor {
     endCursor: string;
 }
 
+// List of nested IFields.
+export interface AppSyncIFields {
+    [key: string]: AppSyncIFields | appsync.IField;
+}
+
 // AppSync VTL snippet to pass event params to Lambda resolver: https://docs.aws.amazon.com/appsync/latest/devguide/resolver-mapping-template-reference-programming-guide.html
 // With no VTL, the Lambda event contains all properties below. However, selectionSetList is a child property of info.
 // Thru trial and error there doesn't appear to be a way to add selectionSetList as a child property.
@@ -107,16 +112,16 @@ export interface IAppSyncPageInfoCursor {
 // Caution: payload should mimic a standard Lambda resolver (with no VTL). This object might change in the future.
 // In theory, we could use a Lambda function instead of VTL but this should be much faster than invoking another Lambda.
 export const DefaultRequestMappingTemplate = `{
-        "version" : "2018-05-29",
-        "operation": "Invoke",
-        "payload": {
-            "arguments": $utils.toJson($context.arguments),
-            "identity": $utils.toJson($context.identity),
-            "source": $utils.toJson($context.source),
-            "request": $utils.toJson($context.request),
-            "prev": $utils.toJson($context.prev),
-            "info": $utils.toJson($context.info),
-            "stash": $utils.toJson($context.stash),
-            "selectionSetList": $utils.toJson($context.info.selectionSetList)
-        }
-    }`;
+    "version" : "2018-05-29",
+    "operation": "Invoke",
+    "payload": {
+        "arguments": $utils.toJson($context.arguments),
+        "identity": $utils.toJson($context.identity),
+        "source": $utils.toJson($context.source),
+        "request": $utils.toJson($context.request),
+        "prev": $utils.toJson($context.prev),
+        "info": $utils.toJson($context.info),
+        "stash": $utils.toJson($context.stash),
+        "selectionSetList": $utils.toJson($context.info.selectionSetList)
+    }
+}`;

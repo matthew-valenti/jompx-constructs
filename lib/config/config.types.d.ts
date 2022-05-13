@@ -21,9 +21,6 @@ export interface IEnv {
 export interface IConfig {
     [key: string]: {
         organizationName: string;
-        gitHub: {
-            repo: string;
-        };
         environments: IEnvironment[];
         stages: IStage;
     };

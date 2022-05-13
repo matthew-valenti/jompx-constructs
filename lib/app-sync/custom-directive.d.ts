@@ -11,6 +11,7 @@ export interface ICustomDirectiveLookup {
     foreignField: string;
 }
 export declare class CustomDirective {
+    static schema(): string;
     static datasource(name: string): Directive;
     static source(name: string): Directive;
     static lookup(value: ICustomDirectiveLookup): Directive;

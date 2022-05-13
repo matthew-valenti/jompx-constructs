@@ -13,3 +13,7 @@ exports.handler = async (event: IAppSyncResolverEvent) => {
 
     return data;
 };
+
+// Resolver arguments
+// https://www.apollographql.com/docs/apollo-server/data/resolvers/
+// parent, args, context, info

@@ -357,6 +357,17 @@ public readonly environmentPipelines: IEnvironmentPipeline[];
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### AppSyncIFields <a name="AppSyncIFields" id="@jompx/constructs.AppSyncIFields"></a>
+
+#### Initializer <a name="Initializer" id="@jompx/constructs.AppSyncIFields.Initializer"></a>
+
+```typescript
+import { AppSyncIFields } from '@jompx/constructs'
+
+const appSyncIFields: AppSyncIFields = { ... }
+```
+
+
 ### JompxGraphqlTypeOptions <a name="JompxGraphqlTypeOptions" id="@jompx/constructs.JompxGraphqlTypeOptions"></a>
 
 Extend GraphqlTypeOptions to include a new typeName parameter.
@@ -469,6 +480,7 @@ new AppSyncMySqlCustomDirective()
 | <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier">getArgumentByIdentifier</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.lookup">lookup</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.readonly">readonly</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.schema">schema</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.source">source</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.operations">operations</a></code> | *No description.* |
 
@@ -542,6 +554,14 @@ AppSyncMySqlCustomDirective.readonly(value: boolean)
 
 ---
 
+##### `schema` <a name="schema" id="@jompx/constructs.AppSyncMySqlCustomDirective.schema"></a>
+
+```typescript
+import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
+
+AppSyncMySqlCustomDirective.schema()
+```
+
 ##### `source` <a name="source" id="@jompx/constructs.AppSyncMySqlCustomDirective.source"></a>
 
 ```typescript
@@ -572,9 +592,67 @@ AppSyncMySqlCustomDirective.operations(operations: string[])
 
 
 
-### AppSyncSchemaBuilder <a name="AppSyncSchemaBuilder" id="@jompx/constructs.AppSyncSchemaBuilder"></a>
+### AppSyncResolver <a name="AppSyncResolver" id="@jompx/constructs.AppSyncResolver"></a>
 
-Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/ Support relay or not? https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066 Joins should be connections and named as such. e.g. in post TagsConnection https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo.
+#### Initializers <a name="Initializers" id="@jompx/constructs.AppSyncResolver.Initializer"></a>
+
+```typescript
+import { AppSyncResolver } from '@jompx/constructs'
+
+new AppSyncResolver()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppSyncResolver.callMethodFromEvent">callMethodFromEvent</a></code> | Call a method on a class from values in a AppSync Lambda event. |
+
+---
+
+##### `callMethodFromEvent` <a name="callMethodFromEvent" id="@jompx/constructs.AppSyncResolver.callMethodFromEvent"></a>
+
+```typescript
+import { AppSyncResolver } from '@jompx/constructs'
+
+AppSyncResolver.callMethodFromEvent(classInstance: any, event: IAppSyncResolverEvent, path?: string)
+```
+
+Call a method on a class from values in a AppSync Lambda event.
+
+###### `classInstance`<sup>Required</sup> <a name="classInstance" id="@jompx/constructs.AppSyncResolver.callMethodFromEvent.parameter.classInstance"></a>
+
+- *Type:* any
+
+A class instance.
+
+---
+
+###### `event`<sup>Required</sup> <a name="event" id="@jompx/constructs.AppSyncResolver.callMethodFromEvent.parameter.event"></a>
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncResolverEvent">IAppSyncResolverEvent</a>
+
+AppSync Lambda event.
+
+---
+
+###### `path`<sup>Optional</sup> <a name="path" id="@jompx/constructs.AppSyncResolver.callMethodFromEvent.parameter.path"></a>
+
+- *Type:* string
+
+JSON path to method arguments in event.arguments.
+
+---
+
+
+
+### AppSyncSchemaBuilder <a name="AppSyncSchemaBuilder" id="@jompx/constructs.AppSyncSchemaBuilder"></a>
 
 #### Initializers <a name="Initializers" id="@jompx/constructs.AppSyncSchemaBuilder.Initializer"></a>
 
@@ -601,7 +679,7 @@ new AppSyncSchemaBuilder(graphqlApi: GraphqlApi)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addDataSource">addDataSource</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addMutation">addMutation</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addMutation">addMutation</a></code> | Add a mutation to the GraphQL schema. |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addSchemaTypes">addSchemaTypes</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.create">create</a></code> | *No description.* |
 
@@ -634,30 +712,14 @@ public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSource
 ##### `addMutation` <a name="addMutation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation"></a>
 
 ```typescript
-public addMutation(operation: string, dataSourceName: string, args: IAppSyncOperationArgs, returnType: ObjectType): ObjectType
+public addMutation(__0: IAddMutationArguments): ObjectType
 ```
 
-###### `operation`<sup>Required</sup> <a name="operation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.operation"></a>
+Add a mutation to the GraphQL schema.
 
-- *Type:* string
+###### `__0`<sup>Required</sup> <a name="__0" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.__0"></a>
 
----
-
-###### `dataSourceName`<sup>Required</sup> <a name="dataSourceName" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.dataSourceName"></a>
-
-- *Type:* string
-
----
-
-###### `args`<sup>Required</sup> <a name="args" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.args"></a>
-
-- *Type:* <a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a>
-
----
-
-###### `returnType`<sup>Required</sup> <a name="returnType" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.returnType"></a>
-
-- *Type:* @aws-cdk/aws-appsync-alpha.ObjectType
+- *Type:* <a href="#@jompx/constructs.IAddMutationArguments">IAddMutationArguments</a>
 
 ---
 
@@ -887,6 +949,7 @@ new CustomDirective()
 | <code><a href="#@jompx/constructs.CustomDirective.getArgumentByIdentifier">getArgumentByIdentifier</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.CustomDirective.lookup">lookup</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.CustomDirective.readonly">readonly</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.schema">schema</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.CustomDirective.source">source</a></code> | *No description.* |
 
 ---
@@ -958,6 +1021,14 @@ CustomDirective.readonly(value: boolean)
 - *Type:* boolean
 
 ---
+
+##### `schema` <a name="schema" id="@jompx/constructs.CustomDirective.schema"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.schema()
+```
 
 ##### `source` <a name="source" id="@jompx/constructs.CustomDirective.source"></a>
 
@@ -1471,6 +1542,87 @@ public readonly typeName: string;
 
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
+
+### IAddMutationArguments <a name="IAddMutationArguments" id="@jompx/constructs.IAddMutationArguments"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAddMutationArguments">IAddMutationArguments</a>
+
+Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/ Support relay or not? https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066 Joins should be connections and named as such. e.g. in post TagsConnection https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo https://graphql-rules.com/rules/list-pagination https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/ - Mutation: Use top level input type for ags. Use top level property for output type.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAddMutationArguments.property.args">args</a></code> | <code><a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a></code> | Mutation input arguments. |
+| <code><a href="#@jompx/constructs.IAddMutationArguments.property.dataSourceName">dataSourceName</a></code> | <code>string</code> | The mutation datasource. |
+| <code><a href="#@jompx/constructs.IAddMutationArguments.property.name">name</a></code> | <code>string</code> | The name of the mutation as it will appear in the GraphQL schema. |
+| <code><a href="#@jompx/constructs.IAddMutationArguments.property.returnType">returnType</a></code> | <code>@aws-cdk/aws-appsync-alpha.ObjectType</code> | The mutation return object type. |
+| <code><a href="#@jompx/constructs.IAddMutationArguments.property.methodName">methodName</a></code> | <code>string</code> | The mutation method to call. |
+
+---
+
+##### `args`<sup>Required</sup> <a name="args" id="@jompx/constructs.IAddMutationArguments.property.args"></a>
+
+```typescript
+public readonly args: IAppSyncOperationArgs;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a>
+
+Mutation input arguments.
+
+These should exactly match the number and order of arguments in the method the mutation will call.
+
+---
+
+##### `dataSourceName`<sup>Required</sup> <a name="dataSourceName" id="@jompx/constructs.IAddMutationArguments.property.dataSourceName"></a>
+
+```typescript
+public readonly dataSourceName: string;
+```
+
+- *Type:* string
+
+The mutation datasource.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IAddMutationArguments.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the mutation as it will appear in the GraphQL schema.
+
+---
+
+##### `returnType`<sup>Required</sup> <a name="returnType" id="@jompx/constructs.IAddMutationArguments.property.returnType"></a>
+
+```typescript
+public readonly returnType: ObjectType;
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.ObjectType
+
+The mutation return object type.
+
+---
+
+##### `methodName`<sup>Optional</sup> <a name="methodName" id="@jompx/constructs.IAddMutationArguments.property.methodName"></a>
+
+```typescript
+public readonly methodName: string;
+```
+
+- *Type:* string
+
+The mutation method to call.
+
+---
 
 ### IAppSyncConnection <a name="IAppSyncConnection" id="@jompx/constructs.IAppSyncConnection"></a>
 

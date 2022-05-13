@@ -7,5 +7,5 @@ export declare class AppSyncResolver {
      * @param path - JSON path to method arguments in event.arguments.
      * @returns - Returns the return value of the method.
      */
-    static CallMethodFromEvent<T>(classInstance: any, event: IAppSyncResolverEvent, path?: string): any;
+    static callMethodFromEvent<T>(classInstance: any, event: IAppSyncResolverEvent, path?: string): any;
 }

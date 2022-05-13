@@ -10,6 +10,7 @@ import set = require('set-value');
 // import get = require('get-value');
 import { IDataSource, ISchemaTypes, DefaultRequestMappingTemplate, IAppSyncOperationArgs } from './app-sync.types';
 import { CustomDirective, PaginationType } from './custom-directive';
+import { AppSyncMySqlCustomDirective } from './datasources/mysql/mysql.directive';
 import { JompxGraphqlType } from './graphql-type';
 
 /**
@@ -103,19 +104,24 @@ export class AppSyncSchemaBuilder {
         if (!dataSource) throw Error(`Jompx: dataSource "${dataSourceName}" not found!`);
 
         // Add input type (to GraphQL).
-        const inputType = new appsync.InputType(`${returnType.name}Input`, { definition: args });
+        const inputType = new appsync.InputType(`${changeCase.pascalCase(returnType.name)}Input`, { definition: args });
         this.graphqlApi.addType(inputType);
 
         // Add output type (to GraphQL).
-        const outputType = new ObjectType(`${returnType.name}Payload`, { definition: returnType.definition });
+        const outputType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Payload`, {
+            definition: returnType.definition,
+            directives: [
+                appsync.Directive.iam()
+            ]
+        });
         this.graphqlApi.addType(outputType);
 
         // Add payload type (to GraphQL).
-        const payloadType = new ObjectType(`${returnType.name}Output`, {
+        const payloadType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Output`, {
             definition: {
                 output: outputType.attribute()
             },
-            directives: returnType?.directives
+            directives: [...[appsync.Directive.iam()], ...(returnType?.directives ?? [])]
         });
         this.graphqlApi.addType(payloadType);
 
@@ -134,6 +140,9 @@ export class AppSyncSchemaBuilder {
             returnType: payloadType.attribute(),
             args: { input: inputType.attribute({ isRequired: true }) },
             dataSource,
+            directives: [
+                appsync.Directive.iam()
+            ],
             // pipelineConfig: [], // TODO: Add authorization Lambda function here.
             requestMappingTemplate: appsync.MappingTemplate.fromString(`
                 $util.qr($ctx.stash.put("operation", "${methodName}"))
@@ -144,8 +153,13 @@ export class AppSyncSchemaBuilder {
 
     public create() {
 
-        appsync.EnumType;
-        appsync.UnionType;
+        // this.graphqlApi.addToSchema('directive @readonly(value: String) on FIELD_DEFINITION');
+        this.graphqlApi.addToSchema(CustomDirective.schema());
+        this.graphqlApi.addToSchema(AppSyncMySqlCustomDirective.schema());
+
+        // TODO: Delete Me???
+        // appsync.EnumType;
+        // appsync.UnionType;
 
         this.addPageInfoType();
         this.addSortInput();
@@ -169,7 +183,7 @@ export class AppSyncSchemaBuilder {
             // Add type to GraphQL.
             this.graphqlApi.addType(objectType);
 
-            const operations = CustomDirective.getArgumentByIdentifier('operation', 'names', objectType.directives);
+            const operations = CustomDirective.getArgumentByIdentifier('operations', 'names', objectType.directives);
             if (operations) {
                 if (operations.includes('find')) {
                     this.addFind(objectType);
@@ -246,7 +260,10 @@ export class AppSyncSchemaBuilder {
                 definition: {
                     ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
                     node: objectType.attribute()
-                }
+                },
+                directives: [
+                    appsync.Directive.iam()
+                ]
             });
             this.graphqlApi.addType(edgeObjectType);
 
@@ -256,7 +273,10 @@ export class AppSyncSchemaBuilder {
                     edges: edgeObjectType.attribute({ isList: true }),
                     pageInfo: paginationType === 'cursor' ? this.schemaTypes.objectTypes.PageInfoCursor.attribute({ isRequired: true }) : this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
                     totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
-                }
+                },
+                directives: [
+                    appsync.Directive.iam()
+                ]
             });
             this.graphqlApi.addType(connectionObjectType);
 
@@ -285,10 +305,13 @@ export class AppSyncSchemaBuilder {
 
             // Add query.
             // this.graphqlApi.addQuery(`find${objectTypeNamePlural}`, new appsync.ResolvableField({
-            this.graphqlApi.addQuery(`${this.operationNameFromType(objectTypeName)}Find`, new appsync.ResolvableField({
+            this.graphqlApi.addQuery(`${changeCase.camelCase(objectTypeName)}Find`, new appsync.ResolvableField({
                 returnType: connectionObjectType.attribute(),
                 args,
                 dataSource,
+                directives: [
+                    appsync.Directive.iam()
+                ],
                 // pipelineConfig: [], // TODO: Add authorization Lambda function here.
                 // Use the request mapping to inject stash variables (for use in Lambda function).
                 requestMappingTemplate: appsync.MappingTemplate.fromString(`
@@ -316,7 +339,10 @@ export class AppSyncSchemaBuilder {
             definition: {
                 skip: appsync.GraphqlType.int({ isRequired: true }),
                 limit: appsync.GraphqlType.int({ isRequired: true })
-            }
+            },
+            directives: [
+                appsync.Directive.iam()
+            ]
         });
         this.schemaTypes.objectTypes.PageInfoOffset = pageInfoOffset;
 
@@ -327,7 +353,10 @@ export class AppSyncSchemaBuilder {
                 hasNextPage: appsync.GraphqlType.boolean({ isRequired: true }),
                 startCursor: appsync.GraphqlType.string({ isRequired: true }),
                 endCursor: appsync.GraphqlType.string({ isRequired: true })
-            }
+            },
+            directives: [
+                appsync.Directive.iam()
+            ]
         });
         this.schemaTypes.objectTypes.PageInfoCursor = pageInfoCursor;
     }
@@ -347,9 +376,9 @@ export class AppSyncSchemaBuilder {
     }
 
     // e.g. MPost > mpost, MySqlPost > mySqlPost, MyPost > myPost
-    private operationNameFromType(s: string): string {
-        return s.charAt(0).toLocaleLowerCase() + s.charAt(1).toLocaleLowerCase() + s.slice(2);
-    }
+    // private operationNameFromType(s: string): string {
+    //     return s.charAt(0).toLocaleLowerCase() + s.charAt(1).toLocaleLowerCase() + s.slice(2);
+    // }
 }
 
 
