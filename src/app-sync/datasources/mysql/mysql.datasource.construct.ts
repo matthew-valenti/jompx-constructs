@@ -21,11 +21,11 @@ export class AppSyncMySqlDataSource extends Construct {
 
         this.lambdaFunction = new lambdanjs.NodejsFunction(scope, 'handler', {
             // Defaults.
-            ...{ AppSyncLambdaDefaultProps },
+            ...AppSyncLambdaDefaultProps,
             // Datasource overrides.
             description: `AppSync resolver for ${changeCase.pascalCase(id)} datasource.`,
             // Props overrides.
-            ...{ props }
+            ...props
         });
     }
 }

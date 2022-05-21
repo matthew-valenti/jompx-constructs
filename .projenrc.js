@@ -5,7 +5,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     name: '@jompx/constructs',
     repositoryUrl: 'https://github.com/matthew-valenti/jompx-constructs.git',
     defaultReleaseBranch: 'main',
-    cdkVersion: '2.17.0',
+    cdkVersion: '2.24.1',
     constructsVersion: '10.0.92'
 
     // deps: [],                /* Runtime dependencies of this module. */
@@ -17,13 +17,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
 // *** Start Jompx ***
 
 // The construct library for this service is in preview. Since it is not stable yet, it is distributed as a separate package so that you can pin its version independently of the rest of the CDK.
-project.package.addDevDeps('@aws-cdk/aws-appsync-alpha@2.17.0-alpha.0');
-project.package.addPeerDeps('@aws-cdk/aws-appsync-alpha@2.17.0-alpha.0');
+project.package.addDevDeps('@aws-cdk/aws-appsync-alpha@2.24.1-alpha.0');
+project.package.addPeerDeps('@aws-cdk/aws-appsync-alpha@2.24.1-alpha.0');
 
 // Required to build LambdaNJS on local (vs slow docker).
 project.package.addDevDeps('esbuild');
 
 // Add npm packages. Lint wants these added as dependencies but results in lint errors.
+project.package.addDevDeps('aws-lambda'); // For AppSyncResolverEvent type only.
+project.package.addDevDeps('@types/aws-lambda'); // For AppSyncResolverEvent type only.
 project.package.addDevDeps('axios');
 project.package.addDevDeps('change-case');
 project.package.addDevDeps('get-value');

@@ -111,7 +111,8 @@ export class AppSyncSchemaBuilder {
         const outputType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Payload`, {
             definition: returnType.definition,
             directives: [
-                appsync.Directive.iam()
+                appsync.Directive.iam(),
+                appsync.Directive.cognito('admin')
             ]
         });
         this.graphqlApi.addType(outputType);
@@ -121,7 +122,7 @@ export class AppSyncSchemaBuilder {
             definition: {
                 output: outputType.attribute()
             },
-            directives: [...[appsync.Directive.iam()], ...(returnType?.directives ?? [])]
+            directives: [...[appsync.Directive.iam(), appsync.Directive.cognito('admin')], ...(returnType?.directives ?? [])]
         });
         this.graphqlApi.addType(payloadType);
 
@@ -141,7 +142,8 @@ export class AppSyncSchemaBuilder {
             args: { input: inputType.attribute({ isRequired: true }) },
             dataSource,
             directives: [
-                appsync.Directive.iam()
+                appsync.Directive.iam(),
+                appsync.Directive.cognito('admin')
             ],
             // pipelineConfig: [], // TODO: Add authorization Lambda function here.
             requestMappingTemplate: appsync.MappingTemplate.fromString(`
@@ -262,7 +264,8 @@ export class AppSyncSchemaBuilder {
                     node: objectType.attribute()
                 },
                 directives: [
-                    appsync.Directive.iam()
+                    appsync.Directive.iam(),
+                    appsync.Directive.cognito('admin')
                 ]
             });
             this.graphqlApi.addType(edgeObjectType);
@@ -275,7 +278,8 @@ export class AppSyncSchemaBuilder {
                     totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
                 },
                 directives: [
-                    appsync.Directive.iam()
+                    appsync.Directive.iam(),
+                    appsync.Directive.cognito('admin')
                 ]
             });
             this.graphqlApi.addType(connectionObjectType);
@@ -310,7 +314,8 @@ export class AppSyncSchemaBuilder {
                 args,
                 dataSource,
                 directives: [
-                    appsync.Directive.iam()
+                    appsync.Directive.iam(),
+                    appsync.Directive.cognito('admin')
                 ],
                 // pipelineConfig: [], // TODO: Add authorization Lambda function here.
                 // Use the request mapping to inject stash variables (for use in Lambda function).
@@ -341,7 +346,8 @@ export class AppSyncSchemaBuilder {
                 limit: appsync.GraphqlType.int({ isRequired: true })
             },
             directives: [
-                appsync.Directive.iam()
+                appsync.Directive.iam(),
+                appsync.Directive.cognito('admin')
             ]
         });
         this.schemaTypes.objectTypes.PageInfoOffset = pageInfoOffset;
@@ -355,7 +361,8 @@ export class AppSyncSchemaBuilder {
                 endCursor: appsync.GraphqlType.string({ isRequired: true })
             },
             directives: [
-                appsync.Directive.iam()
+                appsync.Directive.iam(),
+                appsync.Directive.cognito('admin')
             ]
         });
         this.schemaTypes.objectTypes.PageInfoCursor = pageInfoCursor;

@@ -2,6 +2,9 @@
 export { Config } from './config/config';
 export * from './config/config.types';
 
+// Cognito
+export { Cognito, ICognitoProps } from './cognito/cognito.construct';
+
 // AppSync
 export { AppSync, IAppSyncProps } from './app-sync/app-sync.construct';
 export { AppSyncSchemaBuilder, IAddMutationArguments } from './app-sync/schema-builder';

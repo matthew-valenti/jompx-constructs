@@ -1,9 +1,12 @@
 // import { AppSyncDatasource } from '../../classes/app-sync/datasources/datasource';
-import { IAppSyncResolverEvent } from '../../app-sync.types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { AppSyncResolverEvent } from 'aws-lambda';
 import { AppSyncMySqlDatasource } from './mysql.datasource';
 
-exports.handler = async (event: IAppSyncResolverEvent) => {
+exports.handler = async (event: AppSyncResolverEvent<any>) => {
     console.log('event', event);
+    console.log('process', process);
+
     let data = null;
 
     if (event?.stash?.operation) {

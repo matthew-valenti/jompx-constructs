@@ -1,4 +1,3 @@
-import { IAppSyncResolverEvent } from './app-sync.types';
 export declare class AppSyncResolver {
     /**
      * Call a method on a class from values in a AppSync Lambda event.
@@ -7,5 +6,5 @@ export declare class AppSyncResolver {
      * @param path - JSON path to method arguments in event.arguments.
      * @returns - Returns the return value of the method.
      */
-    static callMethodFromEvent<T>(classInstance: any, event: IAppSyncResolverEvent, path?: string): any;
+    static callMethodFromEvent<T>(classInstance: any, event: any, path?: string): any;
 }

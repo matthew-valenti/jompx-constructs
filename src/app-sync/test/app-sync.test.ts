@@ -21,7 +21,8 @@ describe('AppSyncStack', () => {
         // const config = new Config(app.node);
 
         const appSyncProps: jompx.IAppSyncProps = {
-            name: 'api'
+            name: 'api',
+            additionalAuthorizationModes: []
         };
 
         // Create AWS AppSync resource.

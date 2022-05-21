@@ -1,5 +1,6 @@
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
+import type { AppSyncResolverEvent } from 'aws-lambda';
 export interface IDataSource {
     [key: string]: appsync.LambdaDataSource;
 }
@@ -21,18 +22,7 @@ export interface ISchemaTypes {
     };
 }
 export declare const AppSyncLambdaDefaultProps: cdk.aws_lambda_nodejs.NodejsFunctionProps;
-export interface IAppSyncResolverEvent {
-    arguments: any;
-    identity: any;
-    source: any;
-    request: any;
-    info: any;
-    prev: any;
-    stash: {
-        [key: string]: any;
-    };
-    selectionSetList: string[];
-}
+export declare type IAppSyncResolverEvent = AppSyncResolverEvent<any>;
 export interface IAppSyncOperationArgs {
     [key: string]: appsync.GraphqlType;
 }
@@ -56,5 +46,15 @@ export interface IAppSyncPageInfoCursor {
 }
 export interface AppSyncIFields {
     [key: string]: AppSyncIFields | appsync.IField;
+}
+export interface IAppSyncMethodPropsCognito {
+    sub: string;
+    email: string;
+    groups: string[];
+    authorization: string;
+}
+export interface IAppSyncMethodProps {
+    cognito?: IAppSyncMethodPropsCognito;
+    event: any;
 }
 export declare const DefaultRequestMappingTemplate = "{\n    \"version\" : \"2018-05-29\",\n    \"operation\": \"Invoke\",\n    \"payload\": {\n        \"arguments\": $utils.toJson($context.arguments),\n        \"identity\": $utils.toJson($context.identity),\n        \"source\": $utils.toJson($context.source),\n        \"request\": $utils.toJson($context.request),\n        \"prev\": $utils.toJson($context.prev),\n        \"info\": $utils.toJson($context.info),\n        \"stash\": $utils.toJson($context.stash),\n        \"selectionSetList\": $utils.toJson($context.info.selectionSetList)\n    }\n}";
