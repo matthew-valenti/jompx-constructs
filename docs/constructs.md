@@ -12,6 +12,11 @@ https://matthewbonig.com/2020/10/04/converting-to-projen/
 Projen sets up a CDK construct project structure.  
 If constructs are going to be published/shared it's important to follow all best practices baked into this project.  
 
+## Construct Hub
+https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0
+https://www.matthewbonig.com/2020/01/11/creating-constructs/
+ouch - requires jsii.
+
 ## Setup
 ```
 // 1. Create a new projen construct project.
@@ -127,8 +132,3 @@ Best practices: https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html
 Environment variable lookups inside constructs and stacks are a common anti-pattern. Both constructs and stacks should accept a properties object to allow for full configurability completely in code. To do otherwise is to introduce a dependency on the machine that the code will run on, which becomes another bit of configuration information you have to keep track of and manage.
 
 In general, environment variable lookups should be limited to the top level of an AWS CDK app, and should be used to pass in information needed for running in a development environment; see Environments.
-
-## Construct Hub
-https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0
-https://www.matthewbonig.com/2020/01/11/creating-constructs/
-ouch - requires jsii.

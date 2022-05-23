@@ -35,7 +35,7 @@ export class AppSync extends Construct {
 
         // Add project ids to parameter store.
         new ssm.StringParameter(this, 'AppsyncGraphqlUrl', {
-            parameterName: '/appSync2/graphqlUrl', // TODO: Remove 2. /appSync/graphqlUrl already exists error when it's been deleted.
+            parameterName: '/appSync/graphqlUrl',
             stringValue: this.graphqlApi.graphqlUrl
         });
 
