@@ -1,6 +1,9 @@
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
 export interface ICdkPipelineProps {
+    /**
+     * The CICD stage. Typically prod or test.
+     */
     stage: string;
     gitHub: ICdkPipelineGitHubProps;
     commands?: string[];
@@ -11,6 +14,7 @@ export interface ICdkPipelineGitHubProps {
     connectionArn: string;
 }
 export interface IEnvironmentPipeline {
+    stage: string;
     branch: string;
     pipeline: pipelines.CodePipeline;
 }
@@ -53,6 +57,11 @@ export interface IEnvironmentPipeline {
  * - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code.
  * e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod').
  * - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).
+ *
+ * Deployments supported:
+ * - Manual CDK Pipeline stack deployment to CICD test and prod environments.
+ * - GitHub triggered deployments across all branches and all CICD stage branches e.g. (prod & test-prod, test & test-test, sandbox1 & test-sandbox1).
+ * - Manual CDK stack deploys (to any env). e.g. deploy stack to sandbox1, deploy stack to test, deploy stack to prod.
  */
 export declare class CdkPipeline extends Construct {
     environmentPipelines: IEnvironmentPipeline[];

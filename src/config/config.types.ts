@@ -1,28 +1,3 @@
-export interface IEnvironment {
-    accountId: string;
-    region: string;
-    name: string;
-    // stage: string; // e.g. prod, test, sandbox.
-}
-
-export interface IStageEnvironment {
-    type: string;
-    name: string;
-    account?: IEnvironment;
-}
-
-export interface IStage {
-    [key: string]: {
-        branch: string;
-        environments: IStageEnvironment[];
-    };
-}
-
-export interface IEnv {
-    account: string;
-    region: string;
-}
-
 export interface IConfig {
     [key: string]: {
         organizationName: string;
@@ -31,10 +6,34 @@ export interface IConfig {
     };
 }
 
+export interface IEnvironment {
+    accountId: string;
+    region: string;
+    name: string;
+    // stage: string; // e.g. prod, test, sandbox.
+}
+
+export interface IStage {
+    [key: string]: {
+        branch: string;
+        deployments: IStageDeployment[];
+    };
+}
+
+export interface IStageDeployment {
+    type: string;
+    environmentName: string;
+}
+
+export interface IEnv {
+    account: string;
+    region: string;
+}
+
 export interface ILocalConfig {
     [key: string]: {
         stage?: string;
-        stages?: IStage; // TODO: Do we need the ability to override stages on local? What about putting the stage in the CLI deploy instead?
+        // stages?: IStage; // TODO: Do we need the ability to override stages on local? What about putting the stage in the CLI deploy instead?
     };
 }
 

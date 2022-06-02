@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as changeCase from 'change-case';
 import { Node } from 'constructs';
-import { IEnvironment, IStage, IStageEnvironment } from './config.types';
+import { IEnvironment, IStage, IStageDeployment } from './config.types';
 
 export class Config {
 
@@ -48,7 +48,7 @@ export class Config {
 
     /**
      * Get config stages. Use dot notation to get a stage e.g. stages.prod
-     * Constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
+     * JSII constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
      * @returns
      */
     public stages(): IStage | undefined {
@@ -70,30 +70,31 @@ export class Config {
         return stages;
     }
 
-    public stageEnvironments(stageName: string): IStageEnvironment[] | undefined {
+    // stageEnvironments
+    public stageDeployments(stageName: string): IStageDeployment[] | undefined {
         let rv = undefined;
         const stages = this.stages();
 
         if (stages) {
             const map = new Map(Object.entries(stages));
-            rv = map.get(stageName)?.environments;
+            rv = map.get(stageName)?.deployments;
         }
 
         return rv;
     }
 
     /**
-     * Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2.
+     * Get env (AWS accountId + region) from config (type + stage) e.g. cicd + test = xxxxxxxxxxxx + us-west-2.
      * If no stage provided then will use current stage.
-     * @param type
+     * @param deploymentType
      * @param stage
      * @returns
      */
-    public env(type: string, stage?: string): cdk.Environment | undefined {
+    public env(deploymentType: string, stage?: string): cdk.Environment | undefined {
         let rv = undefined;
 
-        const stageEnvironments = this.stageEnvironments(stage ?? this.stage());
-        const environmentName = stageEnvironments?.find(o => o.type === type)?.name;
+        const stageDeployments = this.stageDeployments(stage ?? this.stage());
+        const environmentName = stageDeployments?.find(o => o.type === deploymentType)?.environmentName;
 
         if (environmentName) {
             const environment = this.environmentByName(environmentName);

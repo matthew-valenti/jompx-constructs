@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Node } from 'constructs';
-import { IEnvironment, IStage, IStageEnvironment } from './config.types';
+import { IEnvironment, IStage, IStageDeployment } from './config.types';
 export declare class Config {
     appNode: Node;
     constructor(appNode: Node);
@@ -28,19 +28,19 @@ export declare class Config {
     environmentByAccountId(accountId: string): IEnvironment | undefined;
     /**
      * Get config stages. Use dot notation to get a stage e.g. stages.prod
-     * Constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
+     * JSII constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
      * @returns
      */
     stages(): IStage | undefined;
-    stageEnvironments(stageName: string): IStageEnvironment[] | undefined;
+    stageDeployments(stageName: string): IStageDeployment[] | undefined;
     /**
-     * Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2.
+     * Get env (AWS accountId + region) from config (type + stage) e.g. cicd + test = xxxxxxxxxxxx + us-west-2.
      * If no stage provided then will use current stage.
-     * @param type
+     * @param deploymentType
      * @param stage
      * @returns
      */
-    env(type: string, stage?: string): cdk.Environment | undefined;
+    env(deploymentType: string, stage?: string): cdk.Environment | undefined;
     organizationName(): string;
     organizationNamePascalCase(): string;
 }

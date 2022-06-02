@@ -1,23 +1,3 @@
-export interface IEnvironment {
-    accountId: string;
-    region: string;
-    name: string;
-}
-export interface IStageEnvironment {
-    type: string;
-    name: string;
-    account?: IEnvironment;
-}
-export interface IStage {
-    [key: string]: {
-        branch: string;
-        environments: IStageEnvironment[];
-    };
-}
-export interface IEnv {
-    account: string;
-    region: string;
-}
 export interface IConfig {
     [key: string]: {
         organizationName: string;
@@ -25,9 +5,27 @@ export interface IConfig {
         stages: IStage;
     };
 }
+export interface IEnvironment {
+    accountId: string;
+    region: string;
+    name: string;
+}
+export interface IStage {
+    [key: string]: {
+        branch: string;
+        deployments: IStageDeployment[];
+    };
+}
+export interface IStageDeployment {
+    type: string;
+    environmentName: string;
+}
+export interface IEnv {
+    account: string;
+    region: string;
+}
 export interface ILocalConfig {
     [key: string]: {
         stage?: string;
-        stages?: IStage;
     };
 }

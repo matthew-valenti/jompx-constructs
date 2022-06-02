@@ -1,11 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import { Config } from '../src/classes/config';
-// import { AppSync, IAppSyncProps } from '../../src/constructs/app-sync/app-sync.construct';
-// import * as jompx from '../../../src';
 import { Config } from './config';
 import { Config as JompxConfig } from './test/jompx.config';
-// import { MySqlSchema } from './mysql.schema';
 
 /**
  * npx jest config.test.ts
@@ -61,9 +56,9 @@ describe('Config', () => {
         }
     });
 
-    test('stageEnvironments', () => {
-        const stageEnvironments = config.stageEnvironments('prod');
-        expect(stageEnvironments).toHaveLength(3);
+    test('stageDeployments', () => {
+        const stageDeployments = config.stageDeployments('prod');
+        expect(stageDeployments).toHaveLength(3);
     });
 
     test('env', () => {

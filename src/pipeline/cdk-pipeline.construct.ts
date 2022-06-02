@@ -9,6 +9,9 @@ import { Construct } from 'constructs';
 import { Config } from '../config/config';
 
 export interface ICdkPipelineProps {
+    /**
+     * The CICD stage. Typically prod or test.
+     */
     stage: string;
     gitHub: ICdkPipelineGitHubProps;
     commands?: string[];
@@ -22,6 +25,7 @@ export interface ICdkPipelineGitHubProps {
 }
 
 export interface IEnvironmentPipeline {
+    stage: string;
     branch: string;
     pipeline: pipelines.CodePipeline;
 }
@@ -65,6 +69,11 @@ export interface IEnvironmentPipeline {
  * - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code.
  * e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod').
  * - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).
+ *
+ * Deployments supported:
+ * - Manual CDK Pipeline stack deployment to CICD test and prod environments.
+ * - GitHub triggered deployments across all branches and all CICD stage branches e.g. (prod & test-prod, test & test-test, sandbox1 & test-sandbox1).
+ * - Manual CDK stack deploys (to any env). e.g. deploy stack to sandbox1, deploy stack to test, deploy stack to prod.
  */
 export class CdkPipeline extends Construct {
     public environmentPipelines: IEnvironmentPipeline[] = [];
@@ -81,9 +90,9 @@ export class CdkPipeline extends Construct {
         const branchRegexStages = new Map([...stages].filter(([_, v]) => v.branch && v.branch.startsWith('(') && v.branch.endsWith(')')));
 
         // For static branches e.g. main, test.
-        for (const stage of branchStages.values()) {
+        for (const [stage, stageValue] of branchStages.entries()) {
 
-            const branch = (props.stage === 'prod') ? stage.branch : `${props.stage}-${stage.branch}`;
+            const branch = (props.stage === 'prod') ? stageValue.branch : `${props.stage}-${stageValue.branch}`;
 
             // create a standard cdk pipeline for static branches. Performance is better (no S3 file copy required).
             const pipeline = new pipelines.CodePipeline(this, `CdkCodePipeline${changeCase.pascalCase(branch)}`, {
@@ -108,7 +117,7 @@ export class CdkPipeline extends Construct {
                 })
             });
 
-            this.environmentPipelines.push({ branch, pipeline });
+            this.environmentPipelines.push({ stage, branch, pipeline });
         }
 
         if (branchRegexStages.size) {
@@ -125,12 +134,12 @@ export class CdkPipeline extends Construct {
                 autoDeleteObjects: true
             });
 
-            for (const [stageName, stage] of branchRegexStages.entries()) {
+            for (const [stage, stageValue] of branchRegexStages.entries()) {
 
-                const branchFileName = `branch-${stageName}.zip`;
-                const stageNamePascalCase = changeCase.pascalCase(stageName);
+                const branchFileName = `branch-${stage}.zip`;
+                const stagePascalCase = changeCase.pascalCase(stage);
 
-                const branchRegex = (props.stage === 'prod') ? stage.branch : [stage.branch.slice(0, 1), `-${props.stage}`, stage.branch.slice(1)].join(''); // e.g. main, (-test-main-)
+                const branchRegex = (props.stage === 'prod') ? stageValue.branch : [stageValue.branch.slice(0, 1), `-${props.stage}`, stageValue.branch.slice(1)].join(''); // e.g. main, (-test-main-)
 
                 // Create github source (sandbox feature branch).
                 const gitHubBranchSource = codebuild
@@ -148,8 +157,8 @@ export class CdkPipeline extends Construct {
                     });
 
                 // Create build project (to copy feature branch files to S3 on github push).
-                const githubCodeBuildProject = new codebuild.Project(this, `GithubCodeBuildProject${stageNamePascalCase}`, {
-                    projectName: `copy-github-${stageName}-branch-to-s3`,
+                const githubCodeBuildProject = new codebuild.Project(this, `GithubCodeBuildProject${stagePascalCase}`, {
+                    projectName: `copy-github-${stage}-branch-to-s3`,
                     buildSpec: codebuild.BuildSpec.fromObject({
                         version: 0.2,
                         artifacts: {
@@ -175,8 +184,8 @@ export class CdkPipeline extends Construct {
                     ]
                 }));
 
-                const pipeline = new pipelines.CodePipeline(this, `CdkCodePipeline${stageNamePascalCase}`, {
-                    pipelineName: `cdk-pipeline-${stageName}`,
+                const pipeline = new pipelines.CodePipeline(this, `CdkCodePipeline${stagePascalCase}`, {
+                    pipelineName: `cdk-pipeline-${stage}`,
                     crossAccountKeys: true, // Required for cross account deploys.
                     synth: new pipelines.ShellStep('Synth', {
                         env: {
@@ -189,7 +198,7 @@ export class CdkPipeline extends Construct {
                 });
 
                 const branch = branchRegex.slice(1, -1); // Remove parenthesis first and last char.
-                this.environmentPipelines.push({ branch, pipeline });
+                this.environmentPipelines.push({ stage, branch, pipeline });
             }
         }
     }
