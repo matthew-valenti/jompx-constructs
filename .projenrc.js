@@ -5,8 +5,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     name: '@jompx/constructs',
     repositoryUrl: 'https://github.com/matthew-valenti/jompx-constructs.git',
     defaultReleaseBranch: 'main',
-    cdkVersion: '2.24.1',
-    constructsVersion: '10.0.92'
+    cdkVersion: '2.25.0',
+    constructsVersion: '10.1.20'
 
     // deps: [],                /* Runtime dependencies of this module. */
     // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
@@ -17,8 +17,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 // *** Start Jompx ***
 
 // The construct library for this service is in preview. Since it is not stable yet, it is distributed as a separate package so that you can pin its version independently of the rest of the CDK.
-project.package.addDevDeps('@aws-cdk/aws-appsync-alpha@2.24.1-alpha.0');
-project.package.addPeerDeps('@aws-cdk/aws-appsync-alpha@2.24.1-alpha.0');
+project.package.addDevDeps('@aws-cdk/aws-appsync-alpha@2.25.0-alpha.0');
+project.package.addPeerDeps('@aws-cdk/aws-appsync-alpha@2.25.0-alpha.0');
 
 // Required to build LambdaNJS on local (vs slow docker).
 project.package.addDevDeps('esbuild');

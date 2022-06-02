@@ -2,6 +2,236 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### AppPipeline <a name="AppPipeline" id="@jompx/constructs.AppPipeline"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.AppPipeline.Initializer"></a>
+
+```typescript
+import { AppPipeline } from '@jompx/constructs'
+
+new AppPipeline(scope: Construct, id: string, props: IAppPipelineProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppPipeline.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppPipeline.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppPipeline.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.IAppPipelineProps">IAppPipelineProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.AppPipeline.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.AppPipeline.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.AppPipeline.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@jompx/constructs.IAppPipelineProps">IAppPipelineProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppPipeline.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.AppPipeline.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppPipeline.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.AppPipeline.isConstruct"></a>
+
+```typescript
+import { AppPipeline } from '@jompx/constructs'
+
+AppPipeline.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.AppPipeline.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.AppPipeline.property.environmentPipelines">environmentPipelines</a></code> | <code><a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppPipeline.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IAppPipelineOutputs">IAppPipelineOutputs</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.AppPipeline.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `environmentPipelines`<sup>Required</sup> <a name="environmentPipelines" id="@jompx/constructs.AppPipeline.property.environmentPipelines"></a>
+
+```typescript
+public readonly environmentPipelines: IEnvironmentPipeline[];
+```
+
+- *Type:* <a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>[]
+
+---
+
+##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.AppPipeline.property.outputs"></a>
+
+```typescript
+public readonly outputs: IAppPipelineOutputs;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppPipelineOutputs">IAppPipelineOutputs</a>
+
+---
+
+
+### AppPipelineS3 <a name="AppPipelineS3" id="@jompx/constructs.AppPipelineS3"></a>
+
+S3 bucket required to temporaryily store GitHub branch files (for app pipeline).
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.AppPipelineS3.Initializer"></a>
+
+```typescript
+import { AppPipelineS3 } from '@jompx/constructs'
+
+new AppPipelineS3(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppPipelineS3.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppPipelineS3.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.AppPipelineS3.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.AppPipelineS3.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppPipelineS3.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.AppPipelineS3.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AppPipelineS3.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.AppPipelineS3.isConstruct"></a>
+
+```typescript
+import { AppPipelineS3 } from '@jompx/constructs'
+
+AppPipelineS3.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.AppPipelineS3.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppPipelineS3.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.AppPipelineS3.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IAppPipelineS3Outputs">IAppPipelineS3Outputs</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.AppPipelineS3.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.AppPipelineS3.property.outputs"></a>
+
+```typescript
+public readonly outputs: IAppPipelineS3Outputs;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppPipelineS3Outputs">IAppPipelineS3Outputs</a>
+
+---
+
+
 ### AppSync <a name="AppSync" id="@jompx/constructs.AppSync"></a>
 
 AWS AppSync (serverless GraphQL).
@@ -243,7 +473,7 @@ public readonly lambdaFunction: IFunction;
 
 ### CdkPipeline <a name="CdkPipeline" id="@jompx/constructs.CdkPipeline"></a>
 
-Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codebuild-readme.html  Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html  TODO: nx affected: https://nx.dev/ci/monorepo-ci-circle-ci    * TODO deploy in parallel: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html  TODO: Trigger apps pipeline https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit.
+Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codebuild-readme.html  Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html  TODO: nx affected: https://nx.dev/ci/monorepo-ci-circle-ci    * TODO deploy in parallel: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html  TODO: Trigger apps pipeline https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit  Create CDK pipelines that deploy CDK code across AWS accounts on GitHub branch updates. All CDK pipeline resources reside on a single AWS account (preferrably a dedicated CICD AWS account) This dedicated AWS account will have permissions to deploy to all other accounts (as needed). Developers can also be given admin or readonly permissions to troubleshoot CDK deployment errors. Allow for both test and prod CICD AWS accounts. CICD enhancements can be done safely on the test CICD AWS account without affecting production deployments. Create a CDK pipeline for each stage (e.g. sandbox1, test, prod) where each stage is an AWS account (e.g. prod resources reside on a prod AWS account). Each stage is compromised of a set of "CDK stages" which can be deployed to any account. This allows common CDK resources to be deployed to a common AWS account (e.g. AWS wAF can be deployed to a common AWS account and shared across stages sandbox1, test, prod). A github branch update will trigger a CDK pipeline to start. Each stage is associated with a branch (e.g. updates to the main branch triggers the prod pipeline to start, updates to the sandbox1 branch triggers the sandbox1 pipelien to start). An CDK stages is comprised or one or more CDK stacks. Developers can also manually deploy stacks (if they have the appropriate AWS account permissions setup on their local). During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account. A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts. Supports configuration to allow a company to have any number of stages, accounts, and CDK stages.  AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.  Important: - The CDK pipeline acts in the context of a stage (e.g. sandbox1, test, prod) and a stage is typically associated with one AWS account (e.g. prod AWS account). - A stage parameter must always be available. This parameter can be specified on the command line (which always takes precedence) or from a config file. - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code. e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod'). - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).
 
 #### Initializers <a name="Initializers" id="@jompx/constructs.CdkPipeline.Initializer"></a>
 
@@ -351,6 +581,355 @@ public readonly environmentPipelines: IEnvironmentPipeline[];
 ```
 
 - *Type:* <a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>[]
+
+---
+
+
+### Cognito <a name="Cognito" id="@jompx/constructs.Cognito"></a>
+
+AWS AppSync (serverless GraphQL).
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.Cognito.Initializer"></a>
+
+```typescript
+import { Cognito } from '@jompx/constructs'
+
+new Cognito(scope: Construct, id: string, props: ICognitoProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.Cognito.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.Cognito.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.Cognito.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.ICognitoProps">ICognitoProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.Cognito.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.Cognito.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.Cognito.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@jompx/constructs.ICognitoProps">ICognitoProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.Cognito.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.Cognito.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.Cognito.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.Cognito.isConstruct"></a>
+
+```typescript
+import { Cognito } from '@jompx/constructs'
+
+Cognito.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.Cognito.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.Cognito.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.Cognito.property.userPool">userPool</a></code> | <code>aws-cdk-lib.aws_cognito.UserPool</code> | *No description.* |
+| <code><a href="#@jompx/constructs.Cognito.property.userPoolClients">userPoolClients</a></code> | <code>aws-cdk-lib.aws_cognito.UserPoolClient[]</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.Cognito.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `userPool`<sup>Required</sup> <a name="userPool" id="@jompx/constructs.Cognito.property.userPool"></a>
+
+```typescript
+public readonly userPool: UserPool;
+```
+
+- *Type:* aws-cdk-lib.aws_cognito.UserPool
+
+---
+
+##### `userPoolClients`<sup>Required</sup> <a name="userPoolClients" id="@jompx/constructs.Cognito.property.userPoolClients"></a>
+
+```typescript
+public readonly userPoolClients: UserPoolClient[];
+```
+
+- *Type:* aws-cdk-lib.aws_cognito.UserPoolClient[]
+
+---
+
+
+### HostingCertificate <a name="HostingCertificate" id="@jompx/constructs.HostingCertificate"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.HostingCertificate.Initializer"></a>
+
+```typescript
+import { HostingCertificate } from '@jompx/constructs'
+
+new HostingCertificate(scope: Construct, id: string, props: IHostingCertificateProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.HostingCertificate.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCertificate.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCertificate.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.IHostingCertificateProps">IHostingCertificateProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.HostingCertificate.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.HostingCertificate.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.HostingCertificate.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@jompx/constructs.IHostingCertificateProps">IHostingCertificateProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.HostingCertificate.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.HostingCertificate.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.HostingCertificate.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.HostingCertificate.isConstruct"></a>
+
+```typescript
+import { HostingCertificate } from '@jompx/constructs'
+
+HostingCertificate.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.HostingCertificate.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.HostingCertificate.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.HostingCertificate.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IHostingCertificateOutputs">IHostingCertificateOutputs</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.HostingCertificate.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.HostingCertificate.property.outputs"></a>
+
+```typescript
+public readonly outputs: IHostingCertificateOutputs;
+```
+
+- *Type:* <a href="#@jompx/constructs.IHostingCertificateOutputs">IHostingCertificateOutputs</a>
+
+---
+
+
+### HostingS3 <a name="HostingS3" id="@jompx/constructs.HostingS3"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.HostingS3.Initializer"></a>
+
+```typescript
+import { HostingS3 } from '@jompx/constructs'
+
+new HostingS3(scope: Construct, id: string, props: IHostingS3Props)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.HostingS3.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingS3.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingS3.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.IHostingS3Props">IHostingS3Props</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.HostingS3.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.HostingS3.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.HostingS3.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@jompx/constructs.IHostingS3Props">IHostingS3Props</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.HostingS3.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.HostingS3.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.HostingS3.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.HostingS3.isConstruct"></a>
+
+```typescript
+import { HostingS3 } from '@jompx/constructs'
+
+HostingS3.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.HostingS3.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.HostingS3.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.HostingS3.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IHostingS3Outputs">IHostingS3Outputs</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.HostingS3.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.HostingS3.property.outputs"></a>
+
+```typescript
+public readonly outputs: IHostingS3Outputs;
+```
+
+- *Type:* <a href="#@jompx/constructs.IHostingS3Outputs">IHostingS3Outputs</a>
 
 ---
 
@@ -621,7 +1200,7 @@ new AppSyncResolver()
 ```typescript
 import { AppSyncResolver } from '@jompx/constructs'
 
-AppSyncResolver.callMethodFromEvent(classInstance: any, event: IAppSyncResolverEvent, path?: string)
+AppSyncResolver.callMethodFromEvent(classInstance: any, event: any, path?: string)
 ```
 
 Call a method on a class from values in a AppSync Lambda event.
@@ -636,7 +1215,7 @@ A class instance.
 
 ###### `event`<sup>Required</sup> <a name="event" id="@jompx/constructs.AppSyncResolver.callMethodFromEvent.parameter.event"></a>
 
-- *Type:* <a href="#@jompx/constructs.IAppSyncResolverEvent">IAppSyncResolverEvent</a>
+- *Type:* any
 
 AppSync Lambda event.
 
@@ -809,23 +1388,25 @@ new Config(appNode: Node)
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@jompx/constructs.Config.env">env</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.environmentByAccountId">environmentByAccountId</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.environmentByName">environmentByName</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.environments">environments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.env">env</a></code> | Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2. If no stage provided then will use current stage. |
+| <code><a href="#@jompx/constructs.Config.environmentByAccountId">environmentByAccountId</a></code> | Get an AWS environment by AWS account id. |
+| <code><a href="#@jompx/constructs.Config.environmentByName">environmentByName</a></code> | Get an AWS environment by friendly name. |
+| <code><a href="#@jompx/constructs.Config.environments">environments</a></code> | Get list of AWS environemnts. |
 | <code><a href="#@jompx/constructs.Config.organizationName">organizationName</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.organizationNamePascalCase">organizationNamePascalCase</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.stage">stage</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.stage">stage</a></code> | Get stage from command line or config. |
 | <code><a href="#@jompx/constructs.Config.stageEnvironments">stageEnvironments</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.Config.stages">stages</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.stages">stages</a></code> | Get config stages. |
 
 ---
 
 ##### `env` <a name="env" id="@jompx/constructs.Config.env"></a>
 
 ```typescript
-public env(type: string, stageName?: string): Environment
+public env(type: string, stage?: string): Environment
 ```
+
+Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2. If no stage provided then will use current stage.
 
 ###### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.Config.env.parameter.type"></a>
 
@@ -833,7 +1414,7 @@ public env(type: string, stageName?: string): Environment
 
 ---
 
-###### `stageName`<sup>Optional</sup> <a name="stageName" id="@jompx/constructs.Config.env.parameter.stageName"></a>
+###### `stage`<sup>Optional</sup> <a name="stage" id="@jompx/constructs.Config.env.parameter.stage"></a>
 
 - *Type:* string
 
@@ -844,6 +1425,8 @@ public env(type: string, stageName?: string): Environment
 ```typescript
 public environmentByAccountId(accountId: string): IEnvironment
 ```
+
+Get an AWS environment by AWS account id.
 
 ###### `accountId`<sup>Required</sup> <a name="accountId" id="@jompx/constructs.Config.environmentByAccountId.parameter.accountId"></a>
 
@@ -857,6 +1440,8 @@ public environmentByAccountId(accountId: string): IEnvironment
 public environmentByName(name: string): IEnvironment
 ```
 
+Get an AWS environment by friendly name.
+
 ###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.Config.environmentByName.parameter.name"></a>
 
 - *Type:* string
@@ -868,6 +1453,10 @@ public environmentByName(name: string): IEnvironment
 ```typescript
 public environments(): IEnvironment[]
 ```
+
+Get list of AWS environemnts.
+
+An AWS environment is primarily a accountId/region pair.
 
 ##### `organizationName` <a name="organizationName" id="@jompx/constructs.Config.organizationName"></a>
 
@@ -887,6 +1476,10 @@ public organizationNamePascalCase(): string
 public stage(): string
 ```
 
+Get stage from command line or config.
+
+e.g. sandbox1, test, prod.
+
 ##### `stageEnvironments` <a name="stageEnvironments" id="@jompx/constructs.Config.stageEnvironments"></a>
 
 ```typescript
@@ -904,6 +1497,10 @@ public stageEnvironments(stageName: string): IStageEnvironment[]
 ```typescript
 public stages(): IStage
 ```
+
+Get config stages.
+
+Use dot notation to get a stage e.g. stages.prod Constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
 
 
 #### Properties <a name="Properties" id="Properties"></a>
@@ -1624,6 +2221,186 @@ The mutation method to call.
 
 ---
 
+### IAppPipelineGitHubProps <a name="IAppPipelineGitHubProps" id="@jompx/constructs.IAppPipelineGitHubProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppPipelineGitHubProps">IAppPipelineGitHubProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppPipelineGitHubProps.property.owner">owner</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineGitHubProps.property.repo">repo</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineGitHubProps.property.token">token</a></code> | <code>aws-cdk-lib.SecretValue</code> | *No description.* |
+
+---
+
+##### `owner`<sup>Required</sup> <a name="owner" id="@jompx/constructs.IAppPipelineGitHubProps.property.owner"></a>
+
+```typescript
+public readonly owner: string;
+```
+
+- *Type:* string
+
+---
+
+##### `repo`<sup>Required</sup> <a name="repo" id="@jompx/constructs.IAppPipelineGitHubProps.property.repo"></a>
+
+```typescript
+public readonly repo: string;
+```
+
+- *Type:* string
+
+---
+
+##### `token`<sup>Required</sup> <a name="token" id="@jompx/constructs.IAppPipelineGitHubProps.property.token"></a>
+
+```typescript
+public readonly token: SecretValue;
+```
+
+- *Type:* aws-cdk-lib.SecretValue
+
+---
+
+### IAppPipelineOutputs <a name="IAppPipelineOutputs" id="@jompx/constructs.IAppPipelineOutputs"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppPipelineOutputs">IAppPipelineOutputs</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppPipelineOutputs.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.aws_codepipeline.Pipeline</code> | *No description.* |
+
+---
+
+##### `pipeline`<sup>Required</sup> <a name="pipeline" id="@jompx/constructs.IAppPipelineOutputs.property.pipeline"></a>
+
+```typescript
+public readonly pipeline: Pipeline;
+```
+
+- *Type:* aws-cdk-lib.aws_codepipeline.Pipeline
+
+---
+
+### IAppPipelineProps <a name="IAppPipelineProps" id="@jompx/constructs.IAppPipelineProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppPipelineProps">IAppPipelineProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.appName">appName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.codebuildBuildSpecObject">codebuildBuildSpecObject</a></code> | <code>object</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.gitHub">gitHub</a></code> | <code><a href="#@jompx/constructs.IAppPipelineGitHubProps">IAppPipelineGitHubProps</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.hostingBucket">hostingBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.pipelinegBucket">pipelinegBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.stage">stage</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppPipelineProps.property.buildEnvironment">buildEnvironment</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildEnvironment</code> | *No description.* |
+
+---
+
+##### `appName`<sup>Required</sup> <a name="appName" id="@jompx/constructs.IAppPipelineProps.property.appName"></a>
+
+```typescript
+public readonly appName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `codebuildBuildSpecObject`<sup>Required</sup> <a name="codebuildBuildSpecObject" id="@jompx/constructs.IAppPipelineProps.property.codebuildBuildSpecObject"></a>
+
+```typescript
+public readonly codebuildBuildSpecObject: object;
+```
+
+- *Type:* object
+
+---
+
+##### `gitHub`<sup>Required</sup> <a name="gitHub" id="@jompx/constructs.IAppPipelineProps.property.gitHub"></a>
+
+```typescript
+public readonly gitHub: IAppPipelineGitHubProps;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppPipelineGitHubProps">IAppPipelineGitHubProps</a>
+
+---
+
+##### `hostingBucket`<sup>Required</sup> <a name="hostingBucket" id="@jompx/constructs.IAppPipelineProps.property.hostingBucket"></a>
+
+```typescript
+public readonly hostingBucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `pipelinegBucket`<sup>Required</sup> <a name="pipelinegBucket" id="@jompx/constructs.IAppPipelineProps.property.pipelinegBucket"></a>
+
+```typescript
+public readonly pipelinegBucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `stage`<sup>Required</sup> <a name="stage" id="@jompx/constructs.IAppPipelineProps.property.stage"></a>
+
+```typescript
+public readonly stage: string;
+```
+
+- *Type:* string
+
+---
+
+##### `buildEnvironment`<sup>Optional</sup> <a name="buildEnvironment" id="@jompx/constructs.IAppPipelineProps.property.buildEnvironment"></a>
+
+```typescript
+public readonly buildEnvironment: BuildEnvironment;
+```
+
+- *Type:* aws-cdk-lib.aws_codebuild.BuildEnvironment
+
+---
+
+### IAppPipelineS3Outputs <a name="IAppPipelineS3Outputs" id="@jompx/constructs.IAppPipelineS3Outputs"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppPipelineS3Outputs">IAppPipelineS3Outputs</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppPipelineS3Outputs.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.IAppPipelineS3Outputs.property.bucket"></a>
+
+```typescript
+public readonly bucket: Bucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.Bucket
+
+---
+
 ### IAppSyncConnection <a name="IAppSyncConnection" id="@jompx/constructs.IAppSyncConnection"></a>
 
 - *Implemented By:* <a href="#@jompx/constructs.IAppSyncConnection">IAppSyncConnection</a>
@@ -1666,6 +2443,96 @@ public readonly totalCount: number;
 ```
 
 - *Type:* number
+
+---
+
+### IAppSyncMethodProps <a name="IAppSyncMethodProps" id="@jompx/constructs.IAppSyncMethodProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncMethodProps">IAppSyncMethodProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppSyncMethodProps.property.event">event</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncMethodProps.property.cognito">cognito</a></code> | <code><a href="#@jompx/constructs.IAppSyncMethodPropsCognito">IAppSyncMethodPropsCognito</a></code> | *No description.* |
+
+---
+
+##### `event`<sup>Required</sup> <a name="event" id="@jompx/constructs.IAppSyncMethodProps.property.event"></a>
+
+```typescript
+public readonly event: any;
+```
+
+- *Type:* any
+
+---
+
+##### `cognito`<sup>Optional</sup> <a name="cognito" id="@jompx/constructs.IAppSyncMethodProps.property.cognito"></a>
+
+```typescript
+public readonly cognito: IAppSyncMethodPropsCognito;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncMethodPropsCognito">IAppSyncMethodPropsCognito</a>
+
+---
+
+### IAppSyncMethodPropsCognito <a name="IAppSyncMethodPropsCognito" id="@jompx/constructs.IAppSyncMethodPropsCognito"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncMethodPropsCognito">IAppSyncMethodPropsCognito</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IAppSyncMethodPropsCognito.property.authorization">authorization</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncMethodPropsCognito.property.email">email</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncMethodPropsCognito.property.groups">groups</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncMethodPropsCognito.property.sub">sub</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `authorization`<sup>Required</sup> <a name="authorization" id="@jompx/constructs.IAppSyncMethodPropsCognito.property.authorization"></a>
+
+```typescript
+public readonly authorization: string;
+```
+
+- *Type:* string
+
+---
+
+##### `email`<sup>Required</sup> <a name="email" id="@jompx/constructs.IAppSyncMethodPropsCognito.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+---
+
+##### `groups`<sup>Required</sup> <a name="groups" id="@jompx/constructs.IAppSyncMethodPropsCognito.property.groups"></a>
+
+```typescript
+public readonly groups: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `sub`<sup>Required</sup> <a name="sub" id="@jompx/constructs.IAppSyncMethodPropsCognito.property.sub"></a>
+
+```typescript
+public readonly sub: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -1798,10 +2665,12 @@ public readonly skip: number;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.IAppSyncProps.property.name">name</a></code> | <code>string</code> | Name of the AppSync GraphQL resource as it appears in the AWS Console. |
+| <code><a href="#@jompx/constructs.IAppSyncProps.property.additionalAuthorizationModes">additionalAuthorizationModes</a></code> | <code>@aws-cdk/aws-appsync-alpha.AuthorizationMode[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncProps.property.userPool">userPool</a></code> | <code>aws-cdk-lib.aws_cognito.UserPool</code> | *No description.* |
 
 ---
 
-##### `name`<sup>Optional</sup> <a name="name" id="@jompx/constructs.IAppSyncProps.property.name"></a>
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IAppSyncProps.property.name"></a>
 
 ```typescript
 public readonly name: string;
@@ -1813,103 +2682,23 @@ Name of the AppSync GraphQL resource as it appears in the AWS Console.
 
 ---
 
-### IAppSyncResolverEvent <a name="IAppSyncResolverEvent" id="@jompx/constructs.IAppSyncResolverEvent"></a>
+##### `additionalAuthorizationModes`<sup>Optional</sup> <a name="additionalAuthorizationModes" id="@jompx/constructs.IAppSyncProps.property.additionalAuthorizationModes"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.IAppSyncResolverEvent">IAppSyncResolverEvent</a>
+```typescript
+public readonly additionalAuthorizationModes: AuthorizationMode[];
+```
 
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.arguments">arguments</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.identity">identity</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.info">info</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.prev">prev</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.request">request</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.selectionSetList">selectionSetList</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.source">source</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncResolverEvent.property.stash">stash</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+- *Type:* @aws-cdk/aws-appsync-alpha.AuthorizationMode[]
 
 ---
 
-##### `arguments`<sup>Required</sup> <a name="arguments" id="@jompx/constructs.IAppSyncResolverEvent.property.arguments"></a>
+##### `userPool`<sup>Optional</sup> <a name="userPool" id="@jompx/constructs.IAppSyncProps.property.userPool"></a>
 
 ```typescript
-public readonly arguments: any;
+public readonly userPool: UserPool;
 ```
 
-- *Type:* any
-
----
-
-##### `identity`<sup>Required</sup> <a name="identity" id="@jompx/constructs.IAppSyncResolverEvent.property.identity"></a>
-
-```typescript
-public readonly identity: any;
-```
-
-- *Type:* any
-
----
-
-##### `info`<sup>Required</sup> <a name="info" id="@jompx/constructs.IAppSyncResolverEvent.property.info"></a>
-
-```typescript
-public readonly info: any;
-```
-
-- *Type:* any
-
----
-
-##### `prev`<sup>Required</sup> <a name="prev" id="@jompx/constructs.IAppSyncResolverEvent.property.prev"></a>
-
-```typescript
-public readonly prev: any;
-```
-
-- *Type:* any
-
----
-
-##### `request`<sup>Required</sup> <a name="request" id="@jompx/constructs.IAppSyncResolverEvent.property.request"></a>
-
-```typescript
-public readonly request: any;
-```
-
-- *Type:* any
-
----
-
-##### `selectionSetList`<sup>Required</sup> <a name="selectionSetList" id="@jompx/constructs.IAppSyncResolverEvent.property.selectionSetList"></a>
-
-```typescript
-public readonly selectionSetList: string[];
-```
-
-- *Type:* string[]
-
----
-
-##### `source`<sup>Required</sup> <a name="source" id="@jompx/constructs.IAppSyncResolverEvent.property.source"></a>
-
-```typescript
-public readonly source: any;
-```
-
-- *Type:* any
-
----
-
-##### `stash`<sup>Required</sup> <a name="stash" id="@jompx/constructs.IAppSyncResolverEvent.property.stash"></a>
-
-```typescript
-public readonly stash: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
+- *Type:* aws-cdk-lib.aws_cognito.UserPool
 
 ---
 
@@ -2000,6 +2789,72 @@ public readonly commands: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+### ICognitoProps <a name="ICognitoProps" id="@jompx/constructs.ICognitoProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.ICognitoProps">ICognitoProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.ICognitoProps.property.name">name</a></code> | <code>string</code> | Name of the Cognito user pool resource as it appears in the AWS Console. |
+| <code><a href="#@jompx/constructs.ICognitoProps.property.appCodes">appCodes</a></code> | <code>string[]</code> | List of camelCase app codes. |
+| <code><a href="#@jompx/constructs.ICognitoProps.property.userPoolGroups">userPoolGroups</a></code> | <code>aws-cdk-lib.aws_cognito.CfnUserPoolGroupProps[]</code> | List of Cognito user pool groups to create. |
+| <code><a href="#@jompx/constructs.ICognitoProps.property.userPoolProps">userPoolProps</a></code> | <code>aws-cdk-lib.aws_cognito.UserPoolProps</code> | Optional CDK user pool props to override AWS and Jompx default prop values. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.ICognitoProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the Cognito user pool resource as it appears in the AWS Console.
+
+---
+
+##### `appCodes`<sup>Optional</sup> <a name="appCodes" id="@jompx/constructs.ICognitoProps.property.appCodes"></a>
+
+```typescript
+public readonly appCodes: string[];
+```
+
+- *Type:* string[]
+
+List of camelCase app codes.
+
+A user pool client will be created for each app.
+
+---
+
+##### `userPoolGroups`<sup>Optional</sup> <a name="userPoolGroups" id="@jompx/constructs.ICognitoProps.property.userPoolGroups"></a>
+
+```typescript
+public readonly userPoolGroups: CfnUserPoolGroupProps[];
+```
+
+- *Type:* aws-cdk-lib.aws_cognito.CfnUserPoolGroupProps[]
+
+List of Cognito user pool groups to create.
+
+---
+
+##### `userPoolProps`<sup>Optional</sup> <a name="userPoolProps" id="@jompx/constructs.ICognitoProps.property.userPoolProps"></a>
+
+```typescript
+public readonly userPoolProps: UserPoolProps;
+```
+
+- *Type:* aws-cdk-lib.aws_cognito.UserPoolProps
+
+Optional CDK user pool props to override AWS and Jompx default prop values.
 
 ---
 
@@ -2170,6 +3025,120 @@ public readonly pipeline: CodePipeline;
 ```
 
 - *Type:* aws-cdk-lib.pipelines.CodePipeline
+
+---
+
+### IHostingCertificateOutputs <a name="IHostingCertificateOutputs" id="@jompx/constructs.IHostingCertificateOutputs"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IHostingCertificateOutputs">IHostingCertificateOutputs</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IHostingCertificateOutputs.property.publicHostedZone">publicHostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCertificateOutputs.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.Certificate</code> | *No description.* |
+
+---
+
+##### `publicHostedZone`<sup>Required</sup> <a name="publicHostedZone" id="@jompx/constructs.IHostingCertificateOutputs.property.publicHostedZone"></a>
+
+```typescript
+public readonly publicHostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+---
+
+##### `certificate`<sup>Optional</sup> <a name="certificate" id="@jompx/constructs.IHostingCertificateOutputs.property.certificate"></a>
+
+```typescript
+public readonly certificate: Certificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.Certificate
+
+---
+
+### IHostingCertificateProps <a name="IHostingCertificateProps" id="@jompx/constructs.IHostingCertificateProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IHostingCertificateProps">IHostingCertificateProps</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IHostingCertificateProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="@jompx/constructs.IHostingCertificateProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
+
+---
+
+### IHostingS3Outputs <a name="IHostingS3Outputs" id="@jompx/constructs.IHostingS3Outputs"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IHostingS3Outputs">IHostingS3Outputs</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IHostingS3Outputs.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.IHostingS3Outputs.property.bucket"></a>
+
+```typescript
+public readonly bucket: Bucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.Bucket
+
+---
+
+### IHostingS3Props <a name="IHostingS3Props" id="@jompx/constructs.IHostingS3Props"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IHostingS3Props">IHostingS3Props</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IHostingS3Props.property.appName">appName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingS3Props.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `appName`<sup>Required</sup> <a name="appName" id="@jompx/constructs.IHostingS3Props.property.appName"></a>
+
+```typescript
+public readonly appName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="@jompx/constructs.IHostingS3Props.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
 
 ---
 

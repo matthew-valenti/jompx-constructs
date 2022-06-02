@@ -44,8 +44,10 @@ npx projen test:compile
 npx projen test:watch
 
 // projen always runs all tests. To run a single test:
+npx jest config.test.ts
 npx jest app-sync-resolver.test.ts
 npx jest cdk-pipeline-branch-construct.test.ts
+npx jest app-pipeline-construct.test.ts
 ```
 
 ## Upgrade
@@ -56,8 +58,9 @@ npx projen upgrade // This command is undocumented but runs.
 ```
 Update versions in .projenrc.js
 ```
-cdkVersion: '2.12.0',
-constructsVersion: '10.0.63'
+cdkVersion
+constructsVersion
+@aws-cdk/aws-appsync-alpha
 ```
 
 ## Local Development

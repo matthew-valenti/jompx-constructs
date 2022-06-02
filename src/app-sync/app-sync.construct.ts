@@ -33,7 +33,7 @@ export class AppSync extends Construct {
             }
         });
 
-        // Add project ids to parameter store.
+        // Add GraphQL url to parameter store.
         new ssm.StringParameter(this, 'AppsyncGraphqlUrl', {
             parameterName: '/appSync/graphqlUrl',
             stringValue: this.graphqlApi.graphqlUrl

@@ -42,6 +42,29 @@ export interface IEnvironmentPipeline {
  *
  * TODO: Trigger apps pipeline
  * https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
+ *
+ * Create CDK pipelines that deploy CDK code across AWS accounts on GitHub branch updates.
+ * All CDK pipeline resources reside on a single AWS account (preferrably a dedicated CICD AWS account)
+ * This dedicated AWS account will have permissions to deploy to all other accounts (as needed). Developers can also be given admin or readonly permissions to troubleshoot CDK deployment errors.
+ * Allow for both test and prod CICD AWS accounts. CICD enhancements can be done safely on the test CICD AWS account without affecting production deployments.
+ * Create a CDK pipeline for each stage (e.g. sandbox1, test, prod) where each stage is an AWS account (e.g. prod resources reside on a prod AWS account).
+ * Each stage is compromised of a set of "CDK stages" which can be deployed to any account. This allows common CDK resources to be deployed to a common AWS account (e.g. AWS wAF can be deployed to a common AWS account and shared across stages sandbox1, test, prod).
+ * A github branch update will trigger a CDK pipeline to start.
+ * Each stage is associated with a branch (e.g. updates to the main branch triggers the prod pipeline to start, updates to the sandbox1 branch triggers the sandbox1 pipelien to start).
+ * An CDK stages is comprised or one or more CDK stacks.
+ * Developers can also manually deploy stacks (if they have the appropriate AWS account permissions setup on their local).
+ * During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account.
+ * A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts.
+ * Supports configuration to allow a company to have any number of stages, accounts, and CDK stages.
+ *
+ * AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.
+ *
+ * Important:
+ * - The CDK pipeline acts in the context of a stage (e.g. sandbox1, test, prod) and a stage is typically associated with one AWS account (e.g. prod AWS account).
+ * - A stage parameter must always be available. This parameter can be specified on the command line (which always takes precedence) or from a config file.
+ * - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code.
+ * e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod').
+ * - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).
  */
 export class CdkPipeline extends Construct {
     public environmentPipelines: IEnvironmentPipeline[] = [];
@@ -54,10 +77,10 @@ export class CdkPipeline extends Construct {
         const primaryOutputDirectory = 'apps/cdk/cdk.out';
 
         const stages = new Map(Object.entries(config.stages()!));
-        const branchStages = new Map([...stages].filter(([_, v]) => v.branch && !v.branch.startsWith(')') && !v.branch.endsWith(')')));
+        const branchStages = new Map([...stages].filter(([_, v]) => v.branch && !v.branch.startsWith('(') && !v.branch.endsWith(')')));
         const branchRegexStages = new Map([...stages].filter(([_, v]) => v.branch && v.branch.startsWith('(') && v.branch.endsWith(')')));
 
-        // For static branches e.g. main, test
+        // For static branches e.g. main, test.
         for (const stage of branchStages.values()) {
 
             const branch = (props.stage === 'prod') ? stage.branch : `${props.stage}-${stage.branch}`;
@@ -91,12 +114,15 @@ export class CdkPipeline extends Construct {
         if (branchRegexStages.size) {
             // Create bucket to save github sandbox feature branch files (as zip).
             const bucket = new s3.Bucket(this, `${config.organizationNamePascalCase()}CdkPipelineBranch`, {
-                versioned: true, // Version bucket to use as CodePipeline source.
+                // Version must be true to use as CodePipeline source.
+                versioned: true,
                 publicReadAccess: false, // TODO: Is this needed?
                 blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
                 enforceSSL: true,
-                removalPolicy: cdk.RemovalPolicy.DESTROY, // Destroy bucket on stack delete.
-                autoDeleteObjects: true // Delete all bucket objects on destory.
+                // Destroy bucket on stack delete. Bucket contains temporary copy of source control files only.
+                removalPolicy: cdk.RemovalPolicy.DESTROY,
+                // Delete all bucket objects on bucket/stack destroy.
+                autoDeleteObjects: true
             });
 
             for (const [stageName, stage] of branchRegexStages.entries()) {
@@ -117,7 +143,7 @@ export class CdkPipeline extends Construct {
                             codebuild.FilterGroup
                                 .inEventOf(codebuild.EventAction.PUSH)
                                 .andBranchIsNot('main') // For additional protection only.
-                                .andBranchIs(`.*${branchRegex}.*`) // e.g. prod = mv-sandbox1-my-feature, test = mv-test-sandbox1-my-feature
+                                .andBranchIs(`.*${branchRegex}.*`) // e.g. author-sandbox1-my-feature, test = author-test-sandbox1-my-feature
                         ]
                     });
 

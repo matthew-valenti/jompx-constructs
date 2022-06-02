@@ -1,8 +1,36 @@
 import { IConfig } from '../config.types';
 
+/*
+TODO: I think we want to rename stages to this:
+stages: {
+    prod: {
+        branch: 'main',
+        deploys: [
+            {
+                stageName: 'cicd', // This is the CDK stage but doesn't need to match the name exactly - it's just a lookup. Maybe we should type this? Or make it match exactly?
+                deployToAccount: 'cicd-prod', // This is a pointer to the AWS account.
+            },
+            {
+                cdkStage: 'network',
+                deployToAccount: 'prod'
+            },
+            {
+                stageName: 'common',
+                deployToAccount: 'common-prod'
+            },
+            {
+                stageName: 'app',
+                deployToAccount: 'prod'
+            }
+        ]
+    }
+*/
+
+// Change test to sit (systems integration testing)???
+
 export const Config: IConfig = {
     '@jompx': {
-        organizationName: 'test-org', // Lower case (use dashes if needed). Used to uniquely name resources e.g. S3 bucket name.
+        organizationName: 'my-org', // Lower case (use dashes if needed). Used to uniquely name resources e.g. S3 bucket name.
         // An environment is the target AWS account and region into which a stack will be deployed.
         environments: [
             {
@@ -16,7 +44,7 @@ export const Config: IConfig = {
                 name: 'cicd-prod'
             },
             {
-                accountId: 'abc123',
+                accountId: '281660020318',
                 region: 'us-west-2',
                 name: 'prod'
             },
@@ -44,7 +72,7 @@ export const Config: IConfig = {
                         name: 'common-prod'
                     },
                     {
-                        type: 'main',
+                        type: 'app',
                         name: 'prod'
                     }
                 ]
@@ -61,7 +89,7 @@ export const Config: IConfig = {
                         name: 'common-prod'
                     },
                     {
-                        type: 'main',
+                        type: 'app',
                         name: 'uat'
                     }
                 ]
@@ -78,12 +106,12 @@ export const Config: IConfig = {
                         name: 'common-test'
                     },
                     {
-                        type: 'main',
+                        type: 'app',
                         name: 'test'
                     }
                 ]
             },
-            sandbox123: {
+            sandbox1: {
                 branch: '(-sandbox1-)',
                 environments: [
                     {
@@ -95,7 +123,7 @@ export const Config: IConfig = {
                         name: 'common-test'
                     },
                     {
-                        type: 'main',
+                        type: 'app',
                         name: 'sandbox1'
                     }
                 ]

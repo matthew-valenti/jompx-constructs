@@ -13,6 +13,12 @@ export * from './app-sync/app-sync.types';
 export { JompxGraphqlType, JompxGraphqlTypeOptions } from './app-sync/graphql-type';
 export { CustomDirective, ICustomDirectiveLookup } from './app-sync/custom-directive';
 
+// Hosting
+export { HostingCertificate, IHostingCertificateProps, IHostingCertificateOutputs } from './hosting/certificate.construct';
+export { HostingS3, IHostingS3Props, IHostingS3Outputs } from './hosting/s3.construct';
+export { AppPipeline, IAppPipelineProps, IAppPipelineGitHubProps, IAppPipelineOutputs } from './pipeline/app-pipeline.construct';
+export { AppPipelineS3, IAppPipelineS3Outputs } from './pipeline/app-pipeline-s3.construct';
+
 // AppSync MySQL datasource.
 export { AppSyncMySqlDataSource, IAppSyncMySqlDataSourceProps } from './app-sync/datasources/mysql/mysql.datasource.construct';
 export { AppSyncMySqlCustomDirective } from './app-sync/datasources/mysql/mysql.directive';

@@ -9,10 +9,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.0"
 
-"@aws-cdk/aws-appsync-alpha@2.24.1-alpha.0":
-  version "2.24.1-alpha.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-appsync-alpha/-/aws-appsync-alpha-2.24.1-alpha.0.tgz#3c91e39f526eeee54358bfbb3e46ffeb0d006f40"
-  integrity sha512-eQe69wjlB1zOR8HHmn4qSCoYCFcaFhBjzDriQB10Cpf0PQta3XHFAbfnaie7ihi5XAh4K2TSdc/+MA0+GurbTA==
+"@aws-cdk/aws-appsync-alpha@2.25.0-alpha.0":
+  version "2.25.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-appsync-alpha/-/aws-appsync-alpha-2.25.0-alpha.0.tgz#f94aeefc0cfbda3fa588b10e7ce767153e9d0a8d"
+  integrity sha512-Jq5S9qE8dSd0JvVhldRjFXgU4Kf3C7+tcSNU5xRvtwWFwrUgkv0I2JbwsaYZSvgxKj91Mz6T/bhiZPEpSse97A==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.7":
   version "7.16.7"
@@ -1145,10 +1145,10 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-cdk-lib@2.24.1:
-  version "2.24.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.24.1.tgz#197d10216b384850c01205acc8e4818838964302"
-  integrity sha512-xGeEX+9wPGppSiIUdf/JTLMmqMikGhlSi7bjijl3lwncZtySkdjX0j+W2A1fuKp0S8Yd2axkwVkltIMxzNH/gw==
+aws-cdk-lib@2.25.0:
+  version "2.25.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.25.0.tgz#6014ab5b73b2a3012c8081b9afc8411dcb9832a0"
+  integrity sha512-rcQeQu/lTmi1tg5DwV0gBqJtF73khApfHt9n7BIHkKbUWvCB50lIL1Q1/7cHvTicfQ62UnwFoPWwB0YqQceDVQ==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"
@@ -1662,10 +1662,10 @@ constant-case@^3.0.4:
     tslib "^2.0.3"
     upper-case "^2.0.2"
 
-constructs@10.0.92:
-  version "10.0.92"
-  resolved "https://registry.npmjs.org/constructs/-/constructs-10.0.92.tgz"
-  integrity sha512-wCVg2rd0B+WlFGRNRp1KSo04YBCPFEDUuakH+D08EHnAjvibkZ8LjO/+KB4rNTGPkdQicfTbkPnv2O5QU3axfg==
+constructs@10.1.20:
+  version "10.1.20"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.20.tgz#78a0ff77778ef845b38699ee56db2dab8a75d0f8"
+  integrity sha512-zbrXNZcqorhB/w+LVyTE6qOdYL4M7Q8vuebrukbVqOgzJIEXiAELpU4UCh+qV9XnOpVH32HxlZjINtWrwOE+VA==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"

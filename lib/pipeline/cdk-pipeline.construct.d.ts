@@ -30,6 +30,29 @@ export interface IEnvironmentPipeline {
  *
  * TODO: Trigger apps pipeline
  * https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit
+ *
+ * Create CDK pipelines that deploy CDK code across AWS accounts on GitHub branch updates.
+ * All CDK pipeline resources reside on a single AWS account (preferrably a dedicated CICD AWS account)
+ * This dedicated AWS account will have permissions to deploy to all other accounts (as needed). Developers can also be given admin or readonly permissions to troubleshoot CDK deployment errors.
+ * Allow for both test and prod CICD AWS accounts. CICD enhancements can be done safely on the test CICD AWS account without affecting production deployments.
+ * Create a CDK pipeline for each stage (e.g. sandbox1, test, prod) where each stage is an AWS account (e.g. prod resources reside on a prod AWS account).
+ * Each stage is compromised of a set of "CDK stages" which can be deployed to any account. This allows common CDK resources to be deployed to a common AWS account (e.g. AWS wAF can be deployed to a common AWS account and shared across stages sandbox1, test, prod).
+ * A github branch update will trigger a CDK pipeline to start.
+ * Each stage is associated with a branch (e.g. updates to the main branch triggers the prod pipeline to start, updates to the sandbox1 branch triggers the sandbox1 pipelien to start).
+ * An CDK stages is comprised or one or more CDK stacks.
+ * Developers can also manually deploy stacks (if they have the appropriate AWS account permissions setup on their local).
+ * During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account.
+ * A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts.
+ * Supports configuration to allow a company to have any number of stages, accounts, and CDK stages.
+ *
+ * AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.
+ *
+ * Important:
+ * - The CDK pipeline acts in the context of a stage (e.g. sandbox1, test, prod) and a stage is typically associated with one AWS account (e.g. prod AWS account).
+ * - A stage parameter must always be available. This parameter can be specified on the command line (which always takes precedence) or from a config file.
+ * - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code.
+ * e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod').
+ * - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).
  */
 export declare class CdkPipeline extends Construct {
     environmentPipelines: IEnvironmentPipeline[];

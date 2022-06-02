@@ -10,24 +10,47 @@ export class Config {
         public appNode: Node
     ) { }
 
+    /**
+     * Get stage from command line or config. e.g. sandbox1, test, prod.
+     * @returns
+     */
     public stage(): string {
         const stage = this.appNode.tryGetContext('stage') ?? this.appNode.tryGetContext('@jompx-local').stage;
         if (!stage) throw Error('Jompx: stage not found! Stage is missing from command line or jompx.local.ts.');
         return stage;
     }
 
+    /**
+     * Get list of AWS environemnts. An AWS environment is primarily a accountId/region pair.
+     * @returns
+     */
     public environments(): IEnvironment[] | undefined {
         return this.appNode.tryGetContext('@jompx').environments;
     }
 
+    /**
+     * Get an AWS environment by friendly name.
+     * @param name
+     * @returns
+     */
     public environmentByName(name: string): IEnvironment | undefined {
         return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.name === name);
     }
 
+    /**
+     * Get an AWS environment by AWS account id.
+     * @param accountId
+     * @returns
+     */
     public environmentByAccountId(accountId: string): IEnvironment | undefined {
         return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.accountId === accountId);
     }
 
+    /**
+     * Get config stages. Use dot notation to get a stage e.g. stages.prod
+     * Constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
+     * @returns
+     */
     public stages(): IStage | undefined {
         const configStages: IStage = this.appNode.tryGetContext('@jompx').stages;
         const localStages: IStage = this.appNode.tryGetContext('@jompx-local').stages;
@@ -59,10 +82,17 @@ export class Config {
         return rv;
     }
 
-    public env(type: string, stageName?: string): cdk.Environment | undefined {
+    /**
+     * Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2.
+     * If no stage provided then will use current stage.
+     * @param type
+     * @param stage
+     * @returns
+     */
+    public env(type: string, stage?: string): cdk.Environment | undefined {
         let rv = undefined;
 
-        const stageEnvironments = this.stageEnvironments(stageName ?? this.stage());
+        const stageEnvironments = this.stageEnvironments(stage ?? this.stage());
         const environmentName = stageEnvironments?.find(o => o.type === type)?.name;
 
         if (environmentName) {
