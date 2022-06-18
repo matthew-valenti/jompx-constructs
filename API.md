@@ -88,7 +88,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppPipeline.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@jompx/constructs.AppPipeline.property.environmentPipelines">environmentPipelines</a></code> | <code><a href="#@jompx/constructs.IEnvironmentPipeline">IEnvironmentPipeline</a>[]</code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppPipeline.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IAppPipelineOutputs">IAppPipelineOutputs</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppPipeline.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.aws_codepipeline.Pipeline</code> | *No description.* |
 
 ---
 
@@ -114,13 +114,13 @@ public readonly environmentPipelines: IEnvironmentPipeline[];
 
 ---
 
-##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.AppPipeline.property.outputs"></a>
+##### `pipeline`<sup>Optional</sup> <a name="pipeline" id="@jompx/constructs.AppPipeline.property.pipeline"></a>
 
 ```typescript
-public readonly outputs: IAppPipelineOutputs;
+public readonly pipeline: Pipeline;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IAppPipelineOutputs">IAppPipelineOutputs</a>
+- *Type:* aws-cdk-lib.aws_codepipeline.Pipeline
 
 ---
 
@@ -205,7 +205,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppPipelineS3.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@jompx/constructs.AppPipelineS3.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IAppPipelineS3Outputs">IAppPipelineS3Outputs</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppPipelineS3.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
 
 ---
 
@@ -221,13 +221,13 @@ The tree node.
 
 ---
 
-##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.AppPipelineS3.property.outputs"></a>
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.AppPipelineS3.property.bucket"></a>
 
 ```typescript
-public readonly outputs: IAppPipelineS3Outputs;
+public readonly bucket: Bucket;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IAppPipelineS3Outputs">IAppPipelineS3Outputs</a>
+- *Type:* aws-cdk-lib.aws_s3.Bucket
 
 ---
 
@@ -473,7 +473,7 @@ public readonly lambdaFunction: IFunction;
 
 ### CdkPipeline <a name="CdkPipeline" id="@jompx/constructs.CdkPipeline"></a>
 
-Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codebuild-readme.html  Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html  TODO: nx affected: https://nx.dev/ci/monorepo-ci-circle-ci    * TODO deploy in parallel: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html  TODO: Trigger apps pipeline https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit  Create CDK pipelines that deploy CDK code across AWS accounts on GitHub branch updates. All CDK pipeline resources reside on a single AWS account (preferrably a dedicated CICD AWS account) This dedicated AWS account will have permissions to deploy to all other accounts (as needed). Developers can also be given admin or readonly permissions to troubleshoot CDK deployment errors. Allow for both test and prod CICD AWS accounts. CICD enhancements can be done safely on the test CICD AWS account without affecting production deployments. Create a CDK pipeline for each stage (e.g. sandbox1, test, prod) where each stage is an AWS account (e.g. prod resources reside on a prod AWS account). Each stage is compromised of a set of "CDK stages" which can be deployed to any account. This allows common CDK resources to be deployed to a common AWS account (e.g. AWS wAF can be deployed to a common AWS account and shared across stages sandbox1, test, prod). A github branch update will trigger a CDK pipeline to start. Each stage is associated with a branch (e.g. updates to the main branch triggers the prod pipeline to start, updates to the sandbox1 branch triggers the sandbox1 pipelien to start). An CDK stages is comprised or one or more CDK stacks. Developers can also manually deploy stacks (if they have the appropriate AWS account permissions setup on their local). During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account. A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts. Supports configuration to allow a company to have any number of stages, accounts, and CDK stages.  AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.  Important: - The CDK pipeline acts in the context of a stage (e.g. sandbox1, test, prod) and a stage is typically associated with one AWS account (e.g. prod AWS account). - A stage parameter must always be available. This parameter can be specified on the command line (which always takes precedence) or from a config file. - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code. e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod'). - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).
+Continuous integration and delivery (CI/CD) using CDK Pipelines: https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codebuild-readme.html  Build Spec Reference: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html  TODO: nx affected: https://nx.dev/ci/monorepo-ci-circle-ci    * TODO deploy in parallel: https://docs.aws.amazon.com/cdk/api/v1/docs/pipelines-readme.html  TODO: Trigger apps pipeline https://stackoverflow.com/questions/62857925/how-to-invoke-a-pipeline-based-on-another-pipeline-success-using-aws-codecommit  Create CDK pipelines that deploy CDK code across AWS accounts on GitHub branch updates. All CDK pipeline resources reside on a single AWS account (preferrably a dedicated CICD AWS account) This dedicated AWS account will have permissions to deploy to all other accounts (as needed). Developers can also be given admin or readonly permissions to troubleshoot CDK deployment errors. Allow for both test and prod CICD AWS accounts. CICD enhancements can be done safely on the test CICD AWS account without affecting production deployments. Create a CDK pipeline for each stage (e.g. sandbox1, test, prod) where each stage is an AWS account (e.g. prod resources reside on a prod AWS account). Each stage is compromised of a set of "CDK stages" which can be deployed to any account. This allows common CDK resources to be deployed to a common AWS account (e.g. AWS wAF can be deployed to a common AWS account and shared across stages sandbox1, test, prod). A github branch update will trigger a CDK pipeline to start. Each stage is associated with a branch (e.g. updates to the main branch triggers the prod pipeline to start, updates to the sandbox1 branch triggers the sandbox1 pipelien to start). An CDK stages is comprised or one or more CDK stacks. Developers can also manually deploy stacks (if they have the appropriate AWS account permissions setup on their local). During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account. A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts. Supports configuration to allow a company to have any number of stages, accounts, and CDK stages. The CICD test AWS account listens to branches with test in the branch name. It's important that test pipelines don't trigger on commits to main, test, sandbox1, etc.  AWS CodePipeline recommends using a CodePipelineSource connection to securly connect to GitHub. However, CodeBuild only supports the old Github token authorization. Stage branches use a connection. Regex stage branches use a token. Setup steps are required to enable both a connection and a token.  GitHub has a 20 web hook limit per event (per repo). It may be necessary to switch from web hook to polling or not create unused code pipelines (e.g. test-sandbox1 branch deploys may not be needed).  AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.  Important: - The CDK pipeline acts in the context of a stage (e.g. sandbox1, test, prod) and a stage is typically associated with one AWS account (e.g. prod AWS account). - A stage parameter must always be available. This parameter can be specified on the command line (which always takes precedence) or from a config file. - The cdk synth command in the pipeline includes a stage param. When the pipeline runs, the stage param is available in our CDK code. e.g. When the main branch is updated, it triggers the prod pipeline to synth and deploy CDK changes with stage param = 'prod'. This allows developers to write conditional CDK code e.g. if (status === 'prod'). - A CDK pipeline is connected to one GitHub branch (and listens to that branch for updates).  Deployments supported: - Manual CDK Pipeline stack deployment to CICD test and prod environments. - GitHub triggered deployments across all branches and all CICD stage branches e.g. (prod & test-prod, test & test-test, sandbox1 & test-sandbox1). - Manual CDK stack deploys (to any env). e.g. deploy stack to sandbox1, deploy stack to test, deploy stack to prod.
 
 #### Initializers <a name="Initializers" id="@jompx/constructs.CdkPipeline.Initializer"></a>
 
@@ -712,6 +712,10 @@ public readonly userPoolClients: UserPoolClient[];
 
 ### HostingCertificate <a name="HostingCertificate" id="@jompx/constructs.HostingCertificate"></a>
 
+The certificate must be present in the AWS Certificate Manager (ACM) service in the US East (N.
+
+Virginia) region: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cloudfront-readme.html
+
 #### Initializers <a name="Initializers" id="@jompx/constructs.HostingCertificate.Initializer"></a>
 
 ```typescript
@@ -795,7 +799,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.HostingCertificate.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@jompx/constructs.HostingCertificate.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IHostingCertificateOutputs">IHostingCertificateOutputs</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCertificate.property.caaAmazonRecord">caaAmazonRecord</a></code> | <code>aws-cdk-lib.aws_route53.CaaAmazonRecord</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCertificate.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.Certificate</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCertificate.property.publicHostedZone">publicHostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
 
 ---
 
@@ -811,13 +817,156 @@ The tree node.
 
 ---
 
-##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.HostingCertificate.property.outputs"></a>
+##### `caaAmazonRecord`<sup>Optional</sup> <a name="caaAmazonRecord" id="@jompx/constructs.HostingCertificate.property.caaAmazonRecord"></a>
 
 ```typescript
-public readonly outputs: IHostingCertificateOutputs;
+public readonly caaAmazonRecord: CaaAmazonRecord;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IHostingCertificateOutputs">IHostingCertificateOutputs</a>
+- *Type:* aws-cdk-lib.aws_route53.CaaAmazonRecord
+
+---
+
+##### `certificate`<sup>Optional</sup> <a name="certificate" id="@jompx/constructs.HostingCertificate.property.certificate"></a>
+
+```typescript
+public readonly certificate: Certificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.Certificate
+
+---
+
+##### `publicHostedZone`<sup>Optional</sup> <a name="publicHostedZone" id="@jompx/constructs.HostingCertificate.property.publicHostedZone"></a>
+
+```typescript
+public readonly publicHostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+---
+
+
+### HostingCloudFront <a name="HostingCloudFront" id="@jompx/constructs.HostingCloudFront"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.HostingCloudFront.Initializer"></a>
+
+```typescript
+import { HostingCloudFront } from '@jompx/constructs'
+
+new HostingCloudFront(scope: Construct, id: string, props: IHostingCloudFrontProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.HostingCloudFront.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCloudFront.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCloudFront.Initializer.parameter.props">props</a></code> | <code><a href="#@jompx/constructs.IHostingCloudFrontProps">IHostingCloudFrontProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@jompx/constructs.HostingCloudFront.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@jompx/constructs.HostingCloudFront.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.HostingCloudFront.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@jompx/constructs.IHostingCloudFrontProps">IHostingCloudFrontProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.HostingCloudFront.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="@jompx/constructs.HostingCloudFront.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.HostingCloudFront.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="@jompx/constructs.HostingCloudFront.isConstruct"></a>
+
+```typescript
+import { HostingCloudFront } from '@jompx/constructs'
+
+HostingCloudFront.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct` instances, even when the construct library is symlinked.  Explanation: in JavaScript, multiple copies of the `constructs` library on disk are seen as independent, completely different libraries. As a consequence, the class `Construct` in each copy of the `constructs` library is seen as a different class, and an instance of one class will not test as `instanceof` the other class. `npm install` will not create installations like this, but users may manually symlink construct libraries together or use a monorepo tool: in those cases, multiple copies of the `constructs` library can be accidentally installed, and `instanceof` will behave unpredictably. It is safest to avoid using `instanceof`, and using this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="@jompx/constructs.HostingCloudFront.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.HostingCloudFront.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.HostingCloudFront.property.cachePolicy">cachePolicy</a></code> | <code>aws-cdk-lib.aws_cloudfront.CachePolicy</code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingCloudFront.property.distribution">distribution</a></code> | <code>aws-cdk-lib.aws_cloudfront.Distribution</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@jompx/constructs.HostingCloudFront.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `cachePolicy`<sup>Required</sup> <a name="cachePolicy" id="@jompx/constructs.HostingCloudFront.property.cachePolicy"></a>
+
+```typescript
+public readonly cachePolicy: CachePolicy;
+```
+
+- *Type:* aws-cdk-lib.aws_cloudfront.CachePolicy
+
+---
+
+##### `distribution`<sup>Required</sup> <a name="distribution" id="@jompx/constructs.HostingCloudFront.property.distribution"></a>
+
+```typescript
+public readonly distribution: Distribution;
+```
+
+- *Type:* aws-cdk-lib.aws_cloudfront.Distribution
 
 ---
 
@@ -907,7 +1056,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.HostingS3.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@jompx/constructs.HostingS3.property.outputs">outputs</a></code> | <code><a href="#@jompx/constructs.IHostingS3Outputs">IHostingS3Outputs</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.HostingS3.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
 
 ---
 
@@ -923,13 +1072,13 @@ The tree node.
 
 ---
 
-##### `outputs`<sup>Required</sup> <a name="outputs" id="@jompx/constructs.HostingS3.property.outputs"></a>
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.HostingS3.property.bucket"></a>
 
 ```typescript
-public readonly outputs: IHostingS3Outputs;
+public readonly bucket: Bucket;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IHostingS3Outputs">IHostingS3Outputs</a>
+- *Type:* aws-cdk-lib.aws_s3.Bucket
 
 ---
 
@@ -1388,27 +1537,47 @@ new Config(appNode: Node)
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@jompx/constructs.Config.env">env</a></code> | Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2. If no stage provided then will use current stage. |
+| <code><a href="#@jompx/constructs.Config.appRootDomainNames">appRootDomainNames</a></code> | Get a distinct/unique list of root domain names across all apps. |
+| <code><a href="#@jompx/constructs.Config.apps">apps</a></code> | Get list of apps. |
+| <code><a href="#@jompx/constructs.Config.env">env</a></code> | Get env (AWS accountId + region) from config (type + stage) e.g. cicd + test = xxxxxxxxxxxx + us-west-2. If no stage provided then will use current stage. |
 | <code><a href="#@jompx/constructs.Config.environmentByAccountId">environmentByAccountId</a></code> | Get an AWS environment by AWS account id. |
 | <code><a href="#@jompx/constructs.Config.environmentByName">environmentByName</a></code> | Get an AWS environment by friendly name. |
 | <code><a href="#@jompx/constructs.Config.environments">environments</a></code> | Get list of AWS environemnts. |
 | <code><a href="#@jompx/constructs.Config.organizationName">organizationName</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.organizationNamePascalCase">organizationNamePascalCase</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.stage">stage</a></code> | Get stage from command line or config. |
-| <code><a href="#@jompx/constructs.Config.stageEnvironments">stageEnvironments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.Config.stageDeployments">stageDeployments</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.Config.stages">stages</a></code> | Get config stages. |
 
 ---
 
+##### `appRootDomainNames` <a name="appRootDomainNames" id="@jompx/constructs.Config.appRootDomainNames"></a>
+
+```typescript
+public appRootDomainNames(): string[]
+```
+
+Get a distinct/unique list of root domain names across all apps.
+
+##### `apps` <a name="apps" id="@jompx/constructs.Config.apps"></a>
+
+```typescript
+public apps(): IApp[]
+```
+
+Get list of apps.
+
+An app is typically deployed across all stages and is acceccable on each stage.
+
 ##### `env` <a name="env" id="@jompx/constructs.Config.env"></a>
 
 ```typescript
-public env(type: string, stage?: string): Environment
+public env(deploymentType: string, stage?: string): Environment
 ```
 
-Get env (AWS accountId + region) from config (type + stageName) e.g. cicd + test = xxxxxxxxxxxx + us-west-2. If no stage provided then will use current stage.
+Get env (AWS accountId + region) from config (type + stage) e.g. cicd + test = xxxxxxxxxxxx + us-west-2. If no stage provided then will use current stage.
 
-###### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.Config.env.parameter.type"></a>
+###### `deploymentType`<sup>Required</sup> <a name="deploymentType" id="@jompx/constructs.Config.env.parameter.deploymentType"></a>
 
 - *Type:* string
 
@@ -1480,13 +1649,13 @@ Get stage from command line or config.
 
 e.g. sandbox1, test, prod.
 
-##### `stageEnvironments` <a name="stageEnvironments" id="@jompx/constructs.Config.stageEnvironments"></a>
+##### `stageDeployments` <a name="stageDeployments" id="@jompx/constructs.Config.stageDeployments"></a>
 
 ```typescript
-public stageEnvironments(stageName: string): IStageEnvironment[]
+public stageDeployments(stageName: string): IStageDeployment[]
 ```
 
-###### `stageName`<sup>Required</sup> <a name="stageName" id="@jompx/constructs.Config.stageEnvironments.parameter.stageName"></a>
+###### `stageName`<sup>Required</sup> <a name="stageName" id="@jompx/constructs.Config.stageDeployments.parameter.stageName"></a>
 
 - *Type:* string
 
@@ -1500,7 +1669,7 @@ public stages(): IStage
 
 Get config stages.
 
-Use dot notation to get a stage e.g. stages.prod Constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
+Use dot notation to get a stage e.g. stages.prod JSII constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
 
 
 #### Properties <a name="Properties" id="Properties"></a>
@@ -2221,6 +2390,40 @@ The mutation method to call.
 
 ---
 
+### IApp <a name="IApp" id="@jompx/constructs.IApp"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IApp">IApp</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.IApp.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IApp.property.rootDomainName">rootDomainName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IApp.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `rootDomainName`<sup>Required</sup> <a name="rootDomainName" id="@jompx/constructs.IApp.property.rootDomainName"></a>
+
+```typescript
+public readonly rootDomainName: string;
+```
+
+- *Type:* string
+
+---
+
 ### IAppPipelineGitHubProps <a name="IAppPipelineGitHubProps" id="@jompx/constructs.IAppPipelineGitHubProps"></a>
 
 - *Implemented By:* <a href="#@jompx/constructs.IAppPipelineGitHubProps">IAppPipelineGitHubProps</a>
@@ -2263,29 +2466,6 @@ public readonly token: SecretValue;
 ```
 
 - *Type:* aws-cdk-lib.SecretValue
-
----
-
-### IAppPipelineOutputs <a name="IAppPipelineOutputs" id="@jompx/constructs.IAppPipelineOutputs"></a>
-
-- *Implemented By:* <a href="#@jompx/constructs.IAppPipelineOutputs">IAppPipelineOutputs</a>
-
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.IAppPipelineOutputs.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.aws_codepipeline.Pipeline</code> | *No description.* |
-
----
-
-##### `pipeline`<sup>Required</sup> <a name="pipeline" id="@jompx/constructs.IAppPipelineOutputs.property.pipeline"></a>
-
-```typescript
-public readonly pipeline: Pipeline;
-```
-
-- *Type:* aws-cdk-lib.aws_codepipeline.Pipeline
 
 ---
 
@@ -2375,29 +2555,6 @@ public readonly buildEnvironment: BuildEnvironment;
 ```
 
 - *Type:* aws-cdk-lib.aws_codebuild.BuildEnvironment
-
----
-
-### IAppPipelineS3Outputs <a name="IAppPipelineS3Outputs" id="@jompx/constructs.IAppPipelineS3Outputs"></a>
-
-- *Implemented By:* <a href="#@jompx/constructs.IAppPipelineS3Outputs">IAppPipelineS3Outputs</a>
-
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.IAppPipelineS3Outputs.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
-
----
-
-##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.IAppPipelineS3Outputs.property.bucket"></a>
-
-```typescript
-public readonly bucket: Bucket;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.Bucket
 
 ---
 
@@ -2757,7 +2914,7 @@ public readonly repo: string;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.ICdkPipelineProps.property.gitHub">gitHub</a></code> | <code><a href="#@jompx/constructs.ICdkPipelineGitHubProps">ICdkPipelineGitHubProps</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.ICdkPipelineProps.property.stage">stage</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICdkPipelineProps.property.stage">stage</a></code> | <code>string</code> | The CICD stage. |
 | <code><a href="#@jompx/constructs.ICdkPipelineProps.property.commands">commands</a></code> | <code>string[]</code> | *No description.* |
 
 ---
@@ -2779,6 +2936,10 @@ public readonly stage: string;
 ```
 
 - *Type:* string
+
+The CICD stage.
+
+Typically prod or test.
 
 ---
 
@@ -3005,6 +3166,7 @@ public readonly region: string;
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.IEnvironmentPipeline.property.branch">branch</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@jompx/constructs.IEnvironmentPipeline.property.pipeline">pipeline</a></code> | <code>aws-cdk-lib.pipelines.CodePipeline</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IEnvironmentPipeline.property.pipelineStage">pipelineStage</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -3028,37 +3190,13 @@ public readonly pipeline: CodePipeline;
 
 ---
 
-### IHostingCertificateOutputs <a name="IHostingCertificateOutputs" id="@jompx/constructs.IHostingCertificateOutputs"></a>
-
-- *Implemented By:* <a href="#@jompx/constructs.IHostingCertificateOutputs">IHostingCertificateOutputs</a>
-
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@jompx/constructs.IHostingCertificateOutputs.property.publicHostedZone">publicHostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IHostingCertificateOutputs.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.Certificate</code> | *No description.* |
-
----
-
-##### `publicHostedZone`<sup>Required</sup> <a name="publicHostedZone" id="@jompx/constructs.IHostingCertificateOutputs.property.publicHostedZone"></a>
+##### `pipelineStage`<sup>Required</sup> <a name="pipelineStage" id="@jompx/constructs.IEnvironmentPipeline.property.pipelineStage"></a>
 
 ```typescript
-public readonly publicHostedZone: IHostedZone;
+public readonly pipelineStage: string;
 ```
 
-- *Type:* aws-cdk-lib.aws_route53.IHostedZone
-
----
-
-##### `certificate`<sup>Optional</sup> <a name="certificate" id="@jompx/constructs.IHostingCertificateOutputs.property.certificate"></a>
-
-```typescript
-public readonly certificate: Certificate;
-```
-
-- *Type:* aws-cdk-lib.aws_certificatemanager.Certificate
+- *Type:* string
 
 ---
 
@@ -3071,40 +3209,84 @@ public readonly certificate: Certificate;
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IHostingCertificateProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCertificateProps.property.rootDomainName">rootDomainName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCertificateProps.property.restrictCertificateAuthorities">restrictCertificateAuthorities</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
-##### `domainName`<sup>Required</sup> <a name="domainName" id="@jompx/constructs.IHostingCertificateProps.property.domainName"></a>
+##### `rootDomainName`<sup>Required</sup> <a name="rootDomainName" id="@jompx/constructs.IHostingCertificateProps.property.rootDomainName"></a>
 
 ```typescript
-public readonly domainName: string;
+public readonly rootDomainName: string;
 ```
 
 - *Type:* string
 
 ---
 
-### IHostingS3Outputs <a name="IHostingS3Outputs" id="@jompx/constructs.IHostingS3Outputs"></a>
+##### `restrictCertificateAuthorities`<sup>Optional</sup> <a name="restrictCertificateAuthorities" id="@jompx/constructs.IHostingCertificateProps.property.restrictCertificateAuthorities"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.IHostingS3Outputs">IHostingS3Outputs</a>
+```typescript
+public readonly restrictCertificateAuthorities: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+### IHostingCloudFrontProps <a name="IHostingCloudFrontProps" id="@jompx/constructs.IHostingCloudFrontProps"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IHostingCloudFrontProps">IHostingCloudFrontProps</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IHostingS3Outputs.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCloudFrontProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCloudFrontProps.property.cachePolicyQueryStringAllowList">cachePolicyQueryStringAllowList</a></code> | <code>aws-cdk-lib.aws_cloudfront.CacheQueryStringBehavior</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCloudFrontProps.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.Certificate</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IHostingCloudFrontProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
-##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.IHostingS3Outputs.property.bucket"></a>
+##### `bucket`<sup>Required</sup> <a name="bucket" id="@jompx/constructs.IHostingCloudFrontProps.property.bucket"></a>
 
 ```typescript
 public readonly bucket: Bucket;
 ```
 
 - *Type:* aws-cdk-lib.aws_s3.Bucket
+
+---
+
+##### `cachePolicyQueryStringAllowList`<sup>Required</sup> <a name="cachePolicyQueryStringAllowList" id="@jompx/constructs.IHostingCloudFrontProps.property.cachePolicyQueryStringAllowList"></a>
+
+```typescript
+public readonly cachePolicyQueryStringAllowList: CacheQueryStringBehavior;
+```
+
+- *Type:* aws-cdk-lib.aws_cloudfront.CacheQueryStringBehavior
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="@jompx/constructs.IHostingCloudFrontProps.property.certificate"></a>
+
+```typescript
+public readonly certificate: Certificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.Certificate
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="@jompx/constructs.IHostingCloudFrontProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -3117,18 +3299,7 @@ public readonly bucket: Bucket;
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IHostingS3Props.property.appName">appName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@jompx/constructs.IHostingS3Props.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `appName`<sup>Required</sup> <a name="appName" id="@jompx/constructs.IHostingS3Props.property.appName"></a>
-
-```typescript
-public readonly appName: string;
-```
-
-- *Type:* string
 
 ---
 
@@ -3221,48 +3392,37 @@ public readonly unionTypes: {[ key: string ]: UnionType};
 
 
 
-### IStageEnvironment <a name="IStageEnvironment" id="@jompx/constructs.IStageEnvironment"></a>
+### IStageDeployment <a name="IStageDeployment" id="@jompx/constructs.IStageDeployment"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.IStageEnvironment">IStageEnvironment</a>
+- *Implemented By:* <a href="#@jompx/constructs.IStageDeployment">IStageDeployment</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IStageEnvironment.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IStageEnvironment.property.type">type</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IStageEnvironment.property.account">account</a></code> | <code><a href="#@jompx/constructs.IEnvironment">IEnvironment</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.IStageDeployment.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IStageDeployment.property.type">type</a></code> | <code>string</code> | *No description.* |
 
 ---
 
-##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IStageEnvironment.property.name"></a>
+##### `environmentName`<sup>Required</sup> <a name="environmentName" id="@jompx/constructs.IStageDeployment.property.environmentName"></a>
 
 ```typescript
-public readonly name: string;
+public readonly environmentName: string;
 ```
 
 - *Type:* string
 
 ---
 
-##### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.IStageEnvironment.property.type"></a>
+##### `type`<sup>Required</sup> <a name="type" id="@jompx/constructs.IStageDeployment.property.type"></a>
 
 ```typescript
 public readonly type: string;
 ```
 
 - *Type:* string
-
----
-
-##### `account`<sup>Optional</sup> <a name="account" id="@jompx/constructs.IStageEnvironment.property.account"></a>
-
-```typescript
-public readonly account: IEnvironment;
-```
-
-- *Type:* <a href="#@jompx/constructs.IEnvironment">IEnvironment</a>
 
 ---
 

@@ -8,10 +8,14 @@ import * as changeCase from 'change-case';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 import set = require('set-value');
 // import get = require('get-value');
-import { IDataSource, ISchemaTypes, DefaultRequestMappingTemplate, IAppSyncOperationArgs } from './app-sync.types';
-import { CustomDirective, PaginationType } from './custom-directive';
-import { AppSyncMySqlCustomDirective } from './datasources/mysql/mysql.directive';
+import * as definitions from './app-sync-definitions';
+import { IDataSource, ISchemaTypes, IAppSyncOperationArgs } from './app-sync.types';
+// import { AppSyncMySqlCustomDirective } from './datasources/mysql/mysql.directive';
+import * as cdirective from './directives';
 import { JompxGraphqlType } from './graphql-type';
+import * as cschema from './schemas';
+import * as coperation from './operations';
+
 
 /**
  * Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
@@ -67,7 +71,8 @@ export class AppSyncSchemaBuilder {
     public schemaTypes: ISchemaTypes = { enumTypes: {}, inputTypes: {}, interfaceTypes: {}, objectTypes: {}, unionTypes: {} };
 
     constructor(
-        public graphqlApi: appsync.GraphqlApi
+        public graphqlApi: appsync.GraphqlApi,
+        public activeAuthorizationTypes: appsync.AuthorizationType[]
     ) { }
 
     // Add datasource to AppSync in an internal array. Remove this when AppSync provides a way to iterate datasources).
@@ -111,8 +116,8 @@ export class AppSyncSchemaBuilder {
         const outputType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Payload`, {
             definition: returnType.definition,
             directives: [
-                appsync.Directive.iam(),
-                appsync.Directive.cognito('admin')
+                appsync.Directive.iam()
+                // appsync.Directive.cognito('admin')
             ]
         });
         this.graphqlApi.addType(outputType);
@@ -122,7 +127,13 @@ export class AppSyncSchemaBuilder {
             definition: {
                 output: outputType.attribute()
             },
-            directives: [...[appsync.Directive.iam(), appsync.Directive.cognito('admin')], ...(returnType?.directives ?? [])]
+            directives: [
+                ...[
+                    appsync.Directive.iam()
+                    // appsync.Directive.cognito('admin')
+                ],
+                ...(returnType?.directives ?? [])
+            ]
         });
         this.graphqlApi.addType(payloadType);
 
@@ -142,13 +153,13 @@ export class AppSyncSchemaBuilder {
             args: { input: inputType.attribute({ isRequired: true }) },
             dataSource,
             directives: [
-                appsync.Directive.iam(),
-                appsync.Directive.cognito('admin')
+                appsync.Directive.iam()
+                // appsync.Directive.cognito('admin')
             ],
             // pipelineConfig: [], // TODO: Add authorization Lambda function here.
             requestMappingTemplate: appsync.MappingTemplate.fromString(`
                 $util.qr($ctx.stash.put("operation", "${methodName}"))
-                ${DefaultRequestMappingTemplate}
+                ${definitions.DefaultRequestMappingTemplate}
             `)
         }));
     }
@@ -156,15 +167,13 @@ export class AppSyncSchemaBuilder {
     public create() {
 
         // this.graphqlApi.addToSchema('directive @readonly(value: String) on FIELD_DEFINITION');
-        this.graphqlApi.addToSchema(CustomDirective.schema());
-        this.graphqlApi.addToSchema(AppSyncMySqlCustomDirective.schema());
+        // this.graphqlApi.addToSchema(CustomDirective.definitions());
 
-        // TODO: Delete Me???
-        // appsync.EnumType;
-        // appsync.UnionType;
+        // TODO: How are we going to add MySql custom directives? and schema?
+        // this.graphqlApi.addToSchema(AppSyncMySqlCustomDirective.schema());
 
-        this.addPageInfoType();
-        this.addSortInput();
+        this.addCustomDirectives();
+        this.addCustomSchema();
 
         Object.values(this.schemaTypes.enumTypes).forEach(enumType => {
             this.graphqlApi.addType(enumType);
@@ -185,10 +194,13 @@ export class AppSyncSchemaBuilder {
             // Add type to GraphQL.
             this.graphqlApi.addType(objectType);
 
-            const operations = CustomDirective.getArgumentByIdentifier('operations', 'names', objectType.directives);
-            if (operations) {
+            const operationsDirective = new cdirective.OperationsDirective();
+            const operations = operationsDirective.value(objectType.directives);
+
+            if (operations?.length) {
                 if (operations.includes('find')) {
-                    this.addFind(objectType);
+                    const findOperation = new coperation.FindOperation(this.graphqlApi, this.dataSources, this.schemaTypes);
+                    findOperation.schema(objectType);
                 }
             }
         });
@@ -244,90 +256,184 @@ export class AppSyncSchemaBuilder {
     /**
      * https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
      */
-    private addFind(objectType: appsync.ObjectType) {
+    // private addFindConnection(objectType: appsync.ObjectType) {
 
-        const objectTypeName = objectType.name;
-        const paginationType: PaginationType = CustomDirective.getArgumentByIdentifier('pagination', 'type', objectType?.directives) as PaginationType ?? 'offset';
-        const dataSourceName = CustomDirective.getArgumentByIdentifier('datasource', 'name', objectType?.directives);
+    //     const objectTypeName = objectType.name;
+    //     const paginationType: ICustomDirectivePaginationType = CustomDirective.getIdentifierArgument('pagination', 'type', objectType?.directives) as ICustomDirectivePaginationType ?? 'offset';
+    //     const dataSourceName = CustomDirective.getIdentifierArgument('datasource', 'name', objectType?.directives);
 
-        if (dataSourceName
-            && this.schemaTypes.objectTypes.PageInfoCursor
-            && this.schemaTypes.objectTypes.PageInfoOffset
-            && this.schemaTypes.inputTypes.SortInput
-        ) {
-            const dataSource = this.dataSources[dataSourceName];
+    //     if (dataSourceName
+    //         && this.schemaTypes.objectTypes.PageInfoCursor
+    //         && this.schemaTypes.objectTypes.PageInfoOffset
+    //         && this.schemaTypes.inputTypes.SortInput
+    //     ) {
+    //         const dataSource = this.dataSources[dataSourceName];
+    //         const authRules = CustomDirective.authToObject(objectType?.directives);
 
-            // Edge.
-            const edgeObjectType = new appsync.ObjectType(`${objectTypeName}Edge`, {
-                definition: {
-                    ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
-                    node: objectType.attribute()
-                },
-                directives: [
-                    appsync.Directive.iam(),
-                    appsync.Directive.cognito('admin')
-                ]
-            });
-            this.graphqlApi.addType(edgeObjectType);
+    //         // Edge.
+    //         const edgeObjectType = new appsync.ObjectType(`${objectTypeName}Edge`, {
+    //             definition: {
+    //                 ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
+    //                 node: objectType.attribute()
+    //             },
+    //             directives: [
+    //                 ...authRules?.find(o => o.provider === appsync.AuthorizationType.IAM) ? [appsync.Directive.iam()] : []
+    //                 // appsync.Directive.cognito('admin')
+    //             ]
+    //         });
+    //         this.graphqlApi.addType(edgeObjectType);
 
-            // Connection. Based on relay specification: https://relay.dev/graphql/connections.htm#sec-Connection-Types
-            const connectionObjectType = new appsync.ObjectType(`${objectTypeName}Connection`, {
-                definition: {
-                    edges: edgeObjectType.attribute({ isList: true }),
-                    pageInfo: paginationType === 'cursor' ? this.schemaTypes.objectTypes.PageInfoCursor.attribute({ isRequired: true }) : this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
-                    totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
-                },
-                directives: [
-                    appsync.Directive.iam(),
-                    appsync.Directive.cognito('admin')
-                ]
-            });
-            this.graphqlApi.addType(connectionObjectType);
+    //         // Connection. Based on relay specification: https://relay.dev/graphql/connections.htm#sec-Connection-Types
+    //         const connectionObjectType = new appsync.ObjectType(`${objectTypeName}Connection`, {
+    //             definition: {
+    //                 edges: edgeObjectType.attribute({ isList: true }),
+    //                 pageInfo: paginationType === 'cursor' ? this.schemaTypes.objectTypes.PageInfoCursor.attribute({ isRequired: true }) : this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
+    //                 totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
+    //             },
+    //             directives: [
+    //                 ...authRules?.find(o => o.provider === appsync.AuthorizationType.IAM) ? [appsync.Directive.iam()] : []
+    //                 // appsync.Directive.cognito('admin')
+    //             ]
+    //         });
+    //         this.graphqlApi.addType(connectionObjectType);
 
-            // Add default query arguments.
-            const args = {};
+    //         // Add default query arguments.
+    //         const args = {};
 
-            // Add filter argument.
-            set(args, 'filter', appsync.GraphqlType.awsJson());
+    //         // Add filter argument.
+    //         set(args, 'filter', appsync.GraphqlType.awsJson());
 
-            // Add sort argument.
-            set(args, 'sort', this.schemaTypes.inputTypes.SortInput.attribute({ isList: true }));
+    //         // Add sort argument.
+    //         set(args, 'sort', this.schemaTypes.inputTypes.SortInput.attribute({ isList: true }));
 
-            // Add offset pagination arguments.
-            if (paginationType === 'offset') {
-                set(args, 'skip', appsync.GraphqlType.int());
-                set(args, 'limit', appsync.GraphqlType.int());
-            }
+    //         // Add offset pagination arguments.
+    //         if (paginationType === 'offset') {
+    //             set(args, 'skip', appsync.GraphqlType.int());
+    //             set(args, 'limit', appsync.GraphqlType.int());
+    //         }
 
-            // Add cursor pagination arguments.
-            if (paginationType === 'cursor') {
-                set(args, 'first', appsync.GraphqlType.int());
-                set(args, 'after', appsync.GraphqlType.string());
-                set(args, 'last', appsync.GraphqlType.int());
-                set(args, 'before', appsync.GraphqlType.string());
-            }
+    //         // Add cursor pagination arguments.
+    //         if (paginationType === 'cursor') {
+    //             set(args, 'first', appsync.GraphqlType.int());
+    //             set(args, 'after', appsync.GraphqlType.string());
+    //             set(args, 'last', appsync.GraphqlType.int());
+    //             set(args, 'before', appsync.GraphqlType.string());
+    //         }
 
-            // Add query.
-            // this.graphqlApi.addQuery(`find${objectTypeNamePlural}`, new appsync.ResolvableField({
-            this.graphqlApi.addQuery(`${changeCase.camelCase(objectTypeName)}Find`, new appsync.ResolvableField({
-                returnType: connectionObjectType.attribute(),
-                args,
-                dataSource,
-                directives: [
-                    appsync.Directive.iam(),
-                    appsync.Directive.cognito('admin')
-                ],
-                // pipelineConfig: [], // TODO: Add authorization Lambda function here.
-                // Use the request mapping to inject stash variables (for use in Lambda function).
-                requestMappingTemplate: appsync.MappingTemplate.fromString(`
-                    $util.qr($ctx.stash.put("operation", "find"))
-                    $util.qr($ctx.stash.put("objectTypeName", "${objectTypeName}"))
-                    $util.qr($ctx.stash.put("returnTypeName", "${connectionObjectType.name}"))
-                    ${DefaultRequestMappingTemplate}
-                `)
-            }));
-        }
+    //         // Add query.
+    //         // this.graphqlApi.addQuery(`find${objectTypeNamePlural}`, new appsync.ResolvableField({
+    //         this.graphqlApi.addQuery(`${changeCase.camelCase(objectTypeName)}Find`, new appsync.ResolvableField({
+    //             returnType: connectionObjectType.attribute(),
+    //             args,
+    //             dataSource,
+    //             directives: [
+    //                 ...authRules?.find(o => o.provider === appsync.AuthorizationType.IAM) ? [appsync.Directive.iam()] : []
+    //                 // appsync.Directive.cognito('admin')
+    //             ],
+    //             // pipelineConfig: [], // TODO: Add authorization Lambda function here.
+    //             // Use the request mapping to inject stash variables (for use in Lambda function).
+    //             requestMappingTemplate: appsync.MappingTemplate.fromString(`
+    //                 $util.qr($ctx.stash.put("operation", "find"))
+    //                 $util.qr($ctx.stash.put("objectTypeName", "${objectTypeName}"))
+    //                 $util.qr($ctx.stash.put("returnTypeName", "${connectionObjectType.name}"))
+    //                 ${DefaultRequestMappingTemplate}
+    //             `)
+    //         }));
+    //     }
+    // }
+
+    private addCustomDirectives() {
+
+        // Auth.
+        const auth = new cdirective.AuthDirective();
+        // this.graphqlApi.addToSchema(auth.definition());
+        auth.schema(this.schemaTypes);
+
+        // Cognito.
+        const cognito = new cdirective.CognitoDirective();
+        // this.graphqlApi.addToSchema(cognito.definition());
+        cognito.schema(this.schemaTypes);
+
+        // Datasource.
+        const datasource = new cdirective.DatasourceDirective();
+        // this.graphqlApi.addToSchema(datasource.definition());
+        datasource.schema(this.schemaTypes);
+
+        // Lookup.
+        const lookup = new cdirective.LookupDirective();
+        // this.graphqlApi.addToSchema(lookup.definition());
+        lookup.schema(this.schemaTypes);
+
+        // Operations.
+        const operations = new cdirective.OperationsDirective();
+        // this.graphqlApi.addToSchema(operations.definition());
+        operations.schema(this.schemaTypes);
+
+        // Pagination.
+        const pagination = new cdirective.PaginationDirective();
+        // this.graphqlApi.addToSchema(pagination.definition());
+        pagination.schema(this.schemaTypes);
+
+        // Readonly.
+        const readonly = new cdirective.ReadonlyDirective();
+        // this.graphqlApi.addToSchema(readonly.definition());
+        readonly.schema(this.schemaTypes);
+
+        // Source.
+        const source = new cdirective.SourceDirective();
+        // this.graphqlApi.addToSchema(source.definition());
+        source.schema(this.schemaTypes);
     }
+
+    private addCustomSchema() {
+
+        // Pagination cursor.
+        const paginationCursor = new cschema.PaginationCursorSchema();
+        paginationCursor.schema(this.schemaTypes, this.activeAuthorizationTypes);
+
+        // Pagination offset
+        const paginationOffset = new cschema.PaginationOffsetSchema();
+        paginationOffset.schema(this.schemaTypes, this.activeAuthorizationTypes);
+
+        // Sort.
+        // TODO: JSON sort to match MongoDB sort? Field list input type is better but not a good fit for unlimited nested fields.
+        // const sort = new cschema.SortSchema();
+        // sort.schema(this.schemaTypes);
+    }
+
+    // Add auth directive and supporting types.
+    // Based on Amplify definition.
+    // private addAuthSchema() {
+
+    //     const authStrategy = new appsync.EnumType('AuthStrategy', {
+    //         definition: cdirective.authStrategy
+    //     });
+    //     this.schemaTypes.enumTypes.AuthStrategy = authStrategy;
+
+    //     const authProvider = new appsync.EnumType('AuthProvider', {
+    //         definition: cdirective.authProvider
+    //     });
+    //     this.schemaTypes.enumTypes.AuthProvider = authProvider;
+
+    //     const authOperation = new appsync.EnumType('AuthOperation', {
+    //         definition: cdirective.operation
+    //     });
+    //     this.schemaTypes.enumTypes.AuthOperation = authOperation;
+
+    //     const authRule = new appsync.InputType('AuthRule', {
+    //         definition: {
+    //             allow: authStrategy.attribute({ isRequired: true }), // public, private, owner, groups.
+    //             provider: authProvider.attribute({ isRequired: true }), // Not required in Amplify. Set as required for schema clarity.
+    //             ownerField: appsync.GraphqlType.string(), // Defaults to owner.
+    //             identityClaim: appsync.GraphqlType.string(), // Defaults to: sub::username.
+    //             groupsField: appsync.GraphqlType.string(), // Defaults to field: groups.
+    //             groupClaim: appsync.GraphqlType.string(), // Defaults to: cognito:group.
+    //             groups: appsync.GraphqlType.string({ isList: true }), // List of Cognito groups.
+    //             operations: authOperation.attribute({ isList: true })
+    //         }
+    //     });
+    //     this.schemaTypes.inputTypes.AuthRule = authRule;
+    // }
 
     /**
      * Create pagination pageInfo types for offset and cursor based pagination.
@@ -337,94 +443,48 @@ export class AppSyncSchemaBuilder {
      * https://shopify.engineering/pagination-relative-cursors
      * https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32
      */
-    private addPageInfoType() {
+    // private addPaginatinoSchema() {
 
-        // Offset pagination.
-        const pageInfoOffset = new appsync.ObjectType('PageInfoOffset', {
-            definition: {
-                skip: appsync.GraphqlType.int({ isRequired: true }),
-                limit: appsync.GraphqlType.int({ isRequired: true })
-            },
-            directives: [
-                appsync.Directive.iam(),
-                appsync.Directive.cognito('admin')
-            ]
-        });
-        this.schemaTypes.objectTypes.PageInfoOffset = pageInfoOffset;
+    //     // Offset pagination.
+    //     const pageInfoOffset = new appsync.ObjectType('PageInfoOffset', {
+    //         definition: {
+    //             skip: appsync.GraphqlType.int({ isRequired: true }),
+    //             limit: appsync.GraphqlType.int({ isRequired: true })
+    //         },
+    //         directives: [
+    //             ... this.activeAuthorizationTypes.includes(appsync.AuthorizationType.IAM) ? [appsync.Directive.iam()] : [],
+    //             ... this.activeAuthorizationTypes.includes(appsync.AuthorizationType.USER_POOL) ? [CustomDirective.cognitoAllGroups()] : [] // Allow all Cognito authenticated users.
+    //         ]
+    //     });
+    //     this.schemaTypes.objectTypes.PageInfoOffset = pageInfoOffset;
 
-        // Cursor pagination.
-        const pageInfoCursor = new appsync.ObjectType('PageInfoCursor', {
-            definition: {
-                hasPreviousPage: appsync.GraphqlType.boolean({ isRequired: true }),
-                hasNextPage: appsync.GraphqlType.boolean({ isRequired: true }),
-                startCursor: appsync.GraphqlType.string({ isRequired: true }),
-                endCursor: appsync.GraphqlType.string({ isRequired: true })
-            },
-            directives: [
-                appsync.Directive.iam(),
-                appsync.Directive.cognito('admin')
-            ]
-        });
-        this.schemaTypes.objectTypes.PageInfoCursor = pageInfoCursor;
-    }
+    //     // Cursor pagination.
+    //     const pageInfoCursor = new appsync.ObjectType('PageInfoCursor', {
+    //         definition: {
+    //             hasPreviousPage: appsync.GraphqlType.boolean({ isRequired: true }),
+    //             hasNextPage: appsync.GraphqlType.boolean({ isRequired: true }),
+    //             startCursor: appsync.GraphqlType.string({ isRequired: true }),
+    //             endCursor: appsync.GraphqlType.string({ isRequired: true })
+    //         },
+    //         directives: [
+    //             ... this.activeAuthorizationTypes.includes(appsync.AuthorizationType.IAM) ? [appsync.Directive.iam()] : [],
+    //             ... this.activeAuthorizationTypes.includes(appsync.AuthorizationType.USER_POOL) ? [appsync.Directive.custom('@aws_cognito_user_pools')] : [] // Allow all Cognito authenticated users.
+    //         ]
+    //     });
+    //     this.schemaTypes.objectTypes.PageInfoCursor = pageInfoCursor;
+    // }
 
     /**
      * Add sort input type for multi column sorting.
      */
-    private addSortInput() {
+    // private addSortSchema() {
 
-        const sortInput = new appsync.InputType('SortInput', {
-            definition: {
-                fieldName: appsync.GraphqlType.string({ isRequired: true }),
-                direction: appsync.GraphqlType.int({ isRequired: true })
-            }
-        });
-        this.schemaTypes.inputTypes.SortInput = sortInput;
-    }
-
-    // e.g. MPost > mpost, MySqlPost > mySqlPost, MyPost > myPost
-    // private operationNameFromType(s: string): string {
-    //     return s.charAt(0).toLocaleLowerCase() + s.charAt(1).toLocaleLowerCase() + s.slice(2);
+    //     const sortInput = new appsync.InputType('SortInput', {
+    //         definition: {
+    //             fieldName: appsync.GraphqlType.string({ isRequired: true }),
+    //             direction: appsync.GraphqlType.int({ isRequired: true })
+    //         }
+    //     });
+    //     this.schemaTypes.inputTypes.SortInput = sortInput;
     // }
 }
-
-
-/*
-Consider:
-type PaginationInfo {
-  # Total number of pages
-  totalPages: Int!
-
-  # Total number of items
-  totalItems: Int!
-
-  # Current page number
-  page: Int!
-
-  # Number of items per page
-  perPage: Int!
-
-  # When paginating forwards, are there more items?
-  hasNextPage: Boolean!
-
-  # When paginating backwards, are there more items?
-  hasPreviousPage: Boolean!
-}
-*/
-
-
-/*
-Does AppAysnc support this?
-# A single line, type-level description
-"Passenger details"
-type Passenger {
-  """  a multi-line description
-  the id is general user id """
-  id: ID!
-  name: String!
-  age: Int!
-  address: String!
-  "single line description: it is passenger id"
-  passengerId: ID!
-}
-*/

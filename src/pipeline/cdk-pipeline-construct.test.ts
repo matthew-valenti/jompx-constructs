@@ -26,7 +26,7 @@ describe('CdkPipelineStack', () => {
 
         // Test branch names correct.
         const branches = cdkPipeline.environmentPipelines.map(o => o.branch);
-        expect(branches).toEqual(['test-main', 'test-uat', 'test-test', '-test-sandbox1-']);
+        expect(branches).toEqual(['test-main', 'test-uat', 'test-test', 'test-sandbox1']);
 
         const template = Template.fromStack(stack);
         template.resourceCountIs('AWS::CodePipeline::Pipeline', branches.length);
@@ -53,7 +53,7 @@ describe('CdkPipelineStack', () => {
 
         // Test branch names correct.
         const branches = cdkPipeline.environmentPipelines.map(o => o.branch);
-        expect(branches).toEqual(['main', 'uat', 'test', '-sandbox1-']);
+        expect(branches).toEqual(['main', 'uat', 'test', 'sandbox1']);
 
         const template = Template.fromStack(stack);
         // console.log('template', JSON.stringify(template));

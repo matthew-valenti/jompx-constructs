@@ -32,14 +32,10 @@ export interface IEnvironmentPipeline {
     pipeline: pipelines.CodePipeline;
 }
 
-export interface IAppPipelineOutputs {
-    pipeline: cdk.aws_codepipeline.Pipeline;
-}
-
 export class AppPipeline extends Construct {
     public environmentPipelines: IEnvironmentPipeline[] = [];
 
-    public outputs: IAppPipelineOutputs = {} as IAppPipelineOutputs;
+    public pipeline: cdk.aws_codepipeline.Pipeline | undefined;
 
     constructor(scope: Construct, id: string, props: IAppPipelineProps) {
         super(scope, id);
@@ -61,7 +57,7 @@ export class AppPipeline extends Construct {
         }
 
         // Create pipeline.
-        this.outputs.pipeline = new codepipeline.Pipeline(this, `AppCodePipeline${stageNamePascalCase}${appNamePascalCase}`, {
+        this.pipeline = new codepipeline.Pipeline(this, `AppCodePipeline${stageNamePascalCase}${appNamePascalCase}`, {
             pipelineName: `app-pipeline-${stage}-${props.appName}`
         });
 
@@ -139,7 +135,7 @@ export class AppPipeline extends Construct {
         }
 
         // Pipeline Stage 1: Set pipeline source to GitHub (source action).
-        this.outputs.pipeline.addStage({
+        this.pipeline.addStage({
             stageName: `pipeline-source-${stage}-${props.appName}`,
             actions: [sourceAction]
         });
@@ -177,12 +173,12 @@ export class AppPipeline extends Construct {
 
         // Set pipeline stage = build.
         // Pipeline Stage 2: Set action to build (app code).
-        this.outputs.pipeline.addStage({
+        this.pipeline.addStage({
             stageName: `app-build-${props.appName}`,
             actions: [codeBuildAction]
         });
 
-        // const waitForCdkStage = this.outputs.pipeline.addStage({
+        // const waitForCdkStage = this.pipeline.addStage({
         //     stageName: 'waitForCdkStage',
         //     transitionToEnabled: false,
         //     transitionDisabledReason: 'Manual transition only'

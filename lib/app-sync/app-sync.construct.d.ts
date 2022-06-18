@@ -16,5 +16,6 @@ export interface IAppSyncProps {
 export declare class AppSync extends Construct {
     graphqlApi: appsync.GraphqlApi;
     schemaBuilder: AppSyncSchemaBuilder;
+    activeAuthorizationTypes: appsync.AuthorizationType[];
     constructor(scope: Construct, id: string, props: IAppSyncProps);
 }

@@ -1,3 +1,4 @@
+import * as appsync from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 // import { Config } from '../src/classes/config';
@@ -5,6 +6,10 @@ import { Template } from 'aws-cdk-lib/assertions';
 import * as jompx from '../../../src';
 import { Config as JompxConfig } from '../../config/test/jompx.config';
 import { MySqlSchema } from './mysql.schema';
+
+/**
+ * npx jest app-sync.test.ts
+ */
 
 // For convenience and strong typing, use an enum for AppSync datasource ids.
 export enum AppSyncDatasource {
@@ -20,14 +25,25 @@ describe('AppSyncStack', () => {
 
         // const config = new Config(app.node);
 
+        // Create Cognito resource.
+        const jompxCognito = new jompx.Cognito(stack, 'Cognito', {
+            name: 'apps',
+            appCodes: ['admin']
+        });
+
         const appSyncProps: jompx.IAppSyncProps = {
             name: 'api',
-            additionalAuthorizationModes: []
+            additionalAuthorizationModes: [
+                {
+                    authorizationType: appsync.AuthorizationType.USER_POOL,
+                    userPoolConfig: { userPool: jompxCognito.userPool }
+                }
+            ]
         };
 
         // Create AWS AppSync resource.
-        const appSync = new jompx.AppSync(stack, 'AppSync', appSyncProps);
-        const schemaBuilder = appSync.schemaBuilder;
+        const jompxAppSync = new jompx.AppSync(stack, 'AppSync', appSyncProps);
+        const schemaBuilder = jompxAppSync.schemaBuilder;
 
         // Add MySQL datasource.
         const appSyncMySqlDataSource = new jompx.AppSyncMySqlDataSource(stack, AppSyncDatasource.mySql, {});
@@ -38,6 +54,7 @@ describe('AppSyncStack', () => {
         schemaBuilder.addSchemaTypes(mySqlSchema.types);
 
         schemaBuilder.create();
+        // schemaBuilder.create({ schema: true, operations: true });
 
         const template = Template.fromStack(stack);
         // console.log(template, 'template');
@@ -45,9 +62,9 @@ describe('AppSyncStack', () => {
         template.resourceCountIs('AWS::AppSync::GraphQLSchema', 1);
 
         // TODO: How do we confirm the correct schema is being generated.
-        const graphQLSchema = template.findResources('AWS::AppSync::GraphQLSchema');
-        const graphQLSchemaKey = Object.keys(graphQLSchema)[0];
-        const schema = graphQLSchema[graphQLSchemaKey]?.Properties?.Definition;
-        console.log('schema', schema);
+        // const graphQLSchema = template.findResources('AWS::AppSync::GraphQLSchema');
+        // const graphQLSchemaKey = Object.keys(graphQLSchema)[0];
+        // const schema = graphQLSchema[graphQLSchemaKey]?.Properties?.Definition;
+        // console.log('schema', schema);
     });
 });

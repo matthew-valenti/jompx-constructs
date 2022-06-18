@@ -1,31 +1,5 @@
 import { IConfig } from '../config.types';
 
-/*
-TODO: I think we want to rename stages to this:
-stages: {
-    prod: {
-        branch: 'main',
-        deployments: [
-            {
-                stage: 'cicd', // This is the CDK stage but doesn't need to match the name exactly - it's just a lookup. Maybe we should type this? Or make it match exactly?
-                environment: 'cicd-prod', // This is a pointer to the AWS account.
-            },
-            {
-                stage: 'network',
-                environment: 'prod'
-            },
-            {
-                stage: 'common',
-                environment: 'common-prod'
-            },
-            {
-                stage: 'app',
-                environment: 'prod'
-            }
-        ]
-    }
-*/
-
 export const Config: IConfig = {
     '@jompx': {
         organizationName: 'my-org', // Lower case (use dashes if needed). Used to uniquely name resources e.g. S3 bucket name.
@@ -55,6 +29,16 @@ export const Config: IConfig = {
                 accountId: '066209653567',
                 region: 'us-west-2',
                 name: 'sandbox1'
+            }
+        ],
+        apps: [
+            {
+                name: 'admin',
+                rootDomainName: 'jompx.com'
+            },
+            {
+                name: 'app',
+                rootDomainName: 'jompx.com'
             }
         ],
         stages: {
@@ -110,7 +94,7 @@ export const Config: IConfig = {
                 ]
             },
             sandbox1: {
-                branch: '(-sandbox1-)',
+                branch: '(sandbox1)',
                 deployments: [
                     {
                         type: 'cicd',

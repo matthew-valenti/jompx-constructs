@@ -19,6 +19,7 @@ export interface IAppSyncProps {
 export class AppSync extends Construct {
     public graphqlApi: appsync.GraphqlApi;
     public schemaBuilder: AppSyncSchemaBuilder;
+    public activeAuthorizationTypes: appsync.AuthorizationType[] = [];
 
     constructor(scope: Construct, id: string, props: IAppSyncProps) {
         super(scope, id);
@@ -33,12 +34,24 @@ export class AppSync extends Construct {
             }
         });
 
+        // Get active authorization types.
+        this.activeAuthorizationTypes.push(appsync.AuthorizationType.IAM);
+        this.activeAuthorizationTypes = this.activeAuthorizationTypes.concat(props.additionalAuthorizationModes?.map(o => o.authorizationType) ?? []);
+
         // Add GraphQL url to parameter store.
+        // Allow Lambda functions to call AppSync GraphQL operations.
         new ssm.StringParameter(this, 'AppsyncGraphqlUrl', {
-            parameterName: '/appSync/graphqlUrl',
+            parameterName: '/appSync/graphqlUrl2',
             stringValue: this.graphqlApi.graphqlUrl
         });
 
-        this.schemaBuilder = new AppSyncSchemaBuilder(this.graphqlApi);
+        // Add AppSync API ID to parameter store.
+        // Allow resources to define an IAM security policy for AppSync data operations.
+        new ssm.StringParameter(this, 'AppsyncGraphqlApiId', {
+            parameterName: '/appSync/apiId',
+            stringValue: this.graphqlApi.apiId
+        });
+
+        this.schemaBuilder = new AppSyncSchemaBuilder(this.graphqlApi, this.activeAuthorizationTypes);
     }
 }

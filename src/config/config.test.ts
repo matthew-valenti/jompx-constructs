@@ -47,6 +47,16 @@ describe('Config', () => {
         );
     });
 
+    test('apps', () => {
+        const apps = config.apps();
+        expect(apps).toHaveLength(2);
+    });
+
+    test('appRootDomainNames', () => {
+        const appRootDomainNames = config.appRootDomainNames();
+        expect(appRootDomainNames).toContain('jompx.com');
+    });
+
     test('stages', () => {
         const stages = config.stages();
         if (stages) {

@@ -1,34 +1,26 @@
 import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as changeCase from 'change-case';
 import { Construct } from 'constructs';
-import { Config } from '../config/config';
-
+// import { Config } from '../config/config';
 
 export interface IHostingS3Props {
     domainName: string;
-    appName: string;
-}
-
-export interface IHostingS3Outputs {
-    bucket: s3.Bucket;
 }
 
 export class HostingS3 extends Construct {
 
-    public outputs: IHostingS3Outputs = {} as IHostingS3Outputs;
+    public bucket: s3.Bucket;
 
     constructor(scope: Construct, id: string, props: IHostingS3Props) {
         super(scope, id);
 
-        const config = new Config(this.node);
-        const stage = config.stage();
+        // const config = new Config(this.node);
+        // const stage = config.stage();
 
-        this.outputs.bucket = new s3.Bucket(this, `${changeCase.pascalCase(props.appName)}HostingBucket`, {
+        this.bucket = new s3.Bucket(this, 'HostingS3Bucket', {
             // Bucket name must be globally unique across all AWS accounts.
             // Bucket name must match app urls e.g. admin.mydomain.com, admin.sandbox1.mydomain.com
-            bucketName: `${props.appName}.${stage}.${props.domainName}`,
+            bucketName: props.domainName,
             // Required for public website.
             publicReadAccess: true,
             // Single Page App (SPA) settings.

@@ -8,38 +8,46 @@ import { HostingS3 } from '../hosting/s3.construct';
 import { AppPipelineS3 } from '../pipeline/app-pipeline-s3.construct';
 import { AppPipeline } from './app-pipeline.construct';
 
+/**
+ * npx jest app-pipeline-construct.test.ts
+ */
+
 describe('IAppPipelineProps', () => {
     test('stage=test creates code pipelines', () => {
 
-        const app = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'sandbox1' } } });
-        const stack = new cdk.Stack(app);
+        const cdkApp = new cdk.App({ context: { ...JompxConfig, '@jompx-local': { stage: 'sandbox1' } } });
+        const stack = new cdk.Stack(cdkApp);
 
-        const config = new Config(app.node);
+        const config = new Config(cdkApp.node);
         const stage = config.stage();
 
-        const domainName = 'jompx.com';
-        const appNames = ['admin', 'client'];
+        const apps = config.apps();
 
-        appNames.forEach(appName => {
-            const appNamePascalCase = changeCase.pascalCase(appName);
 
+        apps?.forEach(app => {
+            const appNamePascalCase = changeCase.pascalCase(app.name);
+
+            // Dervie the app domain name from stage e.g. admin.jompx.com, admin.test.jompx.com, admin.sandbox1.admin.com
+            const domainName = stage === 'prod' ? `${app.name}.${app.rootDomainName}` : `${app.name}.${stage}.${app.rootDomainName}`;
+
+            // Create one S3 bucket per app.
             const hostingS3 = new HostingS3(stack, `HostingS3${appNamePascalCase}`, {
-                domainName,
-                appName
+                domainName
             });
 
             const pipelineS3 = new AppPipelineS3(stack, `AppPipelineS3${appNamePascalCase}`);
 
             const codebuildBuildSpecObject = {};
+
             new AppPipeline(stack, `AppPipeline${appNamePascalCase}`, {
                 stage,
-                appName,
-                hostingBucket: hostingS3.outputs.bucket,
-                pipelinegBucket: pipelineS3.outputs.bucket,
+                appName: app.name,
+                hostingBucket: hostingS3.bucket,
+                pipelinegBucket: pipelineS3.bucket,
                 gitHub: {
                     owner: 'matthew-valenti',
                     repo: 'jompx-org',
-                    token: cdk.SecretValue.secretsManager('cicd/github/token')
+                    token: cdk.SecretValue.secretsManager('/cicd/github/token')
                 },
                 codebuildBuildSpecObject
             });

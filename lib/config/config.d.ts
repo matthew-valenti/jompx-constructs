@@ -1,9 +1,11 @@
 import * as cdk from 'aws-cdk-lib';
 import { Node } from 'constructs';
-import { IEnvironment, IStage, IStageDeployment } from './config.types';
+import { IEnvironment, IApp, IStage, IStageDeployment } from './config.types';
 export declare class Config {
     appNode: Node;
     constructor(appNode: Node);
+    organizationName(): string;
+    organizationNamePascalCase(): string;
     /**
      * Get stage from command line or config. e.g. sandbox1, test, prod.
      * @returns
@@ -27,6 +29,16 @@ export declare class Config {
      */
     environmentByAccountId(accountId: string): IEnvironment | undefined;
     /**
+     * Get list of apps. An app is typically deployed across all stages and is acceccable on each stage.
+     * @returns
+     */
+    apps(): IApp[] | undefined;
+    /**
+     * Get a distinct/unique list of root domain names across all apps.
+     * @returns
+     */
+    appRootDomainNames(): string[] | undefined;
+    /**
      * Get config stages. Use dot notation to get a stage e.g. stages.prod
      * JSII constructs don't support map object. To convert to map use: new Map(Object.entries(config.stages()));
      * @returns
@@ -41,6 +53,4 @@ export declare class Config {
      * @returns
      */
     env(deploymentType: string, stage?: string): cdk.Environment | undefined;
-    organizationName(): string;
-    organizationNamePascalCase(): string;
 }

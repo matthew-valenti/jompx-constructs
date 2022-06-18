@@ -14,8 +14,8 @@ export interface ICdkPipelineGitHubProps {
     connectionArn: string;
 }
 export interface IEnvironmentPipeline {
-    stage: string;
     branch: string;
+    pipelineStage: string;
     pipeline: pipelines.CodePipeline;
 }
 /**
@@ -48,6 +48,13 @@ export interface IEnvironmentPipeline {
  * During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account.
  * A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts.
  * Supports configuration to allow a company to have any number of stages, accounts, and CDK stages.
+ * The CICD test AWS account listens to branches with test in the branch name. It's important that test pipelines don't trigger on commits to main, test, sandbox1, etc.
+ *
+ * AWS CodePipeline recommends using a CodePipelineSource connection to securly connect to GitHub. However, CodeBuild only supports the old Github token authorization.
+ * Stage branches use a connection. Regex stage branches use a token.
+ * Setup steps are required to enable both a connection and a token.
+ *
+ * GitHub has a 20 web hook limit per event (per repo). It may be necessary to switch from web hook to polling or not create unused code pipelines (e.g. test-sandbox1 branch deploys may not be needed).
  *
  * AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.
  *

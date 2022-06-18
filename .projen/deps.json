@@ -109,6 +109,10 @@
       "type": "build"
     },
     {
+      "name": "mongodb-language-model",
+      "type": "build"
+    },
+    {
       "name": "npm-check-updates",
       "version": "^12",
       "type": "build"

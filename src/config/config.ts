@@ -2,13 +2,21 @@ import * as cdk from 'aws-cdk-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as changeCase from 'change-case';
 import { Node } from 'constructs';
-import { IEnvironment, IStage, IStageDeployment } from './config.types';
+import { IEnvironment, IApp, IStage, IStageDeployment } from './config.types';
 
 export class Config {
 
     constructor(
         public appNode: Node
     ) { }
+
+    public organizationName(): string {
+        return this.appNode.tryGetContext('@jompx').organizationName;
+    }
+
+    public organizationNamePascalCase(): string {
+        return changeCase.pascalCase(this.organizationName());
+    }
 
     /**
      * Get stage from command line or config. e.g. sandbox1, test, prod.
@@ -44,6 +52,23 @@ export class Config {
      */
     public environmentByAccountId(accountId: string): IEnvironment | undefined {
         return this.appNode.tryGetContext('@jompx').environments.find((o: IEnvironment) => o.accountId === accountId);
+    }
+
+    /**
+     * Get list of apps. An app is typically deployed across all stages and is acceccable on each stage.
+     * @returns
+     */
+    public apps(): IApp[] | undefined {
+        return this.appNode.tryGetContext('@jompx').apps;
+    }
+
+    /**
+     * Get a distinct/unique list of root domain names across all apps.
+     * @returns
+     */
+    public appRootDomainNames(): string[] | undefined {
+        const apps: IApp[] = this.appNode.tryGetContext('@jompx').apps;
+        return [...new Set(apps.map(o => o.rootDomainName))];
     }
 
     /**
@@ -102,13 +127,5 @@ export class Config {
         }
 
         return rv;
-    }
-
-    public organizationName(): string {
-        return this.appNode.tryGetContext('@jompx').organizationName;
-    }
-
-    public organizationNamePascalCase(): string {
-        return changeCase.pascalCase(this.organizationName());
     }
 }

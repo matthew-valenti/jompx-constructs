@@ -44,11 +44,11 @@ junit.xml
 !/test/
 !/tsconfig.dev.json
 !/src/
+/lib
 /dist/
 !/.eslintrc.json
 .jsii
 tsconfig.json
 !/API.md
 /*.code-workspace
-!/lib
 !/.github/workflows/upgrade-main.yml

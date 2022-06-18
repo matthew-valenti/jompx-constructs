@@ -1,3 +1,5 @@
+// Documentation: https://projen.io/
+
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
     author: 'Jompx',
@@ -35,6 +37,12 @@ project.package.addDevDeps('@types/get-value');
 project.package.addDevDeps('set-value');
 project.package.addDevDeps('@types/set-value');
 
+// Delete Me!
+project.package.addDevDeps('mongodb-language-model');
+
+// TODO: Add exports to package.json to allow directives to be imported using @jompx/constructs/directives. See 'Subpath exports': https://nodejs.org/api/packages.html#subpath-exports
+// It's unclear how to achieve this using projen.
+
 // project.package.addDevDeps('pluralize');
 // project.package.addDevDeps('@types/pluralize');
 
@@ -53,7 +61,7 @@ project.jest.addTestMatch('**/?(*.)@(spec|test).ts?(x)');
 project.jest.addIgnorePattern('dist'); // Do not run tests in dist folder.
 
 // Commit lib folder. Temporary workaround for linking to github repo in package.json.
-project.gitignore.include('/lib');
+// project.gitignore.include('/lib');
 
 // *** Jompx End ***
 

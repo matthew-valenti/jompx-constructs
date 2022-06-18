@@ -25,8 +25,8 @@ export interface ICdkPipelineGitHubProps {
 }
 
 export interface IEnvironmentPipeline {
-    stage: string;
     branch: string;
+    pipelineStage: string;
     pipeline: pipelines.CodePipeline;
 }
 
@@ -60,6 +60,13 @@ export interface IEnvironmentPipeline {
  * During development, developers will typically manually deploy a stack they're working on to their sandbox AWS account.
  * A manual deployment of the CDK pipeline stack is needed to the test and prod CICD AWS accounts.
  * Supports configuration to allow a company to have any number of stages, accounts, and CDK stages.
+ * The CICD test AWS account listens to branches with test in the branch name. It's important that test pipelines don't trigger on commits to main, test, sandbox1, etc.
+ *
+ * AWS CodePipeline recommends using a CodePipelineSource connection to securly connect to GitHub. However, CodeBuild only supports the old Github token authorization.
+ * Stage branches use a connection. Regex stage branches use a token.
+ * Setup steps are required to enable both a connection and a token.
+ *
+ * GitHub has a 20 web hook limit per event (per repo). It may be necessary to switch from web hook to polling or not create unused code pipelines (e.g. test-sandbox1 branch deploys may not be needed).
  *
  * AWS Docs: The pipeline is self-mutating, which means that if you add new application stages in the source code, or new stacks to MyApplication, the pipeline will automatically reconfigure itself to deploy those new stages and stacks.
  *
@@ -76,6 +83,7 @@ export interface IEnvironmentPipeline {
  * - Manual CDK stack deploys (to any env). e.g. deploy stack to sandbox1, deploy stack to test, deploy stack to prod.
  */
 export class CdkPipeline extends Construct {
+
     public environmentPipelines: IEnvironmentPipeline[] = [];
 
     constructor(scope: Construct, id: string, props: ICdkPipelineProps) {
@@ -92,6 +100,7 @@ export class CdkPipeline extends Construct {
         // For static branches e.g. main, test.
         for (const [stage, stageValue] of branchStages.entries()) {
 
+            // If CICD prod pipelines then use branch names in config. Else CICD stage is test or other so use stage+branch e.g. test-prod, test-test
             const branch = (props.stage === 'prod') ? stageValue.branch : `${props.stage}-${stageValue.branch}`;
 
             // create a standard cdk pipeline for static branches. Performance is better (no S3 file copy required).
@@ -100,7 +109,7 @@ export class CdkPipeline extends Construct {
                 crossAccountKeys: true, // Required for cross account deploys.
                 synth: new pipelines.ShellStep('Synth', {
                     env: {
-                        STAGE: `${props.stage}` // The CICD stage typically test or prod.
+                        STAGE: `${props.stage}` // The CICD stage: typically test or prod.
                     },
                     // TODO: Allow GitHub token option.
                     // input: pipelines.CodePipelineSource.gitHub(
@@ -117,7 +126,7 @@ export class CdkPipeline extends Construct {
                 })
             });
 
-            this.environmentPipelines.push({ stage, branch, pipeline });
+            this.environmentPipelines.push({ branch, pipelineStage: stage, pipeline });
         }
 
         if (branchRegexStages.size) {
@@ -136,12 +145,16 @@ export class CdkPipeline extends Construct {
 
             for (const [stage, stageValue] of branchRegexStages.entries()) {
 
-                const branchFileName = `branch-${stage}.zip`;
+                const branchSubstring = stageValue.branch.slice(1, -1); // Remove first and last chars i.e. parenthesis.
+                const branchFileName = `branch-${props.stage}-${branchSubstring}.zip`;
                 const stagePascalCase = changeCase.pascalCase(stage);
 
-                const branchRegex = (props.stage === 'prod') ? stageValue.branch : [stageValue.branch.slice(0, 1), `-${props.stage}`, stageValue.branch.slice(1)].join(''); // e.g. main, (-test-main-)
+                // If CICD stage is prod, match branch substring somewhere in branch name. Else CICD stage is 'test' (or other) so match 'test' somewhere in branch name.
+                // e.g. prod: (sandbox1) in config will match branches: sandbox1, my-sandbox1-feature, my-sandbox1-feature2
+                // e.g. test: e.g. (sandbox1) in config will match: testsandbox1, sandbox1test, test-sandbox1, sandbox1-test, etc.
+                const branchRegex = (props.stage === 'prod') ? `(${branchSubstring})` : `(?=.*${branchSubstring})(?=.*test)`;
 
-                // Create github source (sandbox feature branch).
+                // Create github source (e.g. sandbox feature branch).
                 const gitHubBranchSource = codebuild
                     .Source.gitHub({
                         owner: props.gitHub.owner,
@@ -158,7 +171,7 @@ export class CdkPipeline extends Construct {
 
                 // Create build project (to copy feature branch files to S3 on github push).
                 const githubCodeBuildProject = new codebuild.Project(this, `GithubCodeBuildProject${stagePascalCase}`, {
-                    projectName: `copy-github-${stage}-branch-to-s3`,
+                    projectName: `copy-github-${props.stage}-${branchSubstring}-to-s3`,
                     buildSpec: codebuild.BuildSpec.fromObject({
                         version: 0.2,
                         artifacts: {
@@ -185,11 +198,11 @@ export class CdkPipeline extends Construct {
                 }));
 
                 const pipeline = new pipelines.CodePipeline(this, `CdkCodePipeline${stagePascalCase}`, {
-                    pipelineName: `cdk-pipeline-${stage}`,
+                    pipelineName: `cdk-pipeline-${props.stage}-${branchSubstring}`,
                     crossAccountKeys: true, // Required for cross account deploys.
                     synth: new pipelines.ShellStep('Synth', {
                         env: {
-                            STAGE: props.stage // The CICD stage typically test or prod.
+                            STAGE: props.stage // The CICD stage typically: test or prod.
                         },
                         input: pipelines.CodePipelineSource.s3(bucket, branchFileName),
                         commands: props.commands ?? commands,
@@ -197,8 +210,9 @@ export class CdkPipeline extends Construct {
                     })
                 });
 
-                const branch = branchRegex.slice(1, -1); // Remove parenthesis first and last char.
-                this.environmentPipelines.push({ stage, branch, pipeline });
+                // The branch name is actually a regex. But specify a branch naem that's easier to work with (and still matches the regex) e.g. test-sandbox1.
+                const branch = (props.stage === 'prod') ? branchSubstring : `${props.stage}-${branchSubstring}`;
+                this.environmentPipelines.push({ branch, pipelineStage: stage, pipeline });
             }
         }
     }

@@ -115,8 +115,6 @@ https://github.com/wheatstalk/oidc-mock/blob/main/.projenrc.js
 - Multiple constructs in Lerna monorepo: https://www.npmjs.com/package/lerna-projen
 - Might be good resource for publishing: https://github.com/seeebiii/projen-test
 
-
-
 ### Stacks
 cicid stack to read organization yaml
 npm install --save-dev yaml-cfn

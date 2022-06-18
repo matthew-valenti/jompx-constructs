@@ -35,9 +35,10 @@ export interface IAddMutationArguments {
 }
 export declare class AppSyncSchemaBuilder {
     graphqlApi: appsync.GraphqlApi;
+    activeAuthorizationTypes: appsync.AuthorizationType[];
     dataSources: IDataSource;
     schemaTypes: ISchemaTypes;
-    constructor(graphqlApi: appsync.GraphqlApi);
+    constructor(graphqlApi: appsync.GraphqlApi, activeAuthorizationTypes: appsync.AuthorizationType[]);
     addDataSource(id: string, lambdaFunction: cdk.aws_lambda.IFunction, options?: appsync.DataSourceOptions): appsync.LambdaDataSource;
     addSchemaTypes(schemaTypes: ISchemaTypes): void;
     /**
@@ -73,18 +74,6 @@ export declare class AppSyncSchemaBuilder {
     /**
      * https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
      */
-    private addFind;
-    /**
-     * Create pagination pageInfo types for offset and cursor based pagination.
-     *
-     * Cursor pagination. Page and sort by unique field. Concatenated fields can result in poor performance.
-     * https://relay.dev/graphql/connections.htm#sec-Connection-Types
-     * https://shopify.engineering/pagination-relative-cursors
-     * https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32
-     */
-    private addPageInfoType;
-    /**
-     * Add sort input type for multi column sorting.
-     */
-    private addSortInput;
+    private addCustomDirectives;
+    private addCustomSchema;
 }

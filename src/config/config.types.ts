@@ -2,6 +2,7 @@ export interface IConfig {
     [key: string]: {
         organizationName: string;
         environments: IEnvironment[];
+        apps: IApp[];
         stages: IStage;
     };
 }
@@ -11,6 +12,11 @@ export interface IEnvironment {
     region: string;
     name: string;
     // stage: string; // e.g. prod, test, sandbox.
+}
+
+export interface IApp {
+    name: string;
+    rootDomainName: string;
 }
 
 export interface IStage {

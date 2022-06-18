@@ -36,7 +36,7 @@ export class JompxGraphqlType extends appsync.GraphqlType {
     public resolve(schemaTypes: ISchemaTypes): appsync.GraphqlType {
 
         const objectType = schemaTypes.objectTypes[this.typeName];
-        if (!objectType) throw Error(`Jompx: Type '${this.typeName}' not found for JompxGraphqlType! Add type to schema types`);
+        if (!objectType) throw Error(`Jompx: Type '${this.typeName}' not found for JompxGraphqlType! Add type to schema types.`);
 
         const newGraphqlType = schemaTypes.objectTypes[this.typeName].attribute(this);
         return newGraphqlType;

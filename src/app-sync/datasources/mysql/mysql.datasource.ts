@@ -3,6 +3,7 @@
 if (row.date) {
     set(row, 'date', DateTime.fromISO(row.date).toString());
 }
+Remember to handle nulls.
 */
 
 import { IAppSyncConnection } from '../../app-sync.types';

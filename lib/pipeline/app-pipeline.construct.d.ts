@@ -20,11 +20,8 @@ export interface IEnvironmentPipeline {
     branch: string;
     pipeline: pipelines.CodePipeline;
 }
-export interface IAppPipelineOutputs {
-    pipeline: cdk.aws_codepipeline.Pipeline;
-}
 export declare class AppPipeline extends Construct {
     environmentPipelines: IEnvironmentPipeline[];
-    outputs: IAppPipelineOutputs;
+    pipeline: cdk.aws_codepipeline.Pipeline | undefined;
     constructor(scope: Construct, id: string, props: IAppPipelineProps);
 }
