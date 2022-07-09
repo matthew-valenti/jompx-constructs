@@ -60,7 +60,7 @@ export class MySqlSchema {
             directives: [
                 auth([
                     { allow: 'private', provider: 'iam' }
-                ]),
+                ])
                 // Directive.cognito(),
                 // Directive.iam()
             ]

@@ -76,24 +76,24 @@ event {
 }
 */
 
-import { IAppSyncResolverEvent, IAppSyncConnection } from '../app-sync.types';
+import { IAppSyncConnection, IAppSyncResolverEvent } from '../app-sync.types';
 
-export abstract class AppSyncDatasource {
+export class AppSyncDatasource {
 
-    protected props: IAppSyncResolverEvent;
+    protected event: IAppSyncResolverEvent;
 
-    constructor(props: IAppSyncResolverEvent) {
-        this.props = props;
+    constructor(event: IAppSyncResolverEvent) {
+        this.event = event;
     }
 
     protected find?(): IAppSyncConnection;
-    protected findOne?(): any;
-    protected insertOne?(): any;
-    protected insertMany?(): any;
-    protected updateOne?(): any;
-    protected updateMany?(): any;
-    protected deleteOne?(): any;
-    protected deleteMany?(): any;
-    protected destroyOne?(): any;
-    protected destoryMany?(): any;
+    // protected findOne?(): any;
+    // protected insertOne?(): any;
+    // protected insertMany?(): any;
+    // protected updateOne?(): any;
+    // protected updateMany?(): any;
+    // protected deleteOne?(): any;
+    // protected deleteMany?(): any;
+    // protected destroyOne?(): any;
+    // protected destoryMany?(): any;
 }

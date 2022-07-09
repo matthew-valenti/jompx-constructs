@@ -41,7 +41,7 @@ export class AppSync extends Construct {
         // Add GraphQL url to parameter store.
         // Allow Lambda functions to call AppSync GraphQL operations.
         new ssm.StringParameter(this, 'AppsyncGraphqlUrl', {
-            parameterName: '/appSync/graphqlUrl2',
+            parameterName: '/appSync/graphqlUrl',
             stringValue: this.graphqlApi.graphqlUrl
         });
 

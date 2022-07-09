@@ -3,6 +3,9 @@
 import { AppSyncResolverEvent } from 'aws-lambda';
 import { AppSyncMySqlDatasource } from './mysql.datasource';
 
+/**
+ * TODO: Error handling: https://docs.aws.amazon.com/appsync/latest/devguide/tutorial-lambda-resolvers.html#returning-errors
+ */
 exports.handler = async (event: AppSyncResolverEvent<any>) => {
     console.log('event', event);
     console.log('process', process);
@@ -12,6 +15,7 @@ exports.handler = async (event: AppSyncResolverEvent<any>) => {
     if (event?.stash?.operation) {
         const mySqlDatasource = new AppSyncMySqlDatasource(event);
         data = mySqlDatasource[event.stash.operation as keyof AppSyncMySqlDatasource]();
+        // args, info, rargs
     }
 
     return data;

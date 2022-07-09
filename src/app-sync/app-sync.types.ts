@@ -33,7 +33,7 @@ export interface ISchemaTypes {
 }
 
 export const AppSyncLambdaDefaultProps: cdk.aws_lambda_nodejs.NodejsFunctionProps = {
-    runtime: lambda.Runtime.NODEJS_14_X,
+    runtime: lambda.Runtime.NODEJS_16_X,
     timeout: cdk.Duration.seconds(5),
     bundling: {
         minify: true,
@@ -63,8 +63,8 @@ export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> 
 
 export type IAppSyncResolverEvent = AppSyncResolverEvent<any>
 
-export interface IAppSyncOperationArgs {
-    [key: string]: appsync.GraphqlType;
+export interface IAppSyncOperationFields {
+    [key: string]: appsync.GraphqlType | IAppSyncOperationFields;
 }
 
 export interface IAppSyncConnection {
@@ -143,4 +143,5 @@ export interface IAppSyncMethodProps {
     event: any;
 }
 
-
+const paginationType = ['cursor', 'offset'];
+export type IAppSyncPaginationType = typeof paginationType[number];

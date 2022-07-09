@@ -8,6 +8,7 @@ export type ICustomDirectivePaginationType = 'cursor' | 'offset';
 
 
 // Function (to use when defining GraphQL schema).
+// TODO: Can we delete this since now we'll have find and findCursor operations?
 export function pagination(type: ICustomDirectivePaginationType): Directive {
     return Directive.custom(`@pagination(type: "${type}")`);
 }

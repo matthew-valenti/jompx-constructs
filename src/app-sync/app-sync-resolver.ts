@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-import get = require('get-value');
 import { IAppSyncMethodProps } from './app-sync.types';
 
 export class AppSyncResolver {
@@ -7,19 +6,22 @@ export class AppSyncResolver {
      * Call a method on a class from values in a AppSync Lambda event.
      * @param classInstance - A class instance.
      * @param event - AppSync Lambda event.
-     * @param path - JSON path to method arguments in event.arguments.
      * @returns - Returns the return value of the method.
      */
-    public static callMethodFromEvent<T>(classInstance: any, event: any, path: string = 'input'): any {
+    public static callMethodFromEvent<T>(classInstance: any, event: any): any {
 
-        const eventArguments: any[] = get(event.arguments, path) ? Object.values(get(event.arguments, path)) : [];
+        // Get event arguments from event as an array of values (required for Reflect method below).
+        const eventArguments: any[] = event?.arguments ? Object.values(event.arguments) : [];
+        console.log('eventArguments', eventArguments);
 
+        // Organize cognito specific variables.
         const cognito = {
             sub: event?.identity?.claims?.sub,
             email: event?.identity?.claims?.email,
             groups: event?.identity?.groups,
             authorization: event?.request?.headers?.authorization
         };
+        console.log('cognito', cognito);
 
         // We must at least pass the event. Methods might need any type of event information.
         // Break out Cognito properties (if Cognito auth) for convenience only.
@@ -28,6 +30,7 @@ export class AppSyncResolver {
             ...(cognito?.sub && { cognito }),
             event
         };
+        console.log('props', props);
 
         eventArguments.push(props);
         return Reflect.apply(classInstance[event.stash.operation as keyof T], undefined, eventArguments);

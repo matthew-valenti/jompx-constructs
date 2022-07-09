@@ -133,3 +133,13 @@ Best practices: https://docs.aws.amazon.com/cdk/v2/guide/best-practices.html
 Environment variable lookups inside constructs and stacks are a common anti-pattern. Both constructs and stacks should accept a properties object to allow for full configurability completely in code. To do otherwise is to introduce a dependency on the machine that the code will run on, which becomes another bit of configuration information you have to keep track of and manage.
 
 In general, environment variable lookups should be limited to the top level of an AWS CDK app, and should be used to pass in information needed for running in a development environment; see Environments.
+
+## GraphQL Batching
+If possible, use HTTP/2 on the server (with Node.js 10), which allows multiplexing of requests, effectively batching them.
+Our S3 / Cloudfront uses HTTP2 so no need to implement batching.
+
+## TODO:
+- Publishing
+Important - there are a lot more things to think about before publishing a construct for multiple languages.
+e.g. Do or don't use I for interface. https://www.youtube.com/watch?v=Z1iyENKuNSE
+https://github.com/seeebiii/projen-test

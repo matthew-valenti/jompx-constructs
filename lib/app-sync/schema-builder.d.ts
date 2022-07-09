@@ -1,7 +1,8 @@
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
-import { IDataSource, ISchemaTypes, IAppSyncOperationArgs } from './app-sync.types';
+import { IDataSource, ISchemaTypes, IAppSyncOperationFields } from './app-sync.types';
 /**
+ * GraphQL Spec: https://spec.graphql.org/. Mostly for the backend but good to know about.
  * Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
  * Support relay or not?
  * https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066
@@ -11,7 +12,7 @@ import { IDataSource, ISchemaTypes, IAppSyncOperationArgs } from './app-sync.typ
  * https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/
  * - Mutation: Use top level input type for ags. Use top level property for output type.
  */
-export interface IAddMutationArguments {
+export interface IAddMutationArgs {
     /**
      * The name of the mutation as it will appear in the GraphQL schema.
      */
@@ -21,15 +22,19 @@ export interface IAddMutationArguments {
      */
     dataSourceName: string;
     /**
-     * Mutation input arguments. These should exactly match the number and order of arguments in the method the mutation will call.
+     * Mutation input (arguments wrapped in an input property).
      */
-    args: IAppSyncOperationArgs;
+    input: appsync.InputType | IAppSyncOperationFields;
     /**
-     * The mutation return object type.
+     * Mutation output (return value).
      */
-    returnType: appsync.ObjectType;
+    output: appsync.ObjectType | IAppSyncOperationFields;
     /**
-     * The mutation method to call.
+     * List of auth rules to apply to the mutation and output type.
+     */
+    auth: appsync.Directive;
+    /**
+     * The class method to call on request mutation.
      */
     methodName?: string;
 }
@@ -43,17 +48,45 @@ export declare class AppSyncSchemaBuilder {
     addSchemaTypes(schemaTypes: ISchemaTypes): void;
     /**
      * Add a mutation to the GraphQL schema.
-     * @param name - Name of the mutation as it will appear in the GraphQL schema.
-     * @param dataSourceName - Your datasource name e.g. mySql, cognito, post.
-     * @param args - Mutation arguments.
-     * @param returnType - Mutation retun type (or output type).
-     * @param operation - Class method the mutation will call to retun result.
-     * @returns - The mutation.
+     * Wrap input in input type and output in output type.
+     * https://graphql-rules.com/rules/mutation-payload
+     * @returns - The created AppSync mutation object type.
      */
+    addMutation({ name, dataSourceName, input, output, auth, methodName }: IAddMutationArgs): appsync.ObjectType;
     /**
-     * Add a mutation to the GraphQL schema.
+     * Iterate a list or nested list of AppSync fields and create input type(s).
+     * GraphQL doesn't support nested types so create a type for each nested type recursively.
+     * Types are added to the graphqlApi.
+     * @param name - Create an input type with this name and an "Input" suffix.
+     * @param operationFields - list of fields or nested list of AppSync fields e.g.
+     * {
+     *     number1: GraphqlType.int(),
+     *     number2: GraphqlType.int(),
+     *     test: {
+     *         number1: GraphqlType.int(),
+     *         number2: GraphqlType.int(),
+     *     }
+     * };
+     * @returns - An AppSync input type (with references to nested types if any).
      */
-    addMutation({ name, dataSourceName, args, returnType, methodName }: IAddMutationArguments): appsync.ObjectType;
+    addOperationInputs(name: string, operationFields: IAppSyncOperationFields, suffix?: string): appsync.InputType;
+    /**
+     * Iterate a list or nested list of AppSync fields and create output type(s).
+     * GraphQL doesn't support nested types so create a type for each nested type recursively.
+     * Types are added to the graphqlApi.
+     * @param name - Create an output type with this name and an "Output" suffix.
+     * @param operationFields - list of fields or nested list of AppSync fields e.g.
+     * {
+     *     number1: GraphqlType.int(),
+     *     number2: GraphqlType.int(),
+     *     test: {
+     *         number1: GraphqlType.int(),
+     *         number2: GraphqlType.int(),
+     *     }
+     * };
+     * @returns - An AppSync input type (with references to nested types if any).
+     */
+    addOperationOutputs(name: string, operationFields: IAppSyncOperationFields, directives: appsync.Directive[], suffix?: string): appsync.ObjectType;
     create(): void;
     /**
      * Iterate object type fields and update returnType of JompxGraphqlType.objectType from string type to actual type.
@@ -76,4 +109,16 @@ export declare class AppSyncSchemaBuilder {
      */
     private addCustomDirectives;
     private addCustomSchema;
+    /**
+     * InputType type guard.
+     * @param o - Object to test.
+     * @returns - true if object is of type InputType (i.e. has definition property).
+     */
+    private isInputType;
+    /**
+     * ObjectType type guard.
+     * @param o - Object to test.
+     * @returns - true if object is of type ObjectType (i.e. has interfaceTypes property).
+     */
+    private isObjectType;
 }

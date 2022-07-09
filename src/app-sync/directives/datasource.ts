@@ -6,6 +6,11 @@ export function datasource(name: string): Directive {
     return Directive.custom(`@datasource(name: "${name}")`);
 }
 
+// TODO: Or use this syntax?
+// export const datasource = (name: string): Directive => {
+//     return Directive.custom(`@datasource(name: "${name}")`);
+// };
+
 export class DatasourceDirective extends CustomDirective {
 
     public definition(): string {

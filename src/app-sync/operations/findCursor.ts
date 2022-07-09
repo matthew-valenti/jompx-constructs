@@ -5,7 +5,7 @@ import * as changeCase from 'change-case';
 import set = require('set-value');
 import * as definitions from '../app-sync-definitions';
 import { IDataSource, ISchemaTypes } from '../app-sync.types';
-import { AuthDirective, DatasourceDirective } from '../directives';
+import { AuthDirective, DatasourceDirective, PaginationDirective } from '../directives';
 
 // export class AuthDirective extends CustomDirective {
 export class FindOperation {
@@ -22,21 +22,30 @@ export class FindOperation {
 
         const objectTypeName = objectType.name;
 
+        const paginationDirective = new PaginationDirective();
+        const paginationType = paginationDirective.value(objectType?.directives) ?? 'offset';
+        // const paginationType: ICustomDirectivePaginationType = CustomDirective.getIdentifierArgument('pagination', 'type', objectType?.directives) as ICustomDirectivePaginationType ?? 'offset';
+
         const datasourceDirective = new DatasourceDirective();
         const dataSourceName = datasourceDirective.value(objectType?.directives);
+        // const dataSourceName = CustomDirective.getIdentifierArgument('datasource', 'name', objectType?.directives);
 
         const authDirective = new AuthDirective();
         const authRules = authDirective.value(objectType?.directives);
+        // const authRules = CustomDirective.authToObject(objectType?.directives);
 
         if (!dataSourceName) throw Error(`Jompx: find operation build failed! Datasource directive is missing from object ${objectTypeName}.`);
 
-        if (dataSourceName && this.schemaTypes.objectTypes.PageInfoOffset && this.schemaTypes.objectTypes.PageInfoCursor) {
+        if (dataSourceName
+            && this.schemaTypes.objectTypes.PageInfoCursor
+            && this.schemaTypes.objectTypes.PageInfoOffset
+        ) {
             const dataSource = this.dataSources[dataSourceName];
 
             // Edge.
             const edgeObjectType = new appsync.ObjectType(`${objectTypeName}Edge`, {
                 definition: {
-                    // ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
+                    ...(paginationType === 'cursor') && { cursor: appsync.GraphqlType.string({ isRequired: true }) }, // If pagination type cursor then include required cursor property.
                     node: objectType.attribute()
                 },
                 directives: [
@@ -50,8 +59,7 @@ export class FindOperation {
             const connectionObjectType = new appsync.ObjectType(`${objectTypeName}Connection`, {
                 definition: {
                     edges: edgeObjectType.attribute({ isList: true }),
-                    pageInfo: this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
-                    // pageInfo: paginationType === 'cursor' ? this.schemaTypes.objectTypes.PageInfoCursor.attribute({ isRequired: true }) : this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
+                    pageInfo: paginationType === 'cursor' ? this.schemaTypes.objectTypes.PageInfoCursor.attribute({ isRequired: true }) : this.schemaTypes.objectTypes.PageInfoOffset.attribute({ isRequired: true }),
                     totalCount: appsync.GraphqlType.int() // Apollo suggests adding as a connection property: https://graphql.org/learn/pagination/
                 },
                 directives: [
@@ -65,7 +73,6 @@ export class FindOperation {
             const args = {};
 
             // Add filter argument.
-            // TODO: Interesting - can we type the filter using MongoDB types (or create our own)? https://stackoverflow.com/questions/70944602/how-to-use-proper-typescript-types-in-mongodb-find-filter-combined-with-a-predef
             // Ideally we want JSON but the awsJson type is a "JSON string" which is difficult to write. AWSJSON gives us no value so long as we validate the syntax before using the value.
             set(args, 'filter', appsync.GraphqlType.string());
 
@@ -75,18 +82,18 @@ export class FindOperation {
             // set(args, 'sort', this.schemaTypes.inputTypes.SortInput.attribute({ isList: true }));
 
             // Add offset pagination arguments.
-            // if (paginationType === 'offset') {
-            set(args, 'skip', appsync.GraphqlType.int());
-            set(args, 'limit', appsync.GraphqlType.int());
-            // }
+            if (paginationType === 'offset') {
+                set(args, 'skip', appsync.GraphqlType.int());
+                set(args, 'limit', appsync.GraphqlType.int());
+            }
 
             // Add cursor pagination arguments.
-            // if (paginationType === 'cursor') {
-            //     set(args, 'first', appsync.GraphqlType.int());
-            //     set(args, 'after', appsync.GraphqlType.string());
-            //     set(args, 'last', appsync.GraphqlType.int());
-            //     set(args, 'before', appsync.GraphqlType.string());
-            // }
+            if (paginationType === 'cursor') {
+                set(args, 'first', appsync.GraphqlType.int());
+                set(args, 'after', appsync.GraphqlType.string());
+                set(args, 'last', appsync.GraphqlType.int());
+                set(args, 'before', appsync.GraphqlType.string());
+            }
 
             // Add query.
             this.graphqlApi.addQuery(`${changeCase.camelCase(objectTypeName)}Find`, new appsync.ResolvableField({

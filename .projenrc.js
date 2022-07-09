@@ -28,7 +28,8 @@ project.package.addDevDeps('esbuild');
 // Add npm packages. Lint wants these added as dependencies but results in lint errors.
 project.package.addDevDeps('aws-lambda'); // For AppSyncResolverEvent type only.
 project.package.addDevDeps('@types/aws-lambda'); // For AppSyncResolverEvent type only.
-project.package.addDevDeps('axios');
+// project.package.addDevDeps('axios');
+// project.package.addDevDeps('mysql2');
 project.package.addDevDeps('change-case');
 project.package.addDevDeps('get-value');
 project.package.addDevDeps('@types/get-value');
@@ -49,7 +50,7 @@ project.package.addDevDeps('mongodb-language-model');
 // Fix for Windows error: 'shx' is not recognized as an internal or
 project.package.addDevDeps('shx');
 
-// Commit lib folder. Temporary workaround for linking to github repo in package.json.
+// Override lint rules.
 project.eslint.addRules({ '@typescript-eslint/indent': ['error', 4] });
 project.eslint.addRules({ 'comma-dangle': ['error', 'never'] });
 

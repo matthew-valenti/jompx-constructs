@@ -1,5 +1,4 @@
 import * as appsync from '@aws-cdk/aws-appsync-alpha';
-import { ObjectType } from '@aws-cdk/aws-appsync-alpha';
 import * as cdk from 'aws-cdk-lib';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as changeCase from 'change-case';
@@ -9,15 +8,15 @@ import * as changeCase from 'change-case';
 import set = require('set-value');
 // import get = require('get-value');
 import * as definitions from './app-sync-definitions';
-import { IDataSource, ISchemaTypes, IAppSyncOperationArgs } from './app-sync.types';
+import { IDataSource, ISchemaTypes, IAppSyncOperationFields } from './app-sync.types';
 // import { AppSyncMySqlCustomDirective } from './datasources/mysql/mysql.directive';
 import * as cdirective from './directives';
 import { JompxGraphqlType } from './graphql-type';
-import * as cschema from './schemas';
 import * as coperation from './operations';
-
+import * as cschema from './schemas';
 
 /**
+ * GraphQL Spec: https://spec.graphql.org/. Mostly for the backend but good to know about.
  * Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/
  * Support relay or not?
  * https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066
@@ -42,7 +41,7 @@ type UserFriendsConnection {
 }
 */
 
-export interface IAddMutationArguments {
+export interface IAddMutationArgs {
     /**
      * The name of the mutation as it will appear in the GraphQL schema.
      */
@@ -52,15 +51,19 @@ export interface IAddMutationArguments {
      */
     dataSourceName: string;
     /**
-     * Mutation input arguments. These should exactly match the number and order of arguments in the method the mutation will call.
+     * Mutation input (arguments wrapped in an input property).
      */
-    args: IAppSyncOperationArgs;
+    input: appsync.InputType | IAppSyncOperationFields;
     /**
-     * The mutation return object type.
+     * Mutation output (return value).
      */
-    returnType: appsync.ObjectType;
+    output: appsync.ObjectType | IAppSyncOperationFields;
     /**
-     * The mutation method to call.
+     * List of auth rules to apply to the mutation and output type.
+     */
+    auth: appsync.Directive;
+    /**
+     * The class method to call on request mutation.
      */
     methodName?: string;
 }
@@ -89,80 +92,207 @@ export class AppSyncSchemaBuilder {
 
     /**
      * Add a mutation to the GraphQL schema.
-     * @param name - Name of the mutation as it will appear in the GraphQL schema.
-     * @param dataSourceName - Your datasource name e.g. mySql, cognito, post.
-     * @param args - Mutation arguments.
-     * @param returnType - Mutation retun type (or output type).
-     * @param operation - Class method the mutation will call to retun result.
-     * @returns - The mutation.
+     * Wrap input in input type and output in output type.
+     * https://graphql-rules.com/rules/mutation-payload
+     * @returns - The created AppSync mutation object type.
      */
-
-    /**
-     * Add a mutation to the GraphQL schema.
-     */
-    public addMutation({ name, dataSourceName, args, returnType, methodName }: IAddMutationArguments): appsync.ObjectType {
-
-        // TODO: Add schema types.
+    public addMutation({ name, dataSourceName, input, output, auth, methodName }: IAddMutationArgs): appsync.ObjectType {
 
         // Check datasource exists.
         const dataSource = this.dataSources[dataSourceName];
-        if (!dataSource) throw Error(`Jompx: dataSource "${dataSourceName}" not found!`);
+        if (!dataSource) throw Error(`Jompx addMutation: dataSource "${dataSourceName}" not found!`);
 
-        // Add input type (to GraphQL).
-        const inputType = new appsync.InputType(`${changeCase.pascalCase(returnType.name)}Input`, { definition: args });
-        this.graphqlApi.addType(inputType);
+        // Add input type (to GraphQL schema). It's GraphQL best practice to wrap all input arguments in a single input type.
+        let inputType: appsync.InputType;
+        if (this.isInputType(input)) {
+            inputType = input;
+        } else {
+            inputType = this.addOperationInputs(name, input);
+        }
 
-        // Add output type (to GraphQL).
-        const outputType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Payload`, {
-            definition: returnType.definition,
-            directives: [
-                appsync.Directive.iam()
-                // appsync.Directive.cognito('admin')
-            ]
-        });
-        this.graphqlApi.addType(outputType);
+        // Add output type (to GraphQL). Output will contain the return value of the mutation (and will be wrapped in a Payload type).
+        let outputType: appsync.ObjectType;
+        if (this.isObjectType(output)) {
+            outputType = output;
+        } else {
+            const outputDirectives = [auth];
+            outputType = this.addOperationOutputs(name, output, outputDirectives);
+        }
 
-        // Add payload type (to GraphQL).
-        const payloadType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Output`, {
-            definition: {
-                output: outputType.attribute()
-            },
-            directives: [
-                ...[
-                    appsync.Directive.iam()
-                    // appsync.Directive.cognito('admin')
-                ],
-                ...(returnType?.directives ?? [])
-            ]
-        });
-        this.graphqlApi.addType(payloadType);
-
-        // Add any child return types (to GraphQL).
-        // TODO: Make recursive.
-        Object.values(returnType.definition).forEach(graphqlType => {
-            if (graphqlType.type === 'INTERMEDIATE') {
-                if (graphqlType?.intermediateType) {
-                    this.graphqlApi.addType(graphqlType.intermediateType);
-                }
-            }
-        });
+        // // Add payload type (to GraphQL schema). // TODO: Not sure! We need to be in sync with whatever GraphQL types are auto generated.
+        // const payloadType = new appsync.ObjectType(`${changeCase.pascalCase(name)}Payload`, {
+        //     definition: {
+        //         output: outputType.attribute({ isRequired: true })
+        //     },
+        //     directives: [
+        //         auth
+        //     ]
+        // });
+        // this.graphqlApi.addType(payloadType);
 
         // Add mutation (to GraphQL).
         return this.graphqlApi.addMutation(name, new appsync.ResolvableField({
-            returnType: payloadType.attribute(),
+            returnType: outputType.attribute(),
             args: { input: inputType.attribute({ isRequired: true }) },
             dataSource,
             directives: [
-                appsync.Directive.iam()
-                // appsync.Directive.cognito('admin')
+                auth
             ],
-            // pipelineConfig: [], // TODO: Add authorization Lambda function here.
+            // pipelineConfig: [], // TODO: Add authorization Lambda function here?
+            // TODO: Clean up params passing to Lambda.
             requestMappingTemplate: appsync.MappingTemplate.fromString(`
                 $util.qr($ctx.stash.put("operation", "${methodName}"))
                 ${definitions.DefaultRequestMappingTemplate}
             `)
         }));
     }
+
+    /**
+     * Iterate a list or nested list of AppSync fields and create input type(s).
+     * GraphQL doesn't support nested types so create a type for each nested type recursively.
+     * Types are added to the graphqlApi.
+     * @param name - Create an input type with this name and an "Input" suffix.
+     * @param operationFields - list of fields or nested list of AppSync fields e.g.
+     * {
+     *     number1: GraphqlType.int(),
+     *     number2: GraphqlType.int(),
+     *     test: {
+     *         number1: GraphqlType.int(),
+     *         number2: GraphqlType.int(),
+     *     }
+     * };
+     * @returns - An AppSync input type (with references to nested types if any).
+     */
+    public addOperationInputs(name: string, operationFields: IAppSyncOperationFields, suffix = 'Input'): appsync.InputType {
+
+        const inputType = new appsync.InputType(`${changeCase.pascalCase(name)}${suffix}`, { definition: {} });
+
+        for (const [key, field] of Object.entries(operationFields)) {
+            if (Object.keys(field).includes('intermediateType')) {
+                inputType.addField({
+                    fieldName: key,
+                    field: field as appsync.IField
+                });
+            } else {
+                const nestedInputType = this.addOperationInputs(`${changeCase.pascalCase(name)}${changeCase.pascalCase(key)}`, field as IAppSyncOperationFields);
+                inputType.addField({
+                    fieldName: key,
+                    field: nestedInputType.attribute()
+                });
+            }
+        };
+
+        this.graphqlApi.addType(inputType);
+        return inputType;
+    }
+
+    /**
+     * Iterate a list or nested list of AppSync fields and create output type(s).
+     * GraphQL doesn't support nested types so create a type for each nested type recursively.
+     * Types are added to the graphqlApi.
+     * @param name - Create an output type with this name and an "Output" suffix.
+     * @param operationFields - list of fields or nested list of AppSync fields e.g.
+     * {
+     *     number1: GraphqlType.int(),
+     *     number2: GraphqlType.int(),
+     *     test: {
+     *         number1: GraphqlType.int(),
+     *         number2: GraphqlType.int(),
+     *     }
+     * };
+     * @returns - An AppSync input type (with references to nested types if any).
+     */
+    public addOperationOutputs(name: string, operationFields: IAppSyncOperationFields, directives: appsync.Directive[], suffix = 'Output'): appsync.ObjectType {
+
+        const outputType = new appsync.ObjectType(`${changeCase.pascalCase(name)}${suffix}`, {
+            definition: {},
+            directives: [
+                ...directives
+            ]
+        });
+
+        for (const [key, field] of Object.entries(operationFields)) {
+            if (Object.keys(field).includes('intermediateType')) {
+                outputType.addField({
+                    fieldName: key,
+                    field: field as appsync.IField
+                });
+            } else {
+                const nestedOutputType = this.addOperationOutputs(`${changeCase.pascalCase(name)}${changeCase.pascalCase(key)}`, field as IAppSyncOperationFields, directives);
+                outputType.addField({
+                    fieldName: key,
+                    field: nestedOutputType.attribute()
+                });
+            }
+        };
+
+        this.graphqlApi.addType(outputType);
+        return outputType;
+    }
+
+    // public addMutation({ name, dataSourceName, args, returnType, methodName }: IAddMutationArguments): appsync.ObjectType {
+
+    //     // TODO: Add schema types.
+
+    //     // Check datasource exists.
+    //     const dataSource = this.dataSources[dataSourceName];
+    //     if (!dataSource) throw Error(`Jompx: dataSource "${dataSourceName}" not found!`);
+
+    //     // Add input type (to GraphQL).
+    //     const inputType = new appsync.InputType(`${changeCase.pascalCase(returnType.name)}Input`, { definition: args });
+    //     this.graphqlApi.addType(inputType);
+
+    //     // Add output type (to GraphQL).
+    //     const outputType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Payload`, {
+    //         definition: returnType.definition,
+    //         directives: [
+    //             appsync.Directive.iam()
+    //             // appsync.Directive.cognito('admin')
+    //         ]
+    //     });
+    //     this.graphqlApi.addType(outputType);
+
+    //     // Add payload type (to GraphQL).
+    //     const payloadType = new ObjectType(`${changeCase.pascalCase(returnType.name)}Output`, {
+    //         definition: {
+    //             output: outputType.attribute()
+    //         },
+    //         directives: [
+    //             ...[
+    //                 appsync.Directive.iam()
+    //                 // appsync.Directive.cognito('admin')
+    //             ],
+    //             ...(returnType?.directives ?? [])
+    //         ]
+    //     });
+    //     this.graphqlApi.addType(payloadType);
+
+    //     // Add any child return types (to GraphQL).
+    //     // TODO: Make recursive.
+    //     Object.values(returnType.definition).forEach(graphqlType => {
+    //         if (graphqlType.type === 'INTERMEDIATE') {
+    //             if (graphqlType?.intermediateType) {
+    //                 this.graphqlApi.addType(graphqlType.intermediateType);
+    //             }
+    //         }
+    //     });
+
+    //     // Add mutation (to GraphQL).
+    //     return this.graphqlApi.addMutation(name, new appsync.ResolvableField({
+    //         returnType: payloadType.attribute(),
+    //         args: { input: inputType.attribute({ isRequired: true }) },
+    //         dataSource,
+    //         directives: [
+    //             appsync.Directive.iam()
+    //             // appsync.Directive.cognito('admin')
+    //         ],
+    //         // pipelineConfig: [], // TODO: Add authorization Lambda function here.
+    //         requestMappingTemplate: appsync.MappingTemplate.fromString(`
+    //             $util.qr($ctx.stash.put("operation", "${methodName}"))
+    //             ${definitions.DefaultRequestMappingTemplate}
+    //         `)
+    //     }));
+    // }
 
     public create() {
 
@@ -399,6 +529,24 @@ export class AppSyncSchemaBuilder {
         // TODO: JSON sort to match MongoDB sort? Field list input type is better but not a good fit for unlimited nested fields.
         // const sort = new cschema.SortSchema();
         // sort.schema(this.schemaTypes);
+    }
+
+    /**
+     * InputType type guard.
+     * @param o - Object to test.
+     * @returns - true if object is of type InputType (i.e. has definition property).
+     */
+    private isInputType(o: any): o is appsync.InputType {
+        return (o as appsync.InputType).definition !== undefined;
+    }
+
+    /**
+     * ObjectType type guard.
+     * @param o - Object to test.
+     * @returns - true if object is of type ObjectType (i.e. has interfaceTypes property).
+     */
+    private isObjectType(o: any): o is appsync.ObjectType {
+        return (o as appsync.ObjectType).definition !== undefined;
     }
 
     // Add auth directive and supporting types.

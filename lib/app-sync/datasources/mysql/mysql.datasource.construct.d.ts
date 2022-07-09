@@ -8,5 +8,6 @@ export interface IAppSyncMySqlDataSourceProps {
  */
 export declare class AppSyncMySqlDataSource extends Construct {
     lambdaFunction: cdk.aws_lambda.IFunction;
+    props: IAppSyncMySqlDataSourceProps;
     constructor(scope: Construct, id: string, props: IAppSyncMySqlDataSourceProps);
 }

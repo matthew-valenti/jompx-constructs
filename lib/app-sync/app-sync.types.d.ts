@@ -23,8 +23,8 @@ export interface ISchemaTypes {
 }
 export declare const AppSyncLambdaDefaultProps: cdk.aws_lambda_nodejs.NodejsFunctionProps;
 export declare type IAppSyncResolverEvent = AppSyncResolverEvent<any>;
-export interface IAppSyncOperationArgs {
-    [key: string]: appsync.GraphqlType;
+export interface IAppSyncOperationFields {
+    [key: string]: appsync.GraphqlType | IAppSyncOperationFields;
 }
 export interface IAppSyncConnection {
     edges?: [{
@@ -57,3 +57,6 @@ export interface IAppSyncMethodProps {
     cognito?: IAppSyncMethodPropsCognito;
     event: any;
 }
+declare const paginationType: string[];
+export declare type IAppSyncPaginationType = typeof paginationType[number];
+export {};

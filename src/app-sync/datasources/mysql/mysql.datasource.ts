@@ -1,3 +1,6 @@
+import { IAppSyncConnection, IAppSyncResolverEvent } from '../../app-sync.types';
+import { AppSyncDatasource } from '../datasource';
+
 /*
 // Add timezone offset to WordPress date (to be compatible with AppSync DateTime). Example WordPress date: 2021-07-01T17:11:05
 if (row.date) {
@@ -6,23 +9,36 @@ if (row.date) {
 Remember to handle nulls.
 */
 
-import { IAppSyncConnection } from '../../app-sync.types';
-import { AppSyncDatasource } from '../datasource';
-
+/**
+ * Props/Options
+ * Auth
+ * Query
+ * Data Auth
+ * Data
+ * Emit Events
+ *
+ * connect
+ * disconnect (if needed)
+ * run or operation or runOperation
+ * custom directives (for use with schema)
+ * ??? HOW CAN WE GET THESE CUSTOM DIRECTIVES INTO THE EXECUTOR TO GEN THE GRAPHQL SCHEMA. MAYBE WE HAVE A GLOBAL LSIT AND THAT'S IT? BUT WHAT ABOUT CUSTOM OPERATIONS. ???
+ * publish to event bridge
+ * Phase 2: annotated emit/listeners to create a queue of lambda function calls.
+ */
 export class AppSyncMySqlDatasource extends AppSyncDatasource {
+
+    constructor(event: IAppSyncResolverEvent) {
+        super(event);
+    }
 
     public find(): IAppSyncConnection {
 
-        console.log('this.props.stash', this.props.stash);
+        console.log('this.props.stash', this.event.stash);
 
         return {
             edges: [{
                 node: {
-                    id: 'abc123',
-                    mcomments: [
-                        { id: 'def456' },
-                        { id: 'hij789' }
-                    ]
+                    id: 'abc123'
                 }
             }],
             pageInfo: {
@@ -30,5 +46,11 @@ export class AppSyncMySqlDatasource extends AppSyncDatasource {
                 limit: 0
             }
         };
+    }
+
+    public findSql(): string {
+        let sql = '';
+        sql = 'select * from';
+        return sql;
     }
 }

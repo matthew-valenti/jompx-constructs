@@ -15,9 +15,12 @@ export interface IAppSyncMySqlDataSourceProps {
 export class AppSyncMySqlDataSource extends Construct {
 
     public lambdaFunction: cdk.aws_lambda.IFunction;
+    public props: IAppSyncMySqlDataSourceProps;
 
     constructor(scope: Construct, id: string, props: IAppSyncMySqlDataSourceProps) {
         super(scope, id);
+
+        this.props = props;
 
         this.lambdaFunction = new lambdanjs.NodejsFunction(scope, 'handler', {
             // Defaults.

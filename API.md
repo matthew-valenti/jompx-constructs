@@ -319,6 +319,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppSync.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@jompx/constructs.AppSync.property.activeAuthorizationTypes">activeAuthorizationTypes</a></code> | <code>@aws-cdk/aws-appsync-alpha.AuthorizationType[]</code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSync.property.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSync.property.schemaBuilder">schemaBuilder</a></code> | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder">AppSyncSchemaBuilder</a></code> | *No description.* |
 
@@ -333,6 +334,16 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `activeAuthorizationTypes`<sup>Required</sup> <a name="activeAuthorizationTypes" id="@jompx/constructs.AppSync.property.activeAuthorizationTypes"></a>
+
+```typescript
+public readonly activeAuthorizationTypes: AuthorizationType[];
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.AuthorizationType[]
 
 ---
 
@@ -445,6 +456,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppSyncMySqlDataSource.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#@jompx/constructs.AppSyncMySqlDataSource.property.lambdaFunction">lambdaFunction</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncMySqlDataSource.property.props">props</a></code> | <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps">IAppSyncMySqlDataSourceProps</a></code> | *No description.* |
 
 ---
 
@@ -467,6 +479,16 @@ public readonly lambdaFunction: IFunction;
 ```
 
 - *Type:* aws-cdk-lib.aws_lambda.IFunction
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@jompx/constructs.AppSyncMySqlDataSource.property.props"></a>
+
+```typescript
+public readonly props: IAppSyncMySqlDataSourceProps;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps">IAppSyncMySqlDataSourceProps</a>
 
 ---
 
@@ -1184,142 +1206,6 @@ public readonly typeName: string;
 
 ## Classes <a name="Classes" id="Classes"></a>
 
-### AppSyncMySqlCustomDirective <a name="AppSyncMySqlCustomDirective" id="@jompx/constructs.AppSyncMySqlCustomDirective"></a>
-
-#### Initializers <a name="Initializers" id="@jompx/constructs.AppSyncMySqlCustomDirective.Initializer"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-new AppSyncMySqlCustomDirective()
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-
----
-
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.datasource">datasource</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier">getArgumentByIdentifier</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.lookup">lookup</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.readonly">readonly</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.schema">schema</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.source">source</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.AppSyncMySqlCustomDirective.operations">operations</a></code> | *No description.* |
-
----
-
-##### `datasource` <a name="datasource" id="@jompx/constructs.AppSyncMySqlCustomDirective.datasource"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.datasource(name: string)
-```
-
-###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.AppSyncMySqlCustomDirective.datasource.parameter.name"></a>
-
-- *Type:* string
-
----
-
-##### `getArgumentByIdentifier` <a name="getArgumentByIdentifier" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.getArgumentByIdentifier(identifier: string, argument: string, directives?: any[])
-```
-
-###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier.parameter.identifier"></a>
-
-- *Type:* string
-
----
-
-###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier.parameter.argument"></a>
-
-- *Type:* string
-
----
-
-###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.AppSyncMySqlCustomDirective.getArgumentByIdentifier.parameter.directives"></a>
-
-- *Type:* any[]
-
----
-
-##### `lookup` <a name="lookup" id="@jompx/constructs.AppSyncMySqlCustomDirective.lookup"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.lookup(value: ICustomDirectiveLookup)
-```
-
-###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.AppSyncMySqlCustomDirective.lookup.parameter.value"></a>
-
-- *Type:* <a href="#@jompx/constructs.ICustomDirectiveLookup">ICustomDirectiveLookup</a>
-
----
-
-##### `readonly` <a name="readonly" id="@jompx/constructs.AppSyncMySqlCustomDirective.readonly"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.readonly(value: boolean)
-```
-
-###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.AppSyncMySqlCustomDirective.readonly.parameter.value"></a>
-
-- *Type:* boolean
-
----
-
-##### `schema` <a name="schema" id="@jompx/constructs.AppSyncMySqlCustomDirective.schema"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.schema()
-```
-
-##### `source` <a name="source" id="@jompx/constructs.AppSyncMySqlCustomDirective.source"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.source(name: string)
-```
-
-###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.AppSyncMySqlCustomDirective.source.parameter.name"></a>
-
-- *Type:* string
-
----
-
-##### `operations` <a name="operations" id="@jompx/constructs.AppSyncMySqlCustomDirective.operations"></a>
-
-```typescript
-import { AppSyncMySqlCustomDirective } from '@jompx/constructs'
-
-AppSyncMySqlCustomDirective.operations(operations: string[])
-```
-
-###### `operations`<sup>Required</sup> <a name="operations" id="@jompx/constructs.AppSyncMySqlCustomDirective.operations.parameter.operations"></a>
-
-- *Type:* string[]
-
----
-
-
-
 ### AppSyncResolver <a name="AppSyncResolver" id="@jompx/constructs.AppSyncResolver"></a>
 
 #### Initializers <a name="Initializers" id="@jompx/constructs.AppSyncResolver.Initializer"></a>
@@ -1349,7 +1235,7 @@ new AppSyncResolver()
 ```typescript
 import { AppSyncResolver } from '@jompx/constructs'
 
-AppSyncResolver.callMethodFromEvent(classInstance: any, event: any, path?: string)
+AppSyncResolver.callMethodFromEvent(classInstance: any, event: any)
 ```
 
 Call a method on a class from values in a AppSync Lambda event.
@@ -1370,14 +1256,6 @@ AppSync Lambda event.
 
 ---
 
-###### `path`<sup>Optional</sup> <a name="path" id="@jompx/constructs.AppSyncResolver.callMethodFromEvent.parameter.path"></a>
-
-- *Type:* string
-
-JSON path to method arguments in event.arguments.
-
----
-
 
 
 ### AppSyncSchemaBuilder <a name="AppSyncSchemaBuilder" id="@jompx/constructs.AppSyncSchemaBuilder"></a>
@@ -1387,12 +1265,13 @@ JSON path to method arguments in event.arguments.
 ```typescript
 import { AppSyncSchemaBuilder } from '@jompx/constructs'
 
-new AppSyncSchemaBuilder(graphqlApi: GraphqlApi)
+new AppSyncSchemaBuilder(graphqlApi: GraphqlApi, activeAuthorizationTypes: AuthorizationType[])
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.Initializer.parameter.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.Initializer.parameter.activeAuthorizationTypes">activeAuthorizationTypes</a></code> | <code>@aws-cdk/aws-appsync-alpha.AuthorizationType[]</code> | *No description.* |
 
 ---
 
@@ -1402,12 +1281,20 @@ new AppSyncSchemaBuilder(graphqlApi: GraphqlApi)
 
 ---
 
+##### `activeAuthorizationTypes`<sup>Required</sup> <a name="activeAuthorizationTypes" id="@jompx/constructs.AppSyncSchemaBuilder.Initializer.parameter.activeAuthorizationTypes"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.AuthorizationType[]
+
+---
+
 #### Methods <a name="Methods" id="Methods"></a>
 
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addDataSource">addDataSource</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addMutation">addMutation</a></code> | Add a mutation to the GraphQL schema. |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addOperationInputs">addOperationInputs</a></code> | Iterate a list or nested list of AppSync fields and create input type(s). |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addOperationOutputs">addOperationOutputs</a></code> | Iterate a list or nested list of AppSync fields and create output type(s). |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.addSchemaTypes">addSchemaTypes</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.create">create</a></code> | *No description.* |
 
@@ -1440,14 +1327,86 @@ public addDataSource(id: string, lambdaFunction: IFunction, options?: DataSource
 ##### `addMutation` <a name="addMutation" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation"></a>
 
 ```typescript
-public addMutation(__0: IAddMutationArguments): ObjectType
+public addMutation(__0: IAddMutationArgs): ObjectType
 ```
 
 Add a mutation to the GraphQL schema.
 
+Wrap input in input type and output in output type. https://graphql-rules.com/rules/mutation-payload
+
 ###### `__0`<sup>Required</sup> <a name="__0" id="@jompx/constructs.AppSyncSchemaBuilder.addMutation.parameter.__0"></a>
 
-- *Type:* <a href="#@jompx/constructs.IAddMutationArguments">IAddMutationArguments</a>
+- *Type:* <a href="#@jompx/constructs.IAddMutationArgs">IAddMutationArgs</a>
+
+---
+
+##### `addOperationInputs` <a name="addOperationInputs" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationInputs"></a>
+
+```typescript
+public addOperationInputs(name: string, operationFields: IAppSyncOperationFields, suffix?: string): InputType
+```
+
+Iterate a list or nested list of AppSync fields and create input type(s).
+
+GraphQL doesn't support nested types so create a type for each nested type recursively. Types are added to the graphqlApi.
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationInputs.parameter.name"></a>
+
+- *Type:* string
+
+Create an input type with this name and an "Input" suffix.
+
+---
+
+###### `operationFields`<sup>Required</sup> <a name="operationFields" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationInputs.parameter.operationFields"></a>
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a>
+
+list of fields or nested list of AppSync fields e.g.{number1: GraphqlType.int(),number2: GraphqlType.int(),test: {number1: GraphqlType.int(),number2: GraphqlType.int(),}};
+
+---
+
+###### `suffix`<sup>Optional</sup> <a name="suffix" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationInputs.parameter.suffix"></a>
+
+- *Type:* string
+
+---
+
+##### `addOperationOutputs` <a name="addOperationOutputs" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationOutputs"></a>
+
+```typescript
+public addOperationOutputs(name: string, operationFields: IAppSyncOperationFields, directives: Directive[], suffix?: string): ObjectType
+```
+
+Iterate a list or nested list of AppSync fields and create output type(s).
+
+GraphQL doesn't support nested types so create a type for each nested type recursively. Types are added to the graphqlApi.
+
+###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationOutputs.parameter.name"></a>
+
+- *Type:* string
+
+Create an output type with this name and an "Output" suffix.
+
+---
+
+###### `operationFields`<sup>Required</sup> <a name="operationFields" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationOutputs.parameter.operationFields"></a>
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a>
+
+list of fields or nested list of AppSync fields e.g.{number1: GraphqlType.int(),number2: GraphqlType.int(),test: {number1: GraphqlType.int(),number2: GraphqlType.int(),}};
+
+---
+
+###### `directives`<sup>Required</sup> <a name="directives" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationOutputs.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+###### `suffix`<sup>Optional</sup> <a name="suffix" id="@jompx/constructs.AppSyncSchemaBuilder.addOperationOutputs.parameter.suffix"></a>
+
+- *Type:* string
 
 ---
 
@@ -1474,9 +1433,20 @@ public create(): void
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.activeAuthorizationTypes">activeAuthorizationTypes</a></code> | <code>@aws-cdk/aws-appsync-alpha.AuthorizationType[]</code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.dataSources">dataSources</a></code> | <code><a href="#@jompx/constructs.IDataSource">IDataSource</a></code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.graphqlApi">graphqlApi</a></code> | <code>@aws-cdk/aws-appsync-alpha.GraphqlApi</code> | *No description.* |
 | <code><a href="#@jompx/constructs.AppSyncSchemaBuilder.property.schemaTypes">schemaTypes</a></code> | <code><a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a></code> | *No description.* |
+
+---
+
+##### `activeAuthorizationTypes`<sup>Required</sup> <a name="activeAuthorizationTypes" id="@jompx/constructs.AppSyncSchemaBuilder.property.activeAuthorizationTypes"></a>
+
+```typescript
+public readonly activeAuthorizationTypes: AuthorizationType[];
+```
+
+- *Type:* @aws-cdk/aws-appsync-alpha.AuthorizationType[]
 
 ---
 
@@ -1509,6 +1479,266 @@ public readonly schemaTypes: ISchemaTypes;
 - *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
 
 ---
+
+
+### AuthDirective <a name="AuthDirective" id="@jompx/constructs.AuthDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.AuthDirective.Initializer"></a>
+
+```typescript
+import { AuthDirective } from '@jompx/constructs'
+
+new AuthDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AuthDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.AuthDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.AuthDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.AuthDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.AuthDirective.schema"></a>
+
+```typescript
+public schema(schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `schemaTypes`<sup>Required</sup> <a name="schemaTypes" id="@jompx/constructs.AuthDirective.schema.parameter.schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.AuthDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): ICustomDirectiveAuthRule[]
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.AuthDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.AuthDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AuthDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.AuthDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.AuthDirective.decodeArgument"></a>
+
+```typescript
+import { AuthDirective } from '@jompx/constructs'
+
+AuthDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.AuthDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.AuthDirective.encodeArguments"></a>
+
+```typescript
+import { AuthDirective } from '@jompx/constructs'
+
+AuthDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.AuthDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.AuthDirective.getIdentifierArgument"></a>
+
+```typescript
+import { AuthDirective } from '@jompx/constructs'
+
+AuthDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.AuthDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.AuthDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.AuthDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+
+
+### CognitoDirective <a name="CognitoDirective" id="@jompx/constructs.CognitoDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.CognitoDirective.Initializer"></a>
+
+```typescript
+import { CognitoDirective } from '@jompx/constructs'
+
+new CognitoDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.CognitoDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.CognitoDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.CognitoDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.CognitoDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.CognitoDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.CognitoDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.CognitoDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): boolean
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.CognitoDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.CognitoDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CognitoDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CognitoDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.CognitoDirective.decodeArgument"></a>
+
+```typescript
+import { CognitoDirective } from '@jompx/constructs'
+
+CognitoDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.CognitoDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.CognitoDirective.encodeArguments"></a>
+
+```typescript
+import { CognitoDirective } from '@jompx/constructs'
+
+CognitoDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.CognitoDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.CognitoDirective.getIdentifierArgument"></a>
+
+```typescript
+import { CognitoDirective } from '@jompx/constructs'
+
+CognitoDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.CognitoDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.CognitoDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.CognitoDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
 
 
 ### Config <a name="Config" id="@jompx/constructs.Config"></a>
@@ -1693,6 +1923,10 @@ public readonly appNode: Node;
 
 ### CustomDirective <a name="CustomDirective" id="@jompx/constructs.CustomDirective"></a>
 
+Abstract custom directive class.
+
+Custom directives to extend this class and implement abstract methods. AppSync supports string value directives only. Documentation: https://www.apollographql.com/docs/apollo-server/schema/creating-directives/
+
 #### Initializers <a name="Initializers" id="@jompx/constructs.CustomDirective.Initializer"></a>
 
 ```typescript
@@ -1706,107 +1940,235 @@ new CustomDirective()
 
 ---
 
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.CustomDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.CustomDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.CustomDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.CustomDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.CustomDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@jompx/constructs.CustomDirective.datasource">datasource</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.CustomDirective.getArgumentByIdentifier">getArgumentByIdentifier</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.CustomDirective.lookup">lookup</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.CustomDirective.readonly">readonly</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.CustomDirective.schema">schema</a></code> | *No description.* |
-| <code><a href="#@jompx/constructs.CustomDirective.source">source</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.CustomDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
 
 ---
 
-##### `datasource` <a name="datasource" id="@jompx/constructs.CustomDirective.datasource"></a>
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.CustomDirective.decodeArgument"></a>
 
 ```typescript
 import { CustomDirective } from '@jompx/constructs'
 
-CustomDirective.datasource(name: string)
+CustomDirective.decodeArgument(encodedJson: string)
 ```
 
-###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.CustomDirective.datasource.parameter.name"></a>
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.CustomDirective.decodeArgument.parameter.encodedJson"></a>
 
 - *Type:* string
 
 ---
 
-##### `getArgumentByIdentifier` <a name="getArgumentByIdentifier" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier"></a>
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.CustomDirective.encodeArguments"></a>
 
 ```typescript
 import { CustomDirective } from '@jompx/constructs'
 
-CustomDirective.getArgumentByIdentifier(identifier: string, argument: string, directives?: any[])
+CustomDirective.encodeArguments(json: any)
 ```
 
-###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier.parameter.identifier"></a>
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.CustomDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.CustomDirective.getIdentifierArgument"></a>
+
+```typescript
+import { CustomDirective } from '@jompx/constructs'
+
+CustomDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.CustomDirective.getIdentifierArgument.parameter.identifier"></a>
 
 - *Type:* string
 
 ---
 
-###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier.parameter.argument"></a>
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.CustomDirective.getIdentifierArgument.parameter.argument"></a>
 
 - *Type:* string
 
 ---
 
-###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.CustomDirective.getArgumentByIdentifier.parameter.directives"></a>
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.CustomDirective.getIdentifierArgument.parameter.directives"></a>
 
 - *Type:* any[]
 
 ---
 
-##### `lookup` <a name="lookup" id="@jompx/constructs.CustomDirective.lookup"></a>
+
+
+### DatasourceDirective <a name="DatasourceDirective" id="@jompx/constructs.DatasourceDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.DatasourceDirective.Initializer"></a>
 
 ```typescript
-import { CustomDirective } from '@jompx/constructs'
+import { DatasourceDirective } from '@jompx/constructs'
 
-CustomDirective.lookup(value: ICustomDirectiveLookup)
+new DatasourceDirective()
 ```
 
-###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.CustomDirective.lookup.parameter.value"></a>
-
-- *Type:* <a href="#@jompx/constructs.ICustomDirectiveLookup">ICustomDirectiveLookup</a>
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
 
 ---
 
-##### `readonly` <a name="readonly" id="@jompx/constructs.CustomDirective.readonly"></a>
+#### Methods <a name="Methods" id="Methods"></a>
 
-```typescript
-import { CustomDirective } from '@jompx/constructs'
-
-CustomDirective.readonly(value: boolean)
-```
-
-###### `value`<sup>Required</sup> <a name="value" id="@jompx/constructs.CustomDirective.readonly.parameter.value"></a>
-
-- *Type:* boolean
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.DatasourceDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.DatasourceDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.DatasourceDirective.value">value</a></code> | *No description.* |
 
 ---
 
-##### `schema` <a name="schema" id="@jompx/constructs.CustomDirective.schema"></a>
+##### `definition` <a name="definition" id="@jompx/constructs.DatasourceDirective.definition"></a>
 
 ```typescript
-import { CustomDirective } from '@jompx/constructs'
-
-CustomDirective.schema()
+public definition(): string
 ```
 
-##### `source` <a name="source" id="@jompx/constructs.CustomDirective.source"></a>
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.DatasourceDirective.schema"></a>
 
 ```typescript
-import { CustomDirective } from '@jompx/constructs'
-
-CustomDirective.source(name: string)
+public schema(_schemaTypes: ISchemaTypes): void
 ```
 
-###### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.CustomDirective.source.parameter.name"></a>
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.DatasourceDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.DatasourceDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): string
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.DatasourceDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.DatasourceDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.DatasourceDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.DatasourceDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.DatasourceDirective.decodeArgument"></a>
+
+```typescript
+import { DatasourceDirective } from '@jompx/constructs'
+
+DatasourceDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.DatasourceDirective.decodeArgument.parameter.encodedJson"></a>
 
 - *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.DatasourceDirective.encodeArguments"></a>
+
+```typescript
+import { DatasourceDirective } from '@jompx/constructs'
+
+DatasourceDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.DatasourceDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.DatasourceDirective.getIdentifierArgument"></a>
+
+```typescript
+import { DatasourceDirective } from '@jompx/constructs'
+
+DatasourceDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.DatasourceDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.DatasourceDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.DatasourceDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
 
 ---
 
@@ -2307,42 +2669,694 @@ public readonly typeName: string;
 ---
 
 
+### LookupDirective <a name="LookupDirective" id="@jompx/constructs.LookupDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.LookupDirective.Initializer"></a>
+
+```typescript
+import { LookupDirective } from '@jompx/constructs'
+
+new LookupDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.LookupDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.LookupDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.LookupDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.LookupDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.LookupDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.LookupDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.LookupDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): ICustomDirectiveLookup
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.LookupDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.LookupDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.LookupDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.LookupDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.LookupDirective.decodeArgument"></a>
+
+```typescript
+import { LookupDirective } from '@jompx/constructs'
+
+LookupDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.LookupDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.LookupDirective.encodeArguments"></a>
+
+```typescript
+import { LookupDirective } from '@jompx/constructs'
+
+LookupDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.LookupDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.LookupDirective.getIdentifierArgument"></a>
+
+```typescript
+import { LookupDirective } from '@jompx/constructs'
+
+LookupDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.LookupDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.LookupDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.LookupDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+
+
+### OperationsDirective <a name="OperationsDirective" id="@jompx/constructs.OperationsDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.OperationsDirective.Initializer"></a>
+
+```typescript
+import { OperationsDirective } from '@jompx/constructs'
+
+new OperationsDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.OperationsDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.OperationsDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.OperationsDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.OperationsDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.OperationsDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.OperationsDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.OperationsDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): string[]
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.OperationsDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.OperationsDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.OperationsDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.OperationsDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.OperationsDirective.decodeArgument"></a>
+
+```typescript
+import { OperationsDirective } from '@jompx/constructs'
+
+OperationsDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.OperationsDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.OperationsDirective.encodeArguments"></a>
+
+```typescript
+import { OperationsDirective } from '@jompx/constructs'
+
+OperationsDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.OperationsDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.OperationsDirective.getIdentifierArgument"></a>
+
+```typescript
+import { OperationsDirective } from '@jompx/constructs'
+
+OperationsDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.OperationsDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.OperationsDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.OperationsDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+
+
+### PaginationDirective <a name="PaginationDirective" id="@jompx/constructs.PaginationDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.PaginationDirective.Initializer"></a>
+
+```typescript
+import { PaginationDirective } from '@jompx/constructs'
+
+new PaginationDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.PaginationDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.PaginationDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.PaginationDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.PaginationDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.PaginationDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.PaginationDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.PaginationDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): string
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.PaginationDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.PaginationDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.PaginationDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.PaginationDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.PaginationDirective.decodeArgument"></a>
+
+```typescript
+import { PaginationDirective } from '@jompx/constructs'
+
+PaginationDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.PaginationDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.PaginationDirective.encodeArguments"></a>
+
+```typescript
+import { PaginationDirective } from '@jompx/constructs'
+
+PaginationDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.PaginationDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.PaginationDirective.getIdentifierArgument"></a>
+
+```typescript
+import { PaginationDirective } from '@jompx/constructs'
+
+PaginationDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.PaginationDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.PaginationDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.PaginationDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+
+
+### ReadonlyDirective <a name="ReadonlyDirective" id="@jompx/constructs.ReadonlyDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.ReadonlyDirective.Initializer"></a>
+
+```typescript
+import { ReadonlyDirective } from '@jompx/constructs'
+
+new ReadonlyDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.ReadonlyDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.ReadonlyDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.ReadonlyDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.ReadonlyDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.ReadonlyDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.ReadonlyDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.ReadonlyDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): boolean
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.ReadonlyDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.ReadonlyDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.ReadonlyDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.ReadonlyDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.ReadonlyDirective.decodeArgument"></a>
+
+```typescript
+import { ReadonlyDirective } from '@jompx/constructs'
+
+ReadonlyDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.ReadonlyDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.ReadonlyDirective.encodeArguments"></a>
+
+```typescript
+import { ReadonlyDirective } from '@jompx/constructs'
+
+ReadonlyDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.ReadonlyDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.ReadonlyDirective.getIdentifierArgument"></a>
+
+```typescript
+import { ReadonlyDirective } from '@jompx/constructs'
+
+ReadonlyDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.ReadonlyDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.ReadonlyDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.ReadonlyDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+
+
+### SourceDirective <a name="SourceDirective" id="@jompx/constructs.SourceDirective"></a>
+
+#### Initializers <a name="Initializers" id="@jompx/constructs.SourceDirective.Initializer"></a>
+
+```typescript
+import { SourceDirective } from '@jompx/constructs'
+
+new SourceDirective()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.SourceDirective.definition">definition</a></code> | Directive definition (to be added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.SourceDirective.schema">schema</a></code> | Directive schema (to be to added to GraphQL schema). |
+| <code><a href="#@jompx/constructs.SourceDirective.value">value</a></code> | *No description.* |
+
+---
+
+##### `definition` <a name="definition" id="@jompx/constructs.SourceDirective.definition"></a>
+
+```typescript
+public definition(): string
+```
+
+Directive definition (to be added to GraphQL schema).
+
+Return string e.g. directive @auth(rules: [AuthRule!]!) on OBJECT | INTERFACE | FIELD_DEFINITION
+
+##### `schema` <a name="schema" id="@jompx/constructs.SourceDirective.schema"></a>
+
+```typescript
+public schema(_schemaTypes: ISchemaTypes): void
+```
+
+Directive schema (to be to added to GraphQL schema).
+
+e.g. Auth directives adds enums and input types (required to support the definition).
+
+###### `_schemaTypes`<sup>Required</sup> <a name="_schemaTypes" id="@jompx/constructs.SourceDirective.schema.parameter._schemaTypes"></a>
+
+- *Type:* <a href="#@jompx/constructs.ISchemaTypes">ISchemaTypes</a>
+
+Global list of types.
+
+---
+
+##### `value` <a name="value" id="@jompx/constructs.SourceDirective.value"></a>
+
+```typescript
+public value(directives?: Directive[]): string
+```
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.SourceDirective.value.parameter.directives"></a>
+
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@jompx/constructs.SourceDirective.decodeArgument">decodeArgument</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.SourceDirective.encodeArguments">encodeArguments</a></code> | *No description.* |
+| <code><a href="#@jompx/constructs.SourceDirective.getIdentifierArgument">getIdentifierArgument</a></code> | *No description.* |
+
+---
+
+##### `decodeArgument` <a name="decodeArgument" id="@jompx/constructs.SourceDirective.decodeArgument"></a>
+
+```typescript
+import { SourceDirective } from '@jompx/constructs'
+
+SourceDirective.decodeArgument(encodedJson: string)
+```
+
+###### `encodedJson`<sup>Required</sup> <a name="encodedJson" id="@jompx/constructs.SourceDirective.decodeArgument.parameter.encodedJson"></a>
+
+- *Type:* string
+
+---
+
+##### `encodeArguments` <a name="encodeArguments" id="@jompx/constructs.SourceDirective.encodeArguments"></a>
+
+```typescript
+import { SourceDirective } from '@jompx/constructs'
+
+SourceDirective.encodeArguments(json: any)
+```
+
+###### `json`<sup>Required</sup> <a name="json" id="@jompx/constructs.SourceDirective.encodeArguments.parameter.json"></a>
+
+- *Type:* any
+
+---
+
+##### `getIdentifierArgument` <a name="getIdentifierArgument" id="@jompx/constructs.SourceDirective.getIdentifierArgument"></a>
+
+```typescript
+import { SourceDirective } from '@jompx/constructs'
+
+SourceDirective.getIdentifierArgument(identifier: string, argument: string, directives?: any[])
+```
+
+###### `identifier`<sup>Required</sup> <a name="identifier" id="@jompx/constructs.SourceDirective.getIdentifierArgument.parameter.identifier"></a>
+
+- *Type:* string
+
+---
+
+###### `argument`<sup>Required</sup> <a name="argument" id="@jompx/constructs.SourceDirective.getIdentifierArgument.parameter.argument"></a>
+
+- *Type:* string
+
+---
+
+###### `directives`<sup>Optional</sup> <a name="directives" id="@jompx/constructs.SourceDirective.getIdentifierArgument.parameter.directives"></a>
+
+- *Type:* any[]
+
+---
+
+
+
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
-### IAddMutationArguments <a name="IAddMutationArguments" id="@jompx/constructs.IAddMutationArguments"></a>
+### IAddMutationArgs <a name="IAddMutationArgs" id="@jompx/constructs.IAddMutationArgs"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.IAddMutationArguments">IAddMutationArguments</a>
+- *Implemented By:* <a href="#@jompx/constructs.IAddMutationArgs">IAddMutationArgs</a>
 
-Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/ Support relay or not? https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066 Joins should be connections and named as such. e.g. in post TagsConnection https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo https://graphql-rules.com/rules/list-pagination https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/ - Mutation: Use top level input type for ags. Use top level property for output type.
+GraphQL Spec: https://spec.graphql.org/. Mostly for the backend but good to know about. Cursor Edge Node: https://www.apollographql.com/blog/graphql/explaining-graphql-connections/ Support relay or not? https://medium.com/open-graphql/using-relay-with-aws-appsync-55c89ca02066 Joins should be connections and named as such. e.g. in post TagsConnection https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo https://graphql-rules.com/rules/list-pagination https://www.apollographql.com/blog/graphql/basics/designing-graphql-mutations/ - Mutation: Use top level input type for ags. Use top level property for output type.
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@jompx/constructs.IAddMutationArguments.property.args">args</a></code> | <code><a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a></code> | Mutation input arguments. |
-| <code><a href="#@jompx/constructs.IAddMutationArguments.property.dataSourceName">dataSourceName</a></code> | <code>string</code> | The mutation datasource. |
-| <code><a href="#@jompx/constructs.IAddMutationArguments.property.name">name</a></code> | <code>string</code> | The name of the mutation as it will appear in the GraphQL schema. |
-| <code><a href="#@jompx/constructs.IAddMutationArguments.property.returnType">returnType</a></code> | <code>@aws-cdk/aws-appsync-alpha.ObjectType</code> | The mutation return object type. |
-| <code><a href="#@jompx/constructs.IAddMutationArguments.property.methodName">methodName</a></code> | <code>string</code> | The mutation method to call. |
+| <code><a href="#@jompx/constructs.IAddMutationArgs.property.auth">auth</a></code> | <code>@aws-cdk/aws-appsync-alpha.Directive</code> | List of auth rules to apply to the mutation and output type. |
+| <code><a href="#@jompx/constructs.IAddMutationArgs.property.dataSourceName">dataSourceName</a></code> | <code>string</code> | The mutation datasource. |
+| <code><a href="#@jompx/constructs.IAddMutationArgs.property.input">input</a></code> | <code><a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a> \| @aws-cdk/aws-appsync-alpha.InputType</code> | Mutation input (arguments wrapped in an input property). |
+| <code><a href="#@jompx/constructs.IAddMutationArgs.property.name">name</a></code> | <code>string</code> | The name of the mutation as it will appear in the GraphQL schema. |
+| <code><a href="#@jompx/constructs.IAddMutationArgs.property.output">output</a></code> | <code><a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a> \| @aws-cdk/aws-appsync-alpha.ObjectType</code> | Mutation output (return value). |
+| <code><a href="#@jompx/constructs.IAddMutationArgs.property.methodName">methodName</a></code> | <code>string</code> | The class method to call on request mutation. |
 
 ---
 
-##### `args`<sup>Required</sup> <a name="args" id="@jompx/constructs.IAddMutationArguments.property.args"></a>
+##### `auth`<sup>Required</sup> <a name="auth" id="@jompx/constructs.IAddMutationArgs.property.auth"></a>
 
 ```typescript
-public readonly args: IAppSyncOperationArgs;
+public readonly auth: Directive;
 ```
 
-- *Type:* <a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a>
+- *Type:* @aws-cdk/aws-appsync-alpha.Directive
 
-Mutation input arguments.
-
-These should exactly match the number and order of arguments in the method the mutation will call.
+List of auth rules to apply to the mutation and output type.
 
 ---
 
-##### `dataSourceName`<sup>Required</sup> <a name="dataSourceName" id="@jompx/constructs.IAddMutationArguments.property.dataSourceName"></a>
+##### `dataSourceName`<sup>Required</sup> <a name="dataSourceName" id="@jompx/constructs.IAddMutationArgs.property.dataSourceName"></a>
 
 ```typescript
 public readonly dataSourceName: string;
@@ -2354,7 +3368,19 @@ The mutation datasource.
 
 ---
 
-##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IAddMutationArguments.property.name"></a>
+##### `input`<sup>Required</sup> <a name="input" id="@jompx/constructs.IAddMutationArgs.property.input"></a>
+
+```typescript
+public readonly input: IAppSyncOperationFields | InputType;
+```
+
+- *Type:* <a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a> | @aws-cdk/aws-appsync-alpha.InputType
+
+Mutation input (arguments wrapped in an input property).
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@jompx/constructs.IAddMutationArgs.property.name"></a>
 
 ```typescript
 public readonly name: string;
@@ -2366,19 +3392,19 @@ The name of the mutation as it will appear in the GraphQL schema.
 
 ---
 
-##### `returnType`<sup>Required</sup> <a name="returnType" id="@jompx/constructs.IAddMutationArguments.property.returnType"></a>
+##### `output`<sup>Required</sup> <a name="output" id="@jompx/constructs.IAddMutationArgs.property.output"></a>
 
 ```typescript
-public readonly returnType: ObjectType;
+public readonly output: IAppSyncOperationFields | ObjectType;
 ```
 
-- *Type:* @aws-cdk/aws-appsync-alpha.ObjectType
+- *Type:* <a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a> | @aws-cdk/aws-appsync-alpha.ObjectType
 
-The mutation return object type.
+Mutation output (return value).
 
 ---
 
-##### `methodName`<sup>Optional</sup> <a name="methodName" id="@jompx/constructs.IAddMutationArguments.property.methodName"></a>
+##### `methodName`<sup>Optional</sup> <a name="methodName" id="@jompx/constructs.IAddMutationArgs.property.methodName"></a>
 
 ```typescript
 public readonly methodName: string;
@@ -2386,7 +3412,7 @@ public readonly methodName: string;
 
 - *Type:* string
 
-The mutation method to call.
+The class method to call on request mutation.
 
 ---
 
@@ -2703,6 +3729,7 @@ public readonly sub: string;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunctionProps</code> | *No description.* |
+| <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps.property.pagination">pagination</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -2716,9 +3743,19 @@ public readonly lambdaFunctionProps: NodejsFunctionProps;
 
 ---
 
-### IAppSyncOperationArgs <a name="IAppSyncOperationArgs" id="@jompx/constructs.IAppSyncOperationArgs"></a>
+##### `pagination`<sup>Optional</sup> <a name="pagination" id="@jompx/constructs.IAppSyncMySqlDataSourceProps.property.pagination"></a>
 
-- *Implemented By:* <a href="#@jompx/constructs.IAppSyncOperationArgs">IAppSyncOperationArgs</a>
+```typescript
+public readonly pagination: string;
+```
+
+- *Type:* string
+
+---
+
+### IAppSyncOperationFields <a name="IAppSyncOperationFields" id="@jompx/constructs.IAppSyncOperationFields"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.IAppSyncOperationFields">IAppSyncOperationFields</a>
 
 
 
@@ -3024,6 +4061,106 @@ Optional CDK user pool props to override AWS and Jompx default prop values.
 - *Implemented By:* <a href="#@jompx/constructs.IConfig">IConfig</a>
 
 
+
+### ICustomDirectiveAuthRule <a name="ICustomDirectiveAuthRule" id="@jompx/constructs.ICustomDirectiveAuthRule"></a>
+
+- *Implemented By:* <a href="#@jompx/constructs.ICustomDirectiveAuthRule">ICustomDirectiveAuthRule</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.allow">allow</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.provider">provider</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.groupClaim">groupClaim</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.groups">groups</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.groupsField">groupsField</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.identityClaim">identityClaim</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.operations">operations</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#@jompx/constructs.ICustomDirectiveAuthRule.property.ownerField">ownerField</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `allow`<sup>Required</sup> <a name="allow" id="@jompx/constructs.ICustomDirectiveAuthRule.property.allow"></a>
+
+```typescript
+public readonly allow: string;
+```
+
+- *Type:* string
+
+---
+
+##### `provider`<sup>Required</sup> <a name="provider" id="@jompx/constructs.ICustomDirectiveAuthRule.property.provider"></a>
+
+```typescript
+public readonly provider: string;
+```
+
+- *Type:* string
+
+---
+
+##### `groupClaim`<sup>Optional</sup> <a name="groupClaim" id="@jompx/constructs.ICustomDirectiveAuthRule.property.groupClaim"></a>
+
+```typescript
+public readonly groupClaim: string;
+```
+
+- *Type:* string
+
+---
+
+##### `groups`<sup>Optional</sup> <a name="groups" id="@jompx/constructs.ICustomDirectiveAuthRule.property.groups"></a>
+
+```typescript
+public readonly groups: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `groupsField`<sup>Optional</sup> <a name="groupsField" id="@jompx/constructs.ICustomDirectiveAuthRule.property.groupsField"></a>
+
+```typescript
+public readonly groupsField: string;
+```
+
+- *Type:* string
+
+---
+
+##### `identityClaim`<sup>Optional</sup> <a name="identityClaim" id="@jompx/constructs.ICustomDirectiveAuthRule.property.identityClaim"></a>
+
+```typescript
+public readonly identityClaim: string;
+```
+
+- *Type:* string
+
+---
+
+##### `operations`<sup>Optional</sup> <a name="operations" id="@jompx/constructs.ICustomDirectiveAuthRule.property.operations"></a>
+
+```typescript
+public readonly operations: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `ownerField`<sup>Optional</sup> <a name="ownerField" id="@jompx/constructs.ICustomDirectiveAuthRule.property.ownerField"></a>
+
+```typescript
+public readonly ownerField: string;
+```
+
+- *Type:* string
+
+---
 
 ### ICustomDirectiveLookup <a name="ICustomDirectiveLookup" id="@jompx/constructs.ICustomDirectiveLookup"></a>
 

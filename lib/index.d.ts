@@ -2,7 +2,7 @@ export { Config } from './config/config';
 export * from './config/config.types';
 export { Cognito, ICognitoProps } from './cognito/cognito.construct';
 export { AppSync, IAppSyncProps } from './app-sync/app-sync.construct';
-export { AppSyncSchemaBuilder, IAddMutationArguments } from './app-sync/schema-builder';
+export { AppSyncSchemaBuilder, IAddMutationArgs } from './app-sync/schema-builder';
 export { AppSyncResolver } from './app-sync/app-sync-resolver';
 export * from './app-sync/app-sync.types';
 export { JompxGraphqlType, JompxGraphqlTypeOptions } from './app-sync/graphql-type';
