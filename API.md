@@ -3729,7 +3729,6 @@ public readonly sub: string;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps.property.lambdaFunctionProps">lambdaFunctionProps</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunctionProps</code> | *No description.* |
-| <code><a href="#@jompx/constructs.IAppSyncMySqlDataSourceProps.property.pagination">pagination</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -3740,16 +3739,6 @@ public readonly lambdaFunctionProps: NodejsFunctionProps;
 ```
 
 - *Type:* aws-cdk-lib.aws_lambda_nodejs.NodejsFunctionProps
-
----
-
-##### `pagination`<sup>Optional</sup> <a name="pagination" id="@jompx/constructs.IAppSyncMySqlDataSourceProps.property.pagination"></a>
-
-```typescript
-public readonly pagination: string;
-```
-
-- *Type:* string
 
 ---
 
